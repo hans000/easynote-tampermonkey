@@ -1,14 +1,23 @@
 easynote {
-    z-index: 99999999;
     position: fixed;
-    right: 24px;
-    bottom: 24px;
-    background-color: #fff;
+    z-index: 999999999;
+    // width: 100%;
+    top: 0;
+    &.active {
+        background-color: #fff;
+    }
 }
 
 easynote-hover {
     z-index: 999999999;
+    display: none;
     position: fixed;
     background-color: #fff;
     box-shadow: #aaa 0 0 3px;
+}
+
+easynote-btn {
+    position: fixed;
+    left: 24px;
+    bottom: 24px;
 }

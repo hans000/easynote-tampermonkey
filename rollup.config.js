@@ -30,10 +30,10 @@ export default {
         file: 'bundle.js',
         banner: `
 // ==UserScript==
-// @name         Easy Note v2
+// @name         easy-note
 // @namespace    http://tampermonkey.net/
-// @version      0.1
-// @description  Easy Note v2
+// @version      0.0.1
+// @description  easy-note
 // @author       hans0000
 // @match        https://*/*
 // @grant        none

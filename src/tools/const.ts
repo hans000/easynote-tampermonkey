@@ -1,17 +1,17 @@
-export const EasyNote = 'easynote'
+export const RootElement = 'easynote'
 
-export const CanvasClassname = '__easynote-canvas__'
+export const AppElement = 'easynote-app'
 
-export const RectData = '__easynote-rect__'
-
-export const MarkedHideElement = 'easynote-hidden'
-
-export const RootElement = 'easynote-root'
-
-export const PanelElement = 'easynote-panel'
+export const ButtonElement = 'easynote-btn'
 
 export const MarkElement = 'easynote-mark'
 
 export const HoverElement = 'easynote-hover'
 
-export const StoreLocationKey = '__easynote-loc__'
+export const StoreKey = '__easynote-loc__'
+
+export const CanvasClassname = '__easynote-canvas__'
+
+export const MainClassname = 'easynote-md'
+
+export const RectData = '__easynote-rect__'

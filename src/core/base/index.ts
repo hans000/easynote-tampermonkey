@@ -1,33 +1,39 @@
 import './index.less'
-import { HoverElement } from './../../tools/const';
-import { EasyNote, RootElement } from "../../tools/const"
+import { HoverElement, ButtonElement, RootElement, AppElement } from './../../tools/const';
 import { restore, run } from "../beautify"
-import { hasSelected } from '../../utils/hasSelected';
+import { hasSelected } from '../../tools/hasSelected';
 import { highlight } from '../bookmark';
+import { matched, MatchItem } from './config';
 
 let __running = false
+/**
+ * children 分别是[btn, hover]
+ * 
+ */
 let __root: HTMLElement
+let __app: HTMLElement
 
 export function getRootElement() { return __root }
+export function getAppElement() { return __app as HTMLElement }
+export function getButtonElement() { return __root.children[0] as HTMLElement }
+export function getHoverElement() { return __root.children[1] as HTMLElement }
 
 export function isRunning() { return __running }
 
-function createCtrNode() {
-    const panel = document.createElement(EasyNote)
+function initCtrl(matchItem: MatchItem) {
+    const panel = getButtonElement()
     const btn = document.createElement('button')
     
     btn.addEventListener('click', () => {
-        __running ? restore() : run()
+        __running ? restore() : run(matchItem)
         __running = !__running
     })
-    btn.innerText = 'run'
+    btn.innerText = 'beautify'
     panel.append(btn)
-    document.body.append(panel)
 }
 
-function createHoverNode() {
-    const hover = document.createElement(HoverElement)
-
+function initHover(matchItem: MatchItem) {
+    const hover = getHoverElement()
     document.addEventListener('mouseup', (event) => {
         if (isRunning() && hasSelected()) {
             hover.style.display = 'block'
@@ -41,22 +47,34 @@ function createHoverNode() {
 
     const button = document.createElement('button')
     button.innerText = '高亮'
-    button.addEventListener('mousedown', (e) => {
-        highlight()
+    button.addEventListener('mousedown', () => {
+        highlight(matchItem)
     })
 
     hover.appendChild(button)
-    document.body.append(hover)
 }
 
-export function createRootNode() {
-    const root = document.createElement('div')
-    __root = root
-    root.classList.add(RootElement)
-    return root
+export function createNode() {
+    __root = document.createElement(RootElement)
+
+    __app = document.createElement(AppElement)
+    const button = document.createElement(ButtonElement)
+    const hover = document.createElement(HoverElement)
+
+    __root.appendChild(button)
+    __root.appendChild(hover)
+    document.body.appendChild(__app)
+    document.body.appendChild(__root)
+    
+    return __root
 }
+
 
 export function init() {
-    createCtrNode()
-    createHoverNode()
+    const item = matched( window.location.href)
+    if (item) {
+        createNode()
+        initCtrl(item)
+        initHover(item)
+    }
 }

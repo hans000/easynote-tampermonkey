@@ -1,5 +1,5 @@
-import { getSegmentUrl } from "../../tools"
-import { StoreLocationKey } from "../../tools/const"
+import { MatchItem } from './../base/config';
+import { StoreKey } from "../../tools/const"
 import { highlight } from "./highlight"
 
 interface LocationToken {
@@ -53,30 +53,30 @@ function getLocationToken(): LocationToken {
     return { l: [ll, lr], o: [s, e], }
 }
 
-export function update() {
+export function update(matchItem: MatchItem) {
     try {
-        const obj: Record<string, LocationToken[]> = JSON.parse(localStorage.getItem(StoreLocationKey)!) ?? {}
-        const segment = getSegmentUrl()
-        const tokens = obj[segment] ?? []
+        const obj: Record<string, LocationToken[]> = JSON.parse(localStorage.getItem(StoreKey)!) ?? {}
+        const uid = matchItem.uid
+        const tokens = obj[uid] ?? []
         const token = getLocationToken()
         tokens.push(token)
-        localStorage.setItem(StoreLocationKey, JSON.stringify({
+        localStorage.setItem(StoreKey, JSON.stringify({
             ...obj,
-            [segment]: tokens
+            [uid]: tokens
         }))
     } catch (error) {
         console.log(error);
     }
 }
 
-export function initSelect() {
+export function initSelect(matchItem: MatchItem) {
     try {
-        const obj: Record<string, LocationToken[]> = JSON.parse(localStorage.getItem(StoreLocationKey)!) ?? {}
-        const segment = getSegmentUrl()
-        const tokens = obj[segment] ?? []
+        const obj: Record<string, LocationToken[]> = JSON.parse(localStorage.getItem(StoreKey)!) ?? {}
+        const uid = matchItem.uid
+        const tokens = obj[uid] ?? []
         tokens.forEach(token => {
             reselect(token)
-            highlight(true)
+            highlight(matchItem, true)
         })
     } catch (error) {
         console.log(error);

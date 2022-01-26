@@ -1,7 +1,8 @@
 import './index.less'
 import { MarkElement } from "../../tools/const"
-import { hasSelected } from "../../utils/hasSelected"
+import { hasSelected } from "../../tools/hasSelected"
 import { update } from "./reselect"
+import { MatchItem } from '../base/config'
 
 interface MarkToken {
     start?: number
@@ -84,12 +85,12 @@ export function wrap(token: MarkToken) {
     node.remove()
 }
 
-export function highlight(initial = false) {
+export function highlight(matchItem: MatchItem, initial = false) {
     const list = walk()
 
     if (list) {
         if (! initial) {
-            update()
+            update(matchItem)
         }
         list.forEach(token => wrap(token))
 
