@@ -23,9 +23,5 @@
     "rollup-plugin-styles": "^4.0.0",
     "rollup-plugin-typescript2": "^0.31.0",
     "typescript": "^4.4.4"
-  },
-  "dependencies": {
-    "html-to-md": "^0.5.3",
-    "markdown-it": "^12.3.2"
   }
 }
