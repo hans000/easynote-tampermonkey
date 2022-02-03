@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        .mask {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 9999999;
+            background-color: #fff;
+        }
+        .app {
+            z-index: 999;
+            overflow-y: auto;
+            height: 100vh;
+        }
+        body {
+            overflow: hidden;
+        }
+        @media print {
+            .noprint {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- <div><div id="target"><h2>123<mark data-uid="1">4<mark data-uid="2">5</mark>6</mark>7<mark>89</mark></h2></div><div id="dir"><h2>123456789</h2></div><h2>123456789</h2></div> -->
+    <div id="target"><p>123456789</p><p>123456789</p><p>123456789</p></div>
+    <hr/>
+    <div id="dir"><p>123456789</p><p>123456789</p><p>123456789</p></div>
+    <!-- <div id="target"><p>123456789</p><p>123456789</p><p>123456789</p></div> -->
+    <div>
+        <button onclick="run()">run</button>
+        <button onclick="highlight()">高亮</button>
+    </div>
+</body>
+<script>
+
+function createMarkNode(text, uid = Date.now()) {
+    const mark = document.createElement('mark')
+    mark.textContent = text
+    mark.dataset.uid = uid
+    return mark
+}
+function walk() {
+    // if (! hasSelected()) {
+    //     return
+    // }
+
+    const list = []
+    const { startContainer, startOffset, endContainer, endOffset } = getSelection().getRangeAt(0)
+    const root = startContainer
+    let current = startContainer
+
+    while(true) {
+        if (current.nodeType === 3) {
+            list.push({ node: current })
+        }
+
+        if (current === endContainer) {
+            list[0].start = startOffset
+            list[list.length - 1].end = endOffset
+            return list
+        }
+        if (current === null) {
+            return list
+        }
+        if (current.firstChild) {
+            current = current.firstChild
+            continue
+        }
+        while(! current.nextSibling) {
+            if(!current.parentNode || current.parentNode === root) {
+                return list
+            }
+            current = current.parentNode
+        }
+        current = current.nextSibling
+    }
+}
+function wrap(token) {
+    const { start, end, node, uid } = token
+    const parent = node.parentNode
+
+    let left = ''
+    let right = ''
+    let mid = node.textContent
+    let text = node.textContent
+
+    if (start) {
+        left = text.slice(0, start)
+        mid = text.slice(start)
+    }
+
+    if (end && end !== text.length) {
+        mid = mid.slice(0, end - text.length)
+        right = text.slice(end)
+    }
+
+    if (left) {
+        parent.insertBefore(document.createTextNode(left), node)
+    }
+
+    parent.insertBefore(createMarkNode(mid, uid), node)
+
+    if (right) {
+        parent.insertBefore(document.createTextNode(right), node)
+    }
+
+    node.remove()
+}
+function highlight() {
+    const tokens = walk()
+    tokens.forEach(wrap)
+}
+
+function run() {
+    const locs = getLocationTokens(target)
+    console.log(JSON.stringify(locs));
+    // const locs2 = [{"l":[0,0,0],"o":[1,2]},{"l":[0,1],"o":[1,2]}]
+    locs.forEach(pos => {
+        pos.l.shift()
+        const token = {
+            node: getTargetNode(pos.l, dir),
+            start: pos.o[0],
+            end: pos.o[1],
+            uid: pos.uid,
+        }
+        wrap(token)
+    })
+}
+
+function getTargetNode(position, root) {
+    let current = root
+    
+    while (position.length) {
+        const index = position.shift()
+        current = current.childNodes[index]
+    }
+    return current
+}
+function getLocationTokens(node) {
+    const root = node
+    let current = node
+    const list = []
+    let loc = []
+    let offset = 0
+    let index = 0
+    let indexList = []
+
+    while(true) {
+        if (current.nodeType === 1 && current.tagName.toLowerCase() === 'mark') {
+            const start = offset
+            const end = start + current.textContent.length
+            const ooo = current.previousSibling && current.previousSibling.nodeType === 3 ? -1 : 0
+            list.push({
+                l: [...loc, index + ooo],
+                o: [start, end],
+                uid: current.dataset.uid,
+            })
+            offset = 0
+        } else if (current.nodeType === 3) {
+            offset += current.textContent.length
+        }
+
+        if (current.firstChild) {
+            loc.push(index)
+            indexList.push(index)
+            index = 0
+            offset = 0
+            current = current.firstChild
+            continue
+        }
+        while(! current.nextSibling) {
+            if(!current.parentNode || current.parentNode === root) {
+                return list
+            }
+            current = current.parentNode
+            loc.pop()
+            offset = 0
+            index = indexList.pop()
+        }
+        
+        current = current.nextSibling
+        index++
+    }
+}
+
+</script>
+</html>

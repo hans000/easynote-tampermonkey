@@ -7,12 +7,14 @@ import { MatchItem } from '../base/config'
 interface MarkToken {
     start?: number
     end?: number
-    node: Text
+    id?: string
+    node: HTMLElement
 }
 
-function createMarkNode(text: string) {
+function createMarkNode(text: string, id: string = Date.now() + '') {
     const mark = document.createElement(MarkElement)
     mark.textContent = text
+    mark.dataset.id = id
     return mark
 }
 
@@ -28,7 +30,7 @@ export function walk() {
 
     while(true) {
         if (current.nodeType === 3) {
-            list.push({ node: current as Text })
+            list.push({ node: current as HTMLElement })
         }
 
         if (current === endContainer) {
@@ -54,7 +56,7 @@ export function walk() {
 }
 
 export function wrap(token: MarkToken) {
-    const { start, end, node } = token
+    const { start, end, node, id } = token
     const parent = node.parentNode!
 
     let left = ''
@@ -76,7 +78,7 @@ export function wrap(token: MarkToken) {
         parent.insertBefore(document.createTextNode(left), node)
     }
 
-    parent.insertBefore(createMarkNode(mid), node)
+    parent.insertBefore(createMarkNode(mid, id), node)
 
     if (right) {
         parent.insertBefore(document.createTextNode(right), node)
@@ -85,15 +87,12 @@ export function wrap(token: MarkToken) {
     node.remove()
 }
 
-export function highlight(matchItem: MatchItem, initial = false) {
+export function highlight(matchItem: MatchItem) {
     const list = walk()
 
     if (list) {
-        if (! initial) {
-            update(matchItem)
-        }
         list.forEach(token => wrap(token))
-
+        update(matchItem)
         window.getSelection()!.removeAllRanges()
     }
 }

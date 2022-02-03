@@ -34,20 +34,28 @@ function initCtrl(matchItem: MatchItem) {
 
 function initHover(matchItem: MatchItem) {
     const hover = getHoverElement()
-    document.addEventListener('mouseup', (event) => {
+    
+
+    __app.addEventListener('mouseup', (event) => {
+        event.preventDefault()
+        // event.stopPropagation()
         if (isRunning() && hasSelected()) {
             hover.style.display = 'block'
-            hover.style.left = event.clientX + 'px'
+            hover.style.left = event.clientX + 10 + 'px'
             hover.style.top = event.clientY + 'px'
         }
     })
-    document.body.addEventListener('mousedown', () => {
-        hover.style.display = 'none'
+    window.addEventListener('click', (event) => {
+        if (!isRunning() || !hasSelected()) {
+            hover.style.display = 'none'
+        }
     })
 
     const button = document.createElement('button')
     button.innerText = '高亮'
-    button.addEventListener('mousedown', () => {
+    button.addEventListener('click', (event) => {
+        event.preventDefault()
+        // event.stopPropagation()
         highlight(matchItem)
     })
 
@@ -71,7 +79,7 @@ export function createNode() {
 
 
 export function init() {
-    const item = matched( window.location.href)
+    const item = matched(window.location.href)
     if (item) {
         createNode()
         initCtrl(item)
