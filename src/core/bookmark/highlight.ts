@@ -7,14 +7,14 @@ import { MatchItem } from '../base/config'
 interface MarkToken {
     start?: number
     end?: number
-    id?: string
+    uid?: string
     node: HTMLElement
 }
 
-function createMarkNode(text: string, id: string = Date.now() + '') {
+function createMarkNode(text: string, uid: string) {
     const mark = document.createElement(MarkElement)
     mark.textContent = text
-    mark.dataset.id = id
+    mark.setAttribute('uid', uid)
     return mark
 }
 
@@ -56,7 +56,7 @@ export function walk() {
 }
 
 export function wrap(token: MarkToken) {
-    const { start, end, node, id } = token
+    const { start, end, node, uid } = token
     const parent = node.parentNode!
 
     let left = ''
@@ -78,10 +78,48 @@ export function wrap(token: MarkToken) {
         parent.insertBefore(document.createTextNode(left), node)
     }
 
-    parent.insertBefore(createMarkNode(mid, id), node)
+    const mark = createMarkNode(mid, uid!)
+    parent.insertBefore(mark, node)
+
+    mark.addEventListener('click', (ev) => {
+        ev.preventDefault()
+        ev.stopPropagation()
+        const doms = document.querySelectorAll(`${MarkElement}[uid="${mark.getAttribute('uid')}"]`) as unknown as HTMLElement[]
+        doms.forEach(bare)
+    })
 
     if (right) {
         parent.insertBefore(document.createTextNode(right), node)
+    }
+
+    node.remove()
+}
+
+export function bare(node: HTMLElement) {
+    const parent = node.parentNode as HTMLElement
+    const previous = node.previousSibling as HTMLElement
+    const next = node.nextSibling as HTMLElement
+
+    const bothTextNode = (a: HTMLElement, b: HTMLElement) => (a && a.nodeType === 3 && b && b.nodeType === 3)
+
+    const fragment = document.createDocumentFragment()
+    Array.from(node.childNodes).forEach(child => {
+        if (node.firstChild === child && bothTextNode(previous, child as HTMLElement)) {
+            previous.textContent += child.textContent!
+        } else if (node.lastChild === child && (bothTextNode(next, child as HTMLElement))) {
+            next.textContent = child.textContent! + next.textContent!
+        } else {
+            fragment.appendChild(child)
+        }
+    })
+
+    if (fragment.childNodes.length) {
+        parent.insertBefore(fragment, node)
+    } else {
+        if (bothTextNode(previous, next)) {
+            previous.textContent += next.textContent!
+            next.remove()
+        }
     }
 
     node.remove()
@@ -91,7 +129,11 @@ export function highlight(matchItem: MatchItem) {
     const list = walk()
 
     if (list) {
-        list.forEach(token => wrap(token))
+        const uid = Date.now() + ''
+        list.forEach(token => wrap({
+            ...token,
+            uid,
+        }))
         update(matchItem)
         window.getSelection()!.removeAllRanges()
     }

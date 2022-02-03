@@ -33,7 +33,7 @@
     </style>
 </head>
 <body>
-    <!-- <div><div id="target"><h2>123<mark data-uid="1">4<mark data-uid="2">5</mark>6</mark>7<mark>89</mark></h2></div><div id="dir"><h2>123456789</h2></div><h2>123456789</h2></div> -->
+    <!-- <div><div id="target"><h2>123<mark data-id="1">4<mark data-id="2">5</mark>6</mark>7<mark>89</mark></h2></div><div id="dir"><h2>123456789</h2></div><h2>123456789</h2></div> -->
     <div id="target"><p>123456789</p><p>123456789</p><p>123456789</p></div>
     <hr/>
     <div id="dir"><p>123456789</p><p>123456789</p><p>123456789</p></div>
@@ -45,10 +45,10 @@
 </body>
 <script>
 
-function createMarkNode(text, uid = Date.now()) {
+function createMarkNode(text, uid) {
     const mark = document.createElement('mark')
     mark.textContent = text
-    mark.dataset.uid = uid
+    mark.setAttribute('uid', uid)
     return mark
 }
 function walk() {
@@ -110,7 +110,15 @@ function wrap(token) {
         parent.insertBefore(document.createTextNode(left), node)
     }
 
-    parent.insertBefore(createMarkNode(mid, uid), node)
+    const mark = createMarkNode(mid, uid)
+    parent.insertBefore(mark, node)
+
+    mark.addEventListener('click', (ev) => {
+        ev.preventDefault()
+        ev.stopPropagation()
+        const doms = document.querySelectorAll(`mark[uid="${mark.getAttribute('uid')}"]`)
+        doms.forEach(bare)
+    })
 
     if (right) {
         parent.insertBefore(document.createTextNode(right), node)
@@ -118,9 +126,46 @@ function wrap(token) {
 
     node.remove()
 }
+
+function bare(node) {
+    const parent = node.parentNode
+    const previous = node.previousSibling
+    const next = node.nextSibling
+
+    const bothTextNode = (a, b) => (a && a.nodeType === 3 && b && b.nodeType === 3)
+
+    const fragment = document.createDocumentFragment()
+    Array.from(node.childNodes).forEach(child => {
+        if (node.firstChild === child && bothTextNode(previous, child)) {
+            previous.textContent += child.textContent
+        } else if (node.lastChild === child && (bothTextNode(next, child))) {
+            next.textContent = child.textContent + next.textContent
+        } else {
+            fragment.appendChild(child)
+        }
+    })
+
+    if (fragment.childNodes.length) {
+        parent.insertBefore(fragment, node)
+    } else {
+        if (bothTextNode(previous, next)) {
+            previous.textContent += next.textContent
+            next.remove()
+        }
+    }
+
+    node.remove()
+}
+
 function highlight() {
     const tokens = walk()
-    tokens.forEach(wrap)
+    const uid = Date.now()
+    tokens.forEach(token => {
+        wrap({
+            ...token,
+            uid,
+        })
+    })
 }
 
 function run() {

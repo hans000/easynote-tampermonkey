@@ -6,7 +6,7 @@ import { getAppElement } from '..';
 export interface LocationToken {
     l: number[]
     o: [number, number]
-    id: string
+    uid: string
 }
 
 function getTargetNode(position: number[], root = document.body) {
@@ -40,7 +40,7 @@ export function getLocationTokens(node: HTMLElement) {
             list.push({
                 l: [...restLoc, index + fact],
                 o: [start, end],
-                id: current.dataset.id!,
+                uid: current.getAttribute('uid')!,
             })
             offset = 0
         } else if (current.nodeType === 3) {
@@ -73,7 +73,7 @@ export function getLocationTokens(node: HTMLElement) {
 export function update(matchItem: MatchItem) {
     try {
         const obj: Record<string, LocationToken[]> = JSON.parse(localStorage.getItem(StoreKey)!) ?? {}
-        const uid = matchItem.uid
+        const uid = matchItem.aid
         const app = getAppElement()
         const tokens = getLocationTokens(app)
         localStorage.setItem(StoreKey, JSON.stringify({
@@ -88,7 +88,7 @@ export function update(matchItem: MatchItem) {
 export function initSelect(matchItem: MatchItem) {
     try {
         const obj: Record<string, LocationToken[]> = JSON.parse(localStorage.getItem(StoreKey)!) ?? {}
-        const uid = matchItem.uid
+        const uid = matchItem.aid
         const tokens = obj[uid] ?? []
         const app = getAppElement()
         tokens.forEach(pos => {
@@ -96,7 +96,7 @@ export function initSelect(matchItem: MatchItem) {
                 node: getTargetNode(pos.l, app),
                 start: pos.o[0],
                 end: pos.o[1],
-                id: pos.id,
+                id: pos.uid,
             }
             wrap(token)
         })

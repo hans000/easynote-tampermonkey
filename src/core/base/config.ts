@@ -23,7 +23,7 @@ const configList: ConfigProps[] = [
 ]
 
 export interface MatchItem {
-    uid: string
+    aid: string
     selector: string
 }
 
@@ -34,7 +34,7 @@ export function matched(url: string): MatchItem | undefined {
 
 		if (match) {
 			return {
-				uid: match[1],
+				aid: match[1],
 				selector: config.selector,
 			}
 		}
