@@ -3,18 +3,21 @@ import { MarkElement } from "../../tools/const"
 import { hasSelected } from "../../tools/hasSelected"
 import { update } from "./reselect"
 import { MatchItem } from '../base/config'
+import { getColorType } from '..'
 
 interface MarkToken {
     start?: number
     end?: number
     uid?: string
+    type?: number
     node: HTMLElement
 }
 
-function createMarkNode(text: string, uid: string) {
+function createMarkNode(text: string, uid: string, type: number) {
     const mark = document.createElement(MarkElement)
     mark.textContent = text
     mark.setAttribute('uid', uid)
+    mark.setAttribute('type', type + '')
     return mark
 }
 
@@ -56,7 +59,7 @@ export function walk() {
 }
 
 export function wrap(token: MarkToken) {
-    const { start, end, node, uid } = token
+    const { start, end, node, uid, type } = token
     const parent = node.parentNode!
 
     let left = ''
@@ -78,7 +81,7 @@ export function wrap(token: MarkToken) {
         parent.insertBefore(document.createTextNode(left), node)
     }
 
-    const mark = createMarkNode(mid, uid!)
+    const mark = createMarkNode(mid, uid!, type!)
     parent.insertBefore(mark, node)
 
     mark.addEventListener('click', (ev) => {
@@ -133,6 +136,7 @@ export function highlight(matchItem: MatchItem) {
         list.forEach(token => wrap({
             ...token,
             uid,
+            type: getColorType(),
         }))
         update(matchItem)
         window.getSelection()!.removeAllRanges()

@@ -3,10 +3,15 @@ import { MarkElement, StoreKey } from "../../tools/const"
 import { wrap } from "./highlight"
 import { getAppElement } from '..';
 
+export interface Info {
+    uid: string
+    type: number
+    tokens: LocationToken[]
+}
+
 export interface LocationToken {
     l: number[]
     o: [number, number]
-    uid: string
 }
 
 function getTargetNode(position: number[], root = document.body) {
@@ -18,9 +23,9 @@ function getTargetNode(position: number[], root = document.body) {
     return current
 }
 
-export function getLocationTokens(node: HTMLElement) {
+export function getInfoList(node: HTMLElement) {
+    const mapInfo: Record<string, Info> = {}
     const root = node
-    const list: LocationToken[] = []
     const loc = []
     let current = node
     let offset = 0
@@ -36,12 +41,23 @@ export function getLocationTokens(node: HTMLElement) {
             const end = start + current.textContent!.length
             const fact = hasPreviousText(current) ? -1 : 0
 
+            const uid = current.getAttribute('uid')!
+            let info = mapInfo[uid]
+            if (! info) {
+                const type = +current.getAttribute('type')!
+                info = mapInfo[uid] = {
+                    uid,
+                    type,
+                    tokens: [],
+                }
+            }
+
             const [, ...restLoc] = loc
-            list.push({
+            info.tokens.push({
                 l: [...restLoc, index + fact],
                 o: [start, end],
-                uid: current.getAttribute('uid')!,
             })
+
             offset = 0
         } else if (current.nodeType === 3) {
             offset += current.textContent!.length
@@ -57,7 +73,7 @@ export function getLocationTokens(node: HTMLElement) {
         }
         while(! current.nextSibling) {
             if(!current.parentNode || current.parentNode === root) {
-                return list
+                return Object.values(mapInfo)
             }
             current = current.parentNode as HTMLElement
             loc.pop()
@@ -72,13 +88,12 @@ export function getLocationTokens(node: HTMLElement) {
 
 export function update(matchItem: MatchItem) {
     try {
-        const obj: Record<string, LocationToken[]> = JSON.parse(localStorage.getItem(StoreKey)!) ?? {}
+        const obj: Record<string, Info[]> = JSON.parse(localStorage.getItem(StoreKey)!) ?? {}
         const uid = matchItem.aid
         const app = getAppElement()
-        const tokens = getLocationTokens(app)
         localStorage.setItem(StoreKey, JSON.stringify({
             ...obj,
-            [uid]: tokens
+            [uid]: getInfoList(app)
         }))
     } catch (error) {
         console.log(error);
@@ -87,18 +102,20 @@ export function update(matchItem: MatchItem) {
 
 export function initSelect(matchItem: MatchItem) {
     try {
-        const obj: Record<string, LocationToken[]> = JSON.parse(localStorage.getItem(StoreKey)!) ?? {}
-        const uid = matchItem.aid
-        const tokens = obj[uid] ?? []
+        const obj: Record<string, Info[]> = JSON.parse(localStorage.getItem(StoreKey)!) ?? {}
+        const aid = matchItem.aid
+        const info = obj[aid] ?? []
         const app = getAppElement()
-        tokens.forEach(pos => {
-            const token = {
-                node: getTargetNode(pos.l, app),
-                start: pos.o[0],
-                end: pos.o[1],
-                id: pos.uid,
-            }
-            wrap(token)
+        info.forEach(meta => {
+            meta.tokens.forEach(token => {
+                wrap({
+                    node: getTargetNode(token.l, app),
+                    start: token.o[0],
+                    end: token.o[1],
+                    uid: meta.uid,
+                    type: meta.type,
+                })
+            })
         })
     } catch (error) {
         console.log(error);

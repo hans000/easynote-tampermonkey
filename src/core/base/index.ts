@@ -5,6 +5,8 @@ import { hasSelected } from '../../tools/hasSelected';
 import { highlight } from '../bookmark';
 import { matched, MatchItem } from './config';
 
+const HighlightColors = ['#fff066', '#7df066', '#74eaff', '#f799d1', '#eb4949']
+
 let __running = false
 /**
  * children 分别是[btn, hover]
@@ -12,11 +14,15 @@ let __running = false
  */
 let __root: HTMLElement
 let __app: HTMLElement
+let __colorType = 0
+
+
 
 export function getRootElement() { return __root }
 export function getAppElement() { return __app as HTMLElement }
 export function getButtonElement() { return __root.children[0] as HTMLElement }
 export function getHoverElement() { return __root.children[1] as HTMLElement }
+export function getColorType() { return __colorType }
 
 export function isRunning() { return __running }
 
@@ -51,6 +57,8 @@ function initHover(matchItem: MatchItem) {
         }
     })
 
+    const fragment = document.createDocumentFragment()
+
     const button = document.createElement('button')
     button.innerText = '高亮'
     button.addEventListener('click', (event) => {
@@ -59,7 +67,25 @@ function initHover(matchItem: MatchItem) {
         highlight(matchItem)
     })
 
-    hover.appendChild(button)
+    const mapColor = ['黄', '绿', '蓝', '粉', '红']
+    const select = document.createElement('select')
+    HighlightColors.forEach((color, index) => {
+        const option = document.createElement('option')
+        option.value = index + ''
+        option.innerText = mapColor[index]
+        option.style.backgroundColor = color
+        select.appendChild(option)
+    })
+    select.style.backgroundColor = mapColor[__colorType]
+    select.addEventListener('change', (ev: any) => {
+        __colorType = +ev.target.value
+        select.style.backgroundColor = mapColor[__colorType]
+    })
+
+    fragment.appendChild(button)
+    fragment.appendChild(select)
+
+    hover.appendChild(fragment)
 }
 
 export function createNode() {
