@@ -3,3 +3,5 @@ node_modules/
 dist/
 .vscode/
 bundle.js
+dist
+dist-ssr

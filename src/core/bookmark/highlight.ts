@@ -1,9 +1,7 @@
-import './index.less'
 import { MarkElement } from "../../tools/const"
 import { hasSelected } from "../../tools/hasSelected"
 import { update } from "./reselect"
 import { MatchItem } from '../base/config'
-import { getColorType } from '..'
 
 interface MarkToken {
     start?: number
@@ -128,17 +126,13 @@ export function bare(node: HTMLElement) {
     node.remove()
 }
 
-export function highlight(matchItem: MatchItem) {
+export function highlight(app: HTMLElement, matchItem: MatchItem, type: number) {
     const list = walk()
 
     if (list) {
         const uid = Date.now() + ''
-        list.forEach(token => wrap({
-            ...token,
-            uid,
-            type: getColorType(),
-        }))
-        update(matchItem)
+        list.forEach(token => wrap({ ...token, uid, type, }))
+        update(app, matchItem)
         window.getSelection()!.removeAllRanges()
     }
 }

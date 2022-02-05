@@ -4,16 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "rollup -c rollup.config.js",
-    "watch": "rollup -c rollup.config.js --watch"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "rollup-build": "rollup -c rollup.config.js",
+    "rollup-watch": "rollup -c rollup.config.js --watch"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@preact/preset-vite": "^2.1.7",
     "@types/markdown-it": "^12.2.3",
     "chokidar": "^3.5.2",
     "less": "^4.1.2",
+    "preact": "^10.6.5",
     "rollup": "^2.60.0",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-eslint": "^7.0.0",
@@ -22,6 +26,8 @@
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-styles": "^4.0.0",
     "rollup-plugin-typescript2": "^0.31.0",
-    "typescript": "^4.4.4"
+    "typescript": "^4.4.4",
+    "vite": "^2.7.13",
+    "vite-plugin-banner": "^0.2.0"
   }
 }

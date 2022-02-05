@@ -1,7 +1,6 @@
 import { MatchItem } from './../base/config';
 import { MarkElement, StoreKey } from "../../tools/const"
 import { wrap } from "./highlight"
-import { getAppElement } from '..';
 
 export interface Info {
     uid: string
@@ -86,11 +85,10 @@ export function getInfoList(node: HTMLElement) {
     }
 }
 
-export function update(matchItem: MatchItem) {
+export function update(app: HTMLElement, matchItem: MatchItem) {
     try {
         const obj: Record<string, Info[]> = JSON.parse(localStorage.getItem(StoreKey)!) ?? {}
         const uid = matchItem.aid
-        const app = getAppElement()
         localStorage.setItem(StoreKey, JSON.stringify({
             ...obj,
             [uid]: getInfoList(app)
@@ -100,12 +98,11 @@ export function update(matchItem: MatchItem) {
     }
 }
 
-export function initSelect(matchItem: MatchItem) {
+export function initSelect(app: HTMLElement, matchItem: MatchItem) {
     try {
         const obj: Record<string, Info[]> = JSON.parse(localStorage.getItem(StoreKey)!) ?? {}
         const aid = matchItem.aid
         const info = obj[aid] ?? []
-        const app = getAppElement()
         info.forEach(meta => {
             meta.tokens.forEach(token => {
                 wrap({
