@@ -12,12 +12,16 @@ const prefix = `
 // @match           http*://*/*
 // @grant           none
 // @run-at          document-end
+// @require         https://cdn.jsdelivr.net/npm/preact@10.6.5/dist/preact.umd.js
+// @require         https://cdn.jsdelivr.net/npm/preact@10.6.5/hooks/dist/hooks.umd.js
+// @require         https://cdn.jsdelivr.net/npm/preact@10.6.5/compat/dist/compat.umd.js
 // ==/UserScript==
 `.trimStart()
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    mode: 'development',
+    mode: 'production',
+    // mode: 'development',
     plugins: [
         preact({
             devtoolsInProd: true
@@ -25,12 +29,24 @@ export default defineConfig({
         banner(prefix),
     ],
     build: {
+        target: 'esnext',
         assetsDir: './',
         minify: false,
+        polyfillModulePreload: false,
         rollupOptions: {
             output: {
                 format: 'iife',
+                globals: {
+                    'preact': 'preact',
+                    'preact/hooks': 'preactHooks',
+                    'preact/compat': 'preactCompat',
+                }
             },
-        }
-    }
+            external: [
+                'preact',
+                'preact/hooks',
+                'preact/compat',
+            ],
+        },
+    },
 })
