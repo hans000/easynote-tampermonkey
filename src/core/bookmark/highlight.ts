@@ -56,7 +56,7 @@ export function walk() {
     }
 }
 
-export function wrap(token: MarkToken) {
+export function wrap(token: MarkToken, handle?) {
     const { start, end, node, uid, type } = token
     const parent = node.parentNode!
 
@@ -85,8 +85,8 @@ export function wrap(token: MarkToken) {
     mark.addEventListener('click', (ev) => {
         ev.preventDefault()
         ev.stopPropagation()
-        const doms = document.querySelectorAll(`${MarkElement}[uid="${mark.getAttribute('uid')}"]`) as unknown as HTMLElement[]
-        doms.forEach(bare)
+        const activeMarks = document.querySelectorAll(`${MarkElement}[uid="${mark.getAttribute('uid')}"]`) as unknown as HTMLElement[]
+        handle(activeMarks, ev)
     })
 
     if (right) {
@@ -126,12 +126,12 @@ export function bare(node: HTMLElement) {
     node.remove()
 }
 
-export function highlight(app: HTMLElement, matchItem: MatchItem, type: number) {
+export function highlight(app: HTMLElement, matchItem: MatchItem, type: number, handle: any) {
     const list = walk()
 
     if (list) {
         const uid = Date.now() + ''
-        list.forEach(token => wrap({ ...token, uid, type, }))
+        list.forEach(token => wrap({ ...token, uid, type, }, handle))
         update(app, matchItem)
         window.getSelection()!.removeAllRanges()
     }

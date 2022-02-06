@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
+    "dev": "vite -c vite.config.dev.ts",
+    "build": "tsc && vite build -c vite.config.prod.ts",
     "rollup-build": "rollup -c rollup.config.js",
     "rollup-watch": "rollup -c rollup.config.js --watch"
   },

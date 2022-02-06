@@ -1,34 +1,67 @@
 import { forwardRef } from 'preact/compat'
-import { Ref, useState } from 'preact/hooks'
-import { highlight } from '../../core/bookmark/highlight'
+import { Ref, useEffect, useState } from 'preact/hooks'
+import { bare, highlight } from '../../core/bookmark/highlight'
+import { update } from '../../core/bookmark/reselect'
 import { GlobalVar } from '../../main'
 import { HoverElement } from '../../tools/const'
 import './index.less'
 
-const charList = ['黄', '绿', '蓝', '粉', '红']
 const colors = ['#fff066', '#7df066', '#74eaff', '#f799d1', '#eb4949']
 
-export const HoverMenu = forwardRef((props, ref: Ref<HTMLDivElement>) => {
+interface IProps {
+    onClick: (activeMarks: HTMLElement[], event: Event) => void
+    activeMarks: HTMLElement[]
+}
+
+export const HoverMenu = forwardRef((props: IProps, ref: Ref<HTMLDivElement>) => {
     const [value, setValue] = useState(0)
+
+    useEffect(
+        () => {
+            const mark = props.activeMarks[0]
+            if (mark) {
+                setValue(+mark.getAttribute('type'))
+            }
+        },
+        [props.activeMarks]
+    )
 
     return (
         <div ref={ref} className={HoverElement}>
-            <button onClick={(event) => {
-                event.preventDefault()
-                highlight(GlobalVar.AppElement, GlobalVar.matchItem, value)
-            }}>高亮</button>
-            <select value={value} onChange={ev => {
-                // @ts-ignore
-                setValue(ev.target.value)
-            }}>
+            <div class='color-cont'>
                 {
-                    charList.map((char, index) => {
+                    colors.map((color, index) => {
+                        const cls = ['color-tile']
+                        if (index === value) {
+                            cls.push('active')
+                        }
                         return (
-                            <option style={{ backgroundColor: colors[index] }} value={index}>{char}</option>
+                            <button onClick={(event) => {
+                                event.preventDefault()
+                                setValue(index)
+                                if (props.activeMarks.length) {
+                                    props.activeMarks.forEach(mark => {
+                                        mark.setAttribute('type', index + '')
+                                        update(GlobalVar.AppElement, GlobalVar.matchItem)
+                                    })
+                                } else {
+                                    highlight(GlobalVar.AppElement, GlobalVar.matchItem, index, props.onClick)
+                                }
+                            }} style={{ backgroundColor: color }} class={cls.join(' ')}></button>
                         )
                     })
                 }
-            </select>
+                {
+                    !!props.activeMarks.length && (
+                        <button title='删除' className="color-tile color-remove" onClick={(event) => {
+                            event.preventDefault()
+                            event.stopPropagation()
+                            props.activeMarks.forEach(bare)
+                            update(GlobalVar.AppElement, GlobalVar.matchItem)
+                        }}>×</button>
+                    )
+                }
+            </div>
         </div>
     )
 })

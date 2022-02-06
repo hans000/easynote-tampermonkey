@@ -98,7 +98,7 @@ export function update(app: HTMLElement, matchItem: MatchItem) {
     }
 }
 
-export function initSelect(app: HTMLElement, matchItem: MatchItem) {
+export function initSelect(app: HTMLElement, matchItem: MatchItem, handle) {
     try {
         const obj: Record<string, Info[]> = JSON.parse(localStorage.getItem(StoreKey)!) ?? {}
         const aid = matchItem.aid
@@ -111,7 +111,7 @@ export function initSelect(app: HTMLElement, matchItem: MatchItem) {
                     end: token.o[1],
                     uid: meta.uid,
                     type: meta.type,
-                })
+                }, handle)
             })
         })
     } catch (error) {

@@ -21,7 +21,6 @@ const prefix = `
 // https://vitejs.dev/config/
 export default defineConfig({
     mode: 'production',
-    // mode: 'development',
     plugins: [
         preact({
             devtoolsInProd: true

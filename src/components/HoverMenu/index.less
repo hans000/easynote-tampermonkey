@@ -3,8 +3,43 @@
     display: none;
     position: fixed;
     background-color: #fff;
-    box-shadow: #aaa 0 0 3px;
+    box-shadow: #ddd 0 0 3px;
+    border-radius: 4px;
     select {
         outline: none;
+    }
+    .color-cont {
+        display: flex;
+        padding: 4px;
+    }
+    .color-remove {
+        font-weight: 600;
+        color: #444444;
+        background-color: #efefef;
+    }
+    .color-tile {
+        position: relative;
+        display: block;
+        outline: none;
+        border: none;
+        padding: 0;
+        margin: 0;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        cursor: pointer;
+        box-sizing: border-box;
+        &:not(:last-child) {
+            margin-right: 4px;
+        }
+        &.active::after {
+            content: "√";
+            position: absolute;
+            left: 5px;
+            top: 1px;
+            font-size: 14px;
+            font-weight: 800;
+            color: #fff;
+        }
     }
 }

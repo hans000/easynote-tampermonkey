@@ -84,7 +84,6 @@ export class Beautify {
         ref.createContent(this.getContentData(mountNode))
         ref.title.textContent = this.title
         this.app.style.display = 'block'
-        initSelect(this.app, this.matchItem)
     }
     
     public restore() {
