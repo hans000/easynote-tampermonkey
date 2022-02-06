@@ -12,6 +12,6 @@ export const StoreKey = '__easynote-loc__'
 
 export const CanvasClassname = '__easynote-canvas__'
 
-export const MainClassname = 'easynote-md'
+export const MainClassname = 'article'
 
 export const RectData = '__easynote-rect__'

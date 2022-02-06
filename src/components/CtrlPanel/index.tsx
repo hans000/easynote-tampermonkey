@@ -1,16 +1,12 @@
 import './index.less'
 import { ButtonElement } from '../../tools/const'
-import { useContext } from 'preact/hooks';
-import { AppContext } from '../../views/app';
 
-export function MainPanel() {
-    const { state, dispatch } = useContext(AppContext)
+interface IProps {
+    onClick: () => void
+}
 
-    function handleClick() {
-        state.running ? state.beautify.restore() : state.beautify.run()
-        dispatch({ type: 'ToggleRunning' })
-    }
+export function CtrlPanel(props: IProps) {
     return (
-        <div className={ButtonElement} onClick={handleClick}>切换</div>
+        <div className={ButtonElement} onClick={props.onClick}>切换</div>
     )
 }

@@ -1,7 +1,5 @@
 easynote-app {
     display: none;
-    // overflow-y: auto;
-    // height: 100vh;
     background-color: #f6f6f6;
     easynote-mark {
         &[type="0"] {
@@ -20,7 +18,7 @@ easynote-app {
             background-color: #eb4949;
         }
     }
-    .easynote-md {
+    .article-body {
         max-width: 860px;
         margin: 0 auto;
         padding: 30px;
@@ -31,6 +29,25 @@ easynote-app {
         color: rgb(51, 51, 51);
         line-height: 1.6;
         background-color: #fff;
+        .content {
+            font-size: .9em;
+            dt {
+                margin-bottom: 8px;
+                font-size: 1.75em;
+                font-weight: bold;
+            }
+            dd {
+                &.h2 {
+                    margin-left: 24px;
+                }
+                &.h3 {
+                    margin-left: 48px;
+                }
+                &.h4 {
+                    margin-left: 72px;
+                }
+            }
+        }
     }
 }
 
@@ -54,18 +71,18 @@ easynote-app {
 }
 
 @media only screen and (min-width: 1400px) {
-    .easynote-md {
+    .article {
         max-width: 1024px;
     }
 }
 
 @media only screen and (min-width: 1800px) {
-    .easynote-md {
+    .article {
         max-width: 1200px;
     }
 }
 
-.easynote-md {
+easynote-app .article-body {
     :root {
         --side-bar-bg-color: #fafafa;
         --control-text-color: #777;
@@ -271,7 +288,16 @@ easynote-app {
 @media print {
     @page {
         size: A4 portrait;
-        // margin: 3.7cm 2.6cm 3.5cm;
+    }
+    .easynote-hover,
+    .easynote-btn {
+        display: none;
+    }
+    easynote-app .article {
+        font-size: 13px;
+    }
+    easynote-app .content {
+        page-break-after: always;
     }
 
     html {
@@ -293,14 +319,7 @@ easynote-app {
         background-color: white;
         color: black;
     }
-    // a::after {
-    //     content: "(" attr(href) ")";
-    // }
     thead, tfoot {
         display: table-row-group;
-    }
-    .easynote-hover,
-    .easynote-btn {
-        display: none;
     }
 }

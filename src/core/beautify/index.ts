@@ -1,14 +1,17 @@
 import { AppElement } from './../../tools/const';
 import { MatchItem } from './../base/config';
-import { MainClassname, RootElement } from '../../tools/const';
+import { RootElement } from '../../tools/const';
 import { simplify } from '../simplify';
 import { initSelect } from '../bookmark/reselect';
+import { MainNoteRef } from '../../components/MainNote';
+import { ContentProps } from '../../components/MainNote/Content';
 
 export class Beautify {
     private app: HTMLElement
     private root: HTMLElement
     private matchItem: MatchItem
     private cacheNodeList: HTMLElement[] = []
+    private title = ''
 
     constructor(root: HTMLElement, app: HTMLElement, matchItem: MatchItem) {
         this.root = root
@@ -16,6 +19,35 @@ export class Beautify {
         this.matchItem = matchItem
     }
 
+    private getContentData(node: HTMLElement) {
+        const isHeadNode = (tagName: string) => ['h2', 'h3', 'h4', 'h5', 'h6'].includes(tagName)
+
+        let index = 0
+        const data: ContentProps[] = []
+
+        Array.from(node.children).forEach(child => {
+            const tagName = child.tagName.toLowerCase()
+
+            if (tagName === 'h1' && !this.title) {
+                this.title = child.textContent
+                child.remove()
+            }
+
+            if (isHeadNode(tagName)) {
+                // 添加描点
+                child.id = index + ''
+                data.push({
+                    text: child.textContent,
+                    hash: '#' + index,
+                    class: tagName
+                })
+
+                index++
+            }
+        })
+
+        return data
+    }
     
     private hiddenBodyAndChildren() {
         Array.from(document.body.children as any as HTMLElement[]).forEach((node) => {
@@ -32,18 +64,11 @@ export class Beautify {
         }
     }
 
-    private render(node: HTMLElement) {
-        const main = document.createElement('div')
-        main.classList.add(MainClassname)
-        main.appendChild(simplify(node))
-        this.app.appendChild(main)
-        this.app.style.display = 'block'
-    }
-
-    public run() {
+    public run(ref: MainNoteRef) {
+        const mountNode = ref.article
         this.root.classList.add('active')
     
-        if (this.app.children.length) {
+        if (mountNode.children.length) {
             this.hiddenBodyAndChildren()
             this.app.classList.remove('hidden')
             return
@@ -55,7 +80,10 @@ export class Beautify {
         }
     
         this.hiddenBodyAndChildren()
-        this.render(originNode as unknown as HTMLElement)
+        mountNode.appendChild(simplify(originNode as unknown as HTMLElement))
+        ref.createContent(this.getContentData(mountNode))
+        ref.title.textContent = this.title
+        this.app.style.display = 'block'
         initSelect(this.app, this.matchItem)
     }
     
@@ -66,8 +94,9 @@ export class Beautify {
     
         const fragment = document.createDocumentFragment()
         this.cacheNodeList.forEach(node => fragment.appendChild(node))
+        this.cacheNodeList = []
         document.body.insertBefore(fragment, this.root)
         this.app.classList.add('hidden')
         this.root.classList.remove('active')
     }
-}
+} 

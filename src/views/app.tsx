@@ -1,12 +1,13 @@
 import { HoverMenu } from "../components/HoverMenu";
-import { MainPanel } from "../components/CtrlPanel";
-import { createContext, useEffect, useReducer, useRef } from 'preact/compat'
-import { MatchItem } from "../core/base/config";
+import { CtrlPanel } from "../components/CtrlPanel";
+import { createContext, createPortal, useEffect, useReducer, useRef } from 'preact/compat'
 import { hasSelected } from "../tools/hasSelected";
 import { Beautify } from "../core/beautify";
 import './style.less'
+import { MainNote, MainNoteRef } from "../components/MainNote";
+import { GlobalVar } from "../main";
 
-type ActionType = 'ToggleRunning'
+type ActionType = string
 
 interface Action {
     type: ActionType
@@ -14,17 +15,10 @@ interface Action {
 }
 
 export interface GlobalState {
-    running: boolean
-    beautify: Beautify
-    matchItem: MatchItem
-    rootElement: HTMLElement
-    appElement: HTMLElement
 }
 
 const reducer = (state: GlobalState, action: Action) => {
     switch (action.type) {
-        case 'ToggleRunning':
-            return { ...state, running: !state.running }
         default:
             return state
     }
@@ -33,49 +27,40 @@ const reducer = (state: GlobalState, action: Action) => {
 //@ts-ignore
 export const AppContext = createContext<{ state: GlobalState, dispatch: (action: Action) => void }>({})
 
-export function App(props: Omit<GlobalState, 'running'>) {
-    const [state, dispatch] = useReducer<GlobalState, Action>(reducer, {
-        running: false,
-        beautify: props.beautify,
-        matchItem: props.matchItem,
-        appElement: props.appElement,
-        rootElement: props.rootElement,
-    })
+export function App() {
+    const [state, dispatch] = useReducer<GlobalState, Action>(reducer, {})
     const hoverRef = useRef<HTMLDivElement>()
-
+    const mainRef = useRef<MainNoteRef>()
+    
     useEffect(
         () => {
             const hover = hoverRef.current
-            const handleMouseup = (event) => {
+            GlobalVar.AppElement.addEventListener('mouseup', (event) => {
                 event.preventDefault()
-                if (state.running && hasSelected()) {
+                if (GlobalVar.running && hasSelected()) {
                     hover.style.display = 'block'
                     hover.style.left = event.clientX + 10 + 'px'
                     hover.style.top = event.clientY + 'px'
                 }
-            }
-            const handleClick = () => {
-                if (!state.running || !hasSelected()) {
+            })
+            window.addEventListener('click', () => {
+                if (!GlobalVar.running || !hasSelected()) {
                     hover.style.display = 'none'
                 }
-            }
-            props.appElement.addEventListener('mouseup', handleMouseup)
-            window.addEventListener('click', handleClick)
-            return () => {
-                props.appElement.removeEventListener('mouseup', handleMouseup)
-                window.removeEventListener('click', handleClick)
-            }
+            })
         },
-        [state.running]
+        []
     )
 
     return (
         <AppContext.Provider value={{ state, dispatch }}>
             <HoverMenu ref={hoverRef} />
-            <MainPanel />
-            {/* {
-                createPortal(<MainNote />, document.getElementsByTagName(AppElement)[0])
-            } */}
+            <CtrlPanel onClick={() => {
+                const beautify = GlobalVar.Beautify
+                GlobalVar.running ? beautify.restore() : beautify.run(mainRef.current)
+                GlobalVar.running = !GlobalVar.running
+            }} />
+            { createPortal(<MainNote ref={mainRef} />, GlobalVar.AppElement) }
         </AppContext.Provider>
     )
 }

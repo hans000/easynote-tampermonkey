@@ -1,30 +1,29 @@
+import './index.less'
 import { render } from 'preact'
 import { App } from './views/app'
 import { AppElement, RootElement } from './tools/const'
 import { matched } from './core/base/config'
-import './index.less'
 import { Beautify } from './core/beautify'
 
 const __DEV__ = import.meta.env.DEV
-const matchItem = matched(window.location.href)
 
-if (__DEV__ || matchItem) {
+export class GlobalVar {
+    public static running = false
+    public static Beautify: Beautify
+    public static AppElement: HTMLElement
+    public static RootElement: HTMLElement
+    public static matchItem = matched(window.location.href)
+}
 
-    const root = document.createElement(RootElement)
-    const app = document.createElement(AppElement)
+if (__DEV__ || GlobalVar.matchItem) {
+    const root = GlobalVar.RootElement = document.createElement(RootElement)
+    const app = GlobalVar.AppElement = document.createElement(AppElement)
     
     document.body.appendChild(app)
     document.body.appendChild(root)
+    GlobalVar.Beautify = new Beautify(root, app, GlobalVar.matchItem)
 
-    const beautify = new Beautify(root, app, matchItem)
-    
-    render(<App
-        beautify={beautify}
-        rootElement={root}
-        appElement={app}
-        matchItem={matchItem!} />,
-        root
-    )
+    render(<App />, root)
 }
 
  
