@@ -1,0 +1,56 @@
+.content {
+    width: 250px;
+    overflow: hidden;
+    &__fixed {
+        z-index: 99999999;
+        position: fixed;
+        top: 0;
+        background-color: white;
+        height: 100vh;
+        overflow-y: auto;
+        box-shadow: #eee 0 0 6px;
+        dl {
+            margin-top: 0;
+            padding: 0 4px;
+        }
+        dt {
+            position: sticky;
+            top: 0;
+            background-color: white;
+            border-bottom: 1px solid #eee;
+        }
+        dd a {
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            &:hover {
+                background-color: #eee;
+            }
+        }
+        @media print {
+            display: none;
+        }
+        &--left {
+            left: 0;
+            @media only screen and (min-width: 1110px) {
+                left: calc(50% - 1170px / 2);
+            }
+        }
+        &--right {
+            right: 0;
+            @media only screen and (min-width: 1110px) {
+                right: calc(50% - 1170px / 2);
+            }
+        }
+    }
+    &::-webkit-scrollbar {
+        width : 4px;
+        // height: 4px;
+    }
+    .btn {
+        font-size: .8em;
+        cursor: pointer;
+        user-select: none;
+    }
+}

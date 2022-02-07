@@ -15,6 +15,7 @@ const prefix = `
 // @require         https://cdn.jsdelivr.net/npm/preact@10.6.5/dist/preact.umd.js
 // @require         https://cdn.jsdelivr.net/npm/preact@10.6.5/hooks/dist/hooks.umd.js
 // @require         https://cdn.jsdelivr.net/npm/preact@10.6.5/compat/dist/compat.umd.js
+// @require         https://cdn.jsdelivr.net/npm/clsx@1.1.1/dist/clsx.min.js
 // ==/UserScript==
 `.trimStart()
 
@@ -39,12 +40,14 @@ export default defineConfig({
                     'preact': 'preact',
                     'preact/hooks': 'preactHooks',
                     'preact/compat': 'preactCompat',
+                    'clsx': 'clsx',
                 }
             },
             external: [
                 'preact',
                 'preact/hooks',
                 'preact/compat',
+                'clsx',
             ],
         },
     },

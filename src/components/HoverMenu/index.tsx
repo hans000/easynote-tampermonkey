@@ -1,29 +1,33 @@
+import clsx from 'clsx'
 import { forwardRef } from 'preact/compat'
-import { Ref, useEffect, useState } from 'preact/hooks'
+import { Ref, useContext, useEffect, useState } from 'preact/hooks'
 import { bare, highlight } from '../../core/bookmark/highlight'
 import { update } from '../../core/bookmark/reselect'
 import { GlobalVar } from '../../main'
 import { HoverElement } from '../../tools/const'
+import { AppContext } from '../../views/app'
 import './index.less'
 
 const colors = ['#fff066', '#7df066', '#74eaff', '#f799d1', '#eb4949']
 
 interface IProps {
     onClick: (activeMarks: HTMLElement[], event: Event) => void
-    activeMarks: HTMLElement[]
 }
 
 export const HoverMenu = forwardRef((props: IProps, ref: Ref<HTMLDivElement>) => {
-    const [value, setValue] = useState(0)
+    const { state, dispatch } = useContext(AppContext)
 
     useEffect(
         () => {
-            const mark = props.activeMarks[0]
+            const mark = state.activeMarks[0]
             if (mark) {
-                setValue(+mark.getAttribute('type'))
+                dispatch({
+                    type: 'UpdateColorType',
+                    payload: +mark.getAttribute('type'),
+                })
             }
         },
-        [props.activeMarks]
+        [state.activeMarks]
     )
 
     return (
@@ -31,32 +35,30 @@ export const HoverMenu = forwardRef((props: IProps, ref: Ref<HTMLDivElement>) =>
             <div class='color-cont'>
                 {
                     colors.map((color, index) => {
-                        const cls = ['color-tile']
-                        if (index === value) {
-                            cls.push('active')
-                        }
                         return (
                             <button onClick={(event) => {
                                 event.preventDefault()
-                                setValue(index)
-                                if (props.activeMarks.length) {
-                                    props.activeMarks.forEach(mark => {
+                                dispatch({
+                                    type: 'UpdateColorType',
+                                    payload: index,
+                                })
+                                if (state.activeMarks.length) {
+                                    state.activeMarks.forEach(mark => {
                                         mark.setAttribute('type', index + '')
                                         update(GlobalVar.AppElement, GlobalVar.matchItem)
                                     })
                                 } else {
                                     highlight(GlobalVar.AppElement, GlobalVar.matchItem, index, props.onClick)
                                 }
-                            }} style={{ backgroundColor: color }} class={cls.join(' ')}></button>
+                            }} style={{ backgroundColor: color }} class={clsx({ 'color-tile': true, 'active': index === state.colorType })}></button>
                         )
                     })
                 }
                 {
-                    !!props.activeMarks.length && (
+                    !!state.activeMarks.length && (
                         <button title='删除' className="color-tile color-remove" onClick={(event) => {
                             event.preventDefault()
-                            event.stopPropagation()
-                            props.activeMarks.forEach(bare)
+                            state.activeMarks.forEach(bare)
                             update(GlobalVar.AppElement, GlobalVar.matchItem)
                         }}>×</button>
                     )

@@ -20,7 +20,7 @@ export class GlobalVar {
 if (__DEV__) {
     const root = document.createElement(RootElement)
     document.body.appendChild(root)
-    render(<HoverMenu onClick={() => {}} activeMarks={[]} />, root)
+    render(<HoverMenu onClick={() => {}} />, root)
 }
 
 if (GlobalVar.matchItem) {

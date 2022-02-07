@@ -29,6 +29,27 @@ easynote-app {
         color: rgb(51, 51, 51);
         line-height: 1.6;
         background-color: #fff;
+        &.content-fixed {
+            &--left {
+                margin-left: calc(50% - 1170px / 2 + 250px);
+                @media only screen and (max-width: 1110px) {
+                    margin-left: 250px;
+                }
+                @media print {
+                    margin: 0 auto;
+                }
+            }
+            &--right {
+                margin-left: calc(50% - 1170px / 2);
+                @media only screen and (max-width: 1110px) {
+                    margin-right: 250px;
+                    margin-left: 0;
+                }
+                @media print {
+                    margin: 0 auto;
+                }
+            }
+        }
         .content {
             font-size: .9em;
             dt {

@@ -7,7 +7,11 @@ import { GlobalVar } from "../main";
 import './style.less'
 import { initSelect } from "../core/bookmark/reselect";
 
-type ActionType = string
+type ActionType =
+    | 'UpdateColorType'
+    | 'UpdateActiveMarks'
+    | 'ToggleContextFixed'
+    | 'UpdateContentPos'
 
 interface Action {
     type: ActionType
@@ -15,10 +19,22 @@ interface Action {
 }
 
 export interface GlobalState {
+    colorType: number
+    activeMarks: HTMLElement[]
+    contentFixed: boolean
+    contentPos: 'left' | 'right' | undefined
 }
 
 const reducer = (state: GlobalState, action: Action) => {
     switch (action.type) {
+        case 'UpdateColorType':
+            return { ...state, colorType: action.payload ?? -1 }
+        case 'UpdateActiveMarks':
+            return { ...state, activeMarks: action.payload ?? [] }
+        case 'ToggleContextFixed':
+            return { ...state, contentFixed: !state.contentFixed }
+        case 'UpdateContentPos':
+            return { ...state, contentPos: action.payload }
         default:
             return state
     }
@@ -28,31 +44,24 @@ const reducer = (state: GlobalState, action: Action) => {
 export const AppContext = createContext<{ state: GlobalState, dispatch: (action: Action) => void }>({})
 
 export function App() {
-    const [state, dispatch] = useReducer<GlobalState, Action>(reducer, {})
+    const [state, dispatch] = useReducer<GlobalState, Action>(reducer, {
+        colorType: -1,
+        activeMarks: [],
+        contentFixed: false,
+        contentPos: undefined,
+    })
     const hoverRef = useRef<HTMLDivElement>()
     const mainRef = useRef<MainNoteRef>()
     const firstRef = useRef(true)
-    const [activeMarks, setActiveMarks] = useState<HTMLElement[]>([])
 
-    // useEffect(
-    //     () => {
-    //         const handle = (event) => {
-    //             setActiveMarks([])
-    //         }
-    //         window.addEventListener('select', handle)
-    //         return () => {
-    //             window.removeEventListener('mousemove', handle)
-    //         }
-    //     },
-    //     [activeMarks]
-    // )
-    
     useEffect(
         () => {
             const hover = hoverRef.current
             GlobalVar.AppElement.addEventListener('mouseup', (event) => {
                 event.preventDefault()
                 if (GlobalVar.running && hasSelected()) {
+                    dispatch({ type: 'UpdateActiveMarks' })
+                    dispatch({ type: 'UpdateColorType' })
                     hover.style.display = 'block'
                     hover.style.left = event.clientX + 10 + 'px'
                     hover.style.top = event.clientY + 'px'
@@ -60,7 +69,7 @@ export function App() {
             })
             window.addEventListener('click', () => {
                 if (!GlobalVar.running || !hasSelected()) {
-                    setActiveMarks([])
+                    dispatch({ type: 'UpdateActiveMarks' })
                     hover.style.display = 'none'
                 }
             })
@@ -69,7 +78,7 @@ export function App() {
     )
 
     const handle = (activeMarks: HTMLElement[], event: MouseEvent) => {
-        setActiveMarks(activeMarks)
+        dispatch({ type: 'UpdateActiveMarks', payload: activeMarks })
         const hover = hoverRef.current
         hover.style.display = 'block'
         hover.style.left = event.clientX + 10 + 'px'
@@ -78,7 +87,7 @@ export function App() {
 
     return (
         <AppContext.Provider value={{ state, dispatch }}>
-            <HoverMenu activeMarks={activeMarks} onClick={handle} ref={hoverRef} />
+            <HoverMenu onClick={handle} ref={hoverRef} />
             <CtrlPanel onClick={() => {
                 const beautify = GlobalVar.Beautify
                 GlobalVar.running ? beautify.restore() : beautify.run(mainRef.current)

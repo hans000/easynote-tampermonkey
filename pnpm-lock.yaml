@@ -4,6 +4,7 @@ specifiers:
   '@preact/preset-vite': ^2.1.7
   '@types/markdown-it': ^12.2.3
   chokidar: ^3.5.2
+  clsx: ^1.1.1
   less: ^4.1.2
   preact: ^10.6.5
   rollup: ^2.60.0
@@ -17,6 +18,9 @@ specifiers:
   typescript: ^4.4.4
   vite: ^2.7.13
   vite-plugin-banner: ^0.2.0
+
+dependencies:
+  clsx: 1.1.1
 
 devDependencies:
   '@preact/preset-vite': 2.1.7_preact@10.6.5+vite@2.7.13
@@ -643,6 +647,11 @@ packages:
     resolution: {integrity: sha512-FxqpkPPwu1HjuN93Omfm4h8uIanXofW0RxVEW3k5RKx+mJJYSthzNhp32Kzxxy3YAEZ/Dc/EWN1vZRY0+kOhbw==}
     engines: {node: '>= 10'}
     dev: true
+
+  /clsx/1.1.1:
+    resolution: {integrity: sha512-6/bPho624p3S2pMyvP5kKBPXnI3ufHLObBFCfgx+LkeR5lg2XYy2hqZqUf45ypD8COn2bhgGJSUE+l5dhNBieA==}
+    engines: {node: '>=6'}
+    dev: false
 
   /color-convert/1.9.3:
     resolution: {integrity: sha512-QfAUtd+vFdAtFQcC8CCyYt1fYWxSqAiK2cSD6zDB8N3cpsEBAvRxp9zOGg6G/SHHJYAT88/az/IuDGALsNVbGg==}

@@ -15,3 +15,5 @@ export const CanvasClassname = '__easynote-canvas__'
 export const MainClassname = 'article'
 
 export const RectData = '__easynote-rect__'
+
+export const ContentDefaultPos = 'left'
