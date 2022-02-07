@@ -91,7 +91,7 @@ export function update(app: HTMLElement, matchItem: MatchItem) {
         const uid = matchItem.aid
         localStorage.setItem(StoreKey, JSON.stringify({
             ...obj,
-            [uid]: getInfoList(app)
+            [uid]: getInfoList(app.querySelector('article'))
         }))
     } catch (error) {
         console.log(error);
@@ -106,7 +106,7 @@ export function initSelect(app: HTMLElement, matchItem: MatchItem, handle) {
         info.forEach(meta => {
             meta.tokens.forEach(token => {
                 wrap({
-                    node: getTargetNode(token.l, app),
+                    node: getTargetNode(token.l, app.querySelector('article')),
                     start: token.o[0],
                     end: token.o[1],
                     uid: meta.uid,

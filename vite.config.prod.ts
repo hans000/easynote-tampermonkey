@@ -4,18 +4,18 @@ import banner from 'vite-plugin-banner'
 
 const prefix = `
 // ==UserScript==
-// @name            easy-note
-// @namespace       http://tampermonkey.net/
-// @version         0.0.1
-// @description     easy-note
-// @author          hans0000
-// @match           http*://*/*
-// @grant           none
-// @run-at          document-end
-// @require         https://cdn.jsdelivr.net/npm/preact@10.6.5/dist/preact.umd.js
-// @require         https://cdn.jsdelivr.net/npm/preact@10.6.5/hooks/dist/hooks.umd.js
-// @require         https://cdn.jsdelivr.net/npm/preact@10.6.5/compat/dist/compat.umd.js
-// @require         https://cdn.jsdelivr.net/npm/clsx@1.1.1/dist/clsx.min.js
+// @name          easynote
+// @namespace     http://tampermonkey.net/
+// @version       0.0.1
+// @description   easynote
+// @author        hans0000
+// @match         http*://*/*
+// @grant         none
+// @run-at        document-end
+// @require       https://cdn.jsdelivr.net/npm/preact@10.6.5/dist/preact.umd.js
+// @require       https://cdn.jsdelivr.net/npm/preact@10.6.5/hooks/dist/hooks.umd.js
+// @require       https://cdn.jsdelivr.net/npm/preact@10.6.5/compat/dist/compat.umd.js
+// @require       https://cdn.jsdelivr.net/npm/clsx@1.1.1/dist/clsx.min.js
 // ==/UserScript==
 `.trimStart()
 
