@@ -15,6 +15,7 @@ const prefix = `
 // @require         https://cdn.jsdelivr.net/npm/preact@10.6.5/hooks/dist/hooks.umd.js
 // @require         https://cdn.jsdelivr.net/npm/preact@10.6.5/compat/dist/compat.umd.js
 // @require         https://cdn.jsdelivr.net/npm/clsx@1.1.1/dist/clsx.min.js
+// @grant           GM_addStyle
 // @grant           GM_getResourceText
 // @resource config https://raw.github.com/hans000/easynote-tampermonkey/main/public/config.json
 // @resource style  https://raw.github.com/hans000/easynote-tampermonkey/main/public/style.css
