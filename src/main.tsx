@@ -6,6 +6,8 @@ import { matched } from './core/base/config'
 import { Beautify } from './core/beautify'
 import { HoverMenu } from './components/HoverMenu'
 
+GM_addStyle(GM_getResourceText('style'))
+
 const __DEV__ = import.meta.env.DEV
 
 export class GlobalVar {
