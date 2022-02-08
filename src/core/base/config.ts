@@ -1,7 +1,7 @@
 export interface ConfigProps {
     pattern: string
     selector: string
-	[key:string]: any
+    [key:string]: any
 }
 
 const configList: ConfigProps[] = [
@@ -13,14 +13,14 @@ const configList: ConfigProps[] = [
         pattern: '^https://juejin.cn/post/(\\d+)',
         selector: 'article.article'
     },
-	{
-		pattern: '^https://blog.csdn.net/(?:.+)/article/details/(\\d+)',
-		selector: 'article',
-	},
-	{
-		pattern: '^https://www.cnblogs.com/(?:.+)/p/(\\d+)',
-		selector: '#topics',
-	},
+    {
+        pattern: '^https://blog.csdn.net/(?:.+)/article/details/(\\d+)',
+        selector: 'article',
+    },
+    {
+        pattern: '^https://www.cnblogs.com/(?:.+)/p/(\\d+)',
+        selector: '#topics',
+    },
 ]
 
 export interface MatchItem {
@@ -29,15 +29,15 @@ export interface MatchItem {
 }
 
 export function matched(url: string): MatchItem | undefined {
-	for (const config of configList) {
-		const reg = new RegExp(config.pattern)
-		const match = reg.exec(url)
+    for (const config of configList) {
+        const reg = new RegExp(config.pattern)
+        const match = reg.exec(url)
 
-		if (match) {
-			return {
-				aid: match[1],
-				selector: config.selector,
-			}
-		}
-	}
+        if (match) {
+            return {
+                aid: match[1],
+                selector: config.selector,
+            }
+        }
+    }
 }

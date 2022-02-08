@@ -19,7 +19,7 @@ function matchNode(node: HTMLElement, selector = '') {
         return !!(tagname || classname)
     }
 
-    throw '`' + selector + '` is not a valid selector'
+    throw '`' + selector + '` is an invalid selector'
 }
 
 const isSkipNode = (node: HTMLElement) => isElementNode(node) ? Object.keys(defalutConfig.skip).some(item => matchNode(node, item)) : false

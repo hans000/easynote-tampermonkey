@@ -57,7 +57,7 @@ export function App() {
     useEffect(
         () => {
             const hover = hoverRef.current
-            GlobalVar.AppElement.addEventListener('mouseup', (event) => {
+            GlobalVar.AppElement.querySelector('article').addEventListener('mouseup', (event) => {
                 event.preventDefault()
                 if (GlobalVar.running && hasSelected()) {
                     dispatch({ type: 'UpdateActiveMarks' })

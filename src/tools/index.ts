@@ -1,8 +1,11 @@
+import { MarkElement } from "./const"
+
 export const hasSelected = () => !!getSelection()!.rangeCount && !getSelection()!.isCollapsed
 
 export const isTextNode = (node: HTMLElement) => node?.nodeType === 3
 export const isElementNode = (node: HTMLElement) => node?.nodeType === 1
 export const isFragmentNode = (node: HTMLElement) => node?.nodeType === 11
+export const isMarkNode = (node: HTMLElement) => isElementNode(node) && getTagName(node) === MarkElement
 
 export const getTagName = (node: Element) => node.tagName.toLowerCase()
 

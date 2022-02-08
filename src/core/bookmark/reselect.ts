@@ -1,6 +1,6 @@
-import { isTextNode, getTagName, isElementNode } from './../../tools/index';
+import { isTextNode, isMarkNode } from './../../tools/index';
 import { MatchItem } from './../base/config';
-import { MarkElement, StoreKey } from "../../tools/const"
+import { StoreKey } from "../../tools/const"
 import { wrap } from "./highlight"
 
 export interface Info {
@@ -12,6 +12,7 @@ export interface Info {
 export interface LocationToken {
     l: number[]
     o: [number, number]
+    i: number
 }
 
 function getTargetNode(position: number[], root = document.body) {
@@ -31,8 +32,7 @@ export function getInfoList(node: HTMLElement) {
     let offset = 0
     let index = 0
     let indexList = []
-
-    const isMarkNode = (node: HTMLElement) => isElementNode(node) && getTagName(node) === MarkElement
+    let renderIndex = 0
 
     while(true) {
         if (isMarkNode(current)) {
@@ -55,6 +55,7 @@ export function getInfoList(node: HTMLElement) {
             info.tokens.push({
                 l: [...restLoc, index + fact],
                 o: [start, end],
+                i: renderIndex++,
             })
 
             offset = 0
@@ -102,17 +103,21 @@ export function initSelect(app: HTMLElement, matchItem: MatchItem, handle) {
     try {
         const obj: Record<string, Info[]> = JSON.parse(localStorage.getItem(StoreKey)!) ?? {}
         const aid = matchItem.aid
-        const info = obj[aid] ?? []
-        info.forEach(meta => {
-            meta.tokens.forEach(token => {
-                wrap({
-                    node: getTargetNode(token.l, app.querySelector('article')),
-                    start: token.o[0],
-                    end: token.o[1],
-                    uid: meta.uid,
-                    type: meta.type,
-                }, handle)
-            })
+        const infoList = obj[aid] ?? []
+
+        const tokens = infoList
+            .map(info => info.tokens.map(token => ({ ...token, uid: info.uid, type: info.type, })))
+            .flat()
+            .sort((a, b) => a.i - b.i)
+
+        tokens.forEach(token => {
+            wrap({
+                node: getTargetNode(token.l, app.querySelector('article')),
+                start: token.o[0],
+                end: token.o[1],
+                uid: token.uid,
+                type: token.type,
+            }, handle)
         })
     } catch (error) {
         console.log(error);
