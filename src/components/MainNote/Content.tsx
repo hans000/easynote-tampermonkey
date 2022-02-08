@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { useContext, useMemo, useState } from "preact/hooks";
+import { useContext, useEffect, useMemo, useState } from "preact/hooks";
 import { ContentDefaultPos } from "../../tools/const";
 import { AppContext } from "../../views/app";
 
@@ -28,12 +28,12 @@ export function Content(props: IProps) {
             <dl>
                 <dt>
                     <span>目录</span>
-                    <span className='btn' style={{ verticalAlign: '.1em' }} onClick={() => {
+                    <span className='easynote-content__btn' style={{ verticalAlign: '.1em' }} onClick={() => {
                         dispatch({ type: 'UpdateContentPos', payload: state.contentFixed ? undefined : ContentDefaultPos })
                         dispatch({ type: 'ToggleContextFixed' })
                     }}>📌</span>
                     {
-                        state.contentFixed && <span className='btn' style={{ verticalAlign: '.2em' }} onClick={() => dispatch({ type: 'UpdateContentPos', payload: isLeft ? 'right' : 'left' })}>{isLeft ? '👉' : '👈'}</span>
+                        state.contentFixed && <span className='easynote-content__btn' style={{ verticalAlign: '.2em' }} onClick={() => dispatch({ type: 'UpdateContentPos', payload: isLeft ? 'right' : 'left' })}>{isLeft ? '👉' : '👈'}</span>
                     }
                 </dt>
                 {

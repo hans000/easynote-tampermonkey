@@ -4,7 +4,7 @@ import { createContext, createPortal, useEffect, useReducer, useRef, useState } 
 import { hasSelected } from "../tools";
 import { MainNote, MainNoteRef } from "../components/MainNote";
 import { GlobalVar } from "../main";
-import './style.less'
+import './app.less'
 import { initSelect } from "../core/bookmark/reselect";
 
 type ActionType =

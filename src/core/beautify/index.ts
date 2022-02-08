@@ -1,8 +1,8 @@
+import { Simplify } from './../simplify/index';
 import { getTagName } from './../../tools/index';
 import { AppElement } from './../../tools/const';
 import { MatchItem } from './../base/config';
 import { RootElement } from '../../tools/const';
-import { simplify } from '../simplify';
 import { MainNoteRef } from '../../components/MainNote';
 import { ContentProps } from '../../components/MainNote/Content';
 import { createFragment } from '../../tools';
@@ -47,6 +47,10 @@ export class Beautify {
             }
         })
 
+        if (! this.title) {
+            this.title = document.title.slice(0, document.title.lastIndexOf('-'))
+        }
+
         return data
     }
     
@@ -80,7 +84,8 @@ export class Beautify {
         }
     
         this.hiddenBodyAndChildren()
-        mountNode.appendChild(simplify(originNode as unknown as HTMLElement))
+        const simplify = new Simplify(this.matchItem.config)
+        mountNode.appendChild(simplify.exec(originNode as unknown as HTMLElement))
         ref.createContent(this.getContentData(mountNode))
         ref.title.textContent = this.title
         this.app.style.display = 'block'

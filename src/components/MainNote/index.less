@@ -1,10 +1,10 @@
 easynote-app .content {
-    width: 250px;
-    overflow: hidden;
-    user-select: none;
+    float: initial;
     &__fixed {
         z-index: 99999999;
         position: fixed;
+        width: 250px;
+        overflow: hidden;
         top: 0;
         background-color: white;
         height: 100vh;
@@ -49,7 +49,7 @@ easynote-app .content {
         width : 4px;
         // height: 4px;
     }
-    .btn {
+    .easynote-content__btn {
         font-size: .8em;
         cursor: pointer;
         user-select: none;
