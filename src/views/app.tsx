@@ -1,7 +1,7 @@
 import { HoverMenu } from "../components/HoverMenu";
 import { CtrlPanel } from "../components/CtrlPanel";
 import { createContext, createPortal, useEffect, useReducer, useRef, useState } from 'preact/compat'
-import { hasSelected } from "../tools/hasSelected";
+import { hasSelected } from "../tools";
 import { MainNote, MainNoteRef } from "../components/MainNote";
 import { GlobalVar } from "../main";
 import './style.less'

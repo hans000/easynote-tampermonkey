@@ -1,6 +1,7 @@
 export interface ConfigProps {
     pattern: string
     selector: string
+	[key:string]: any
 }
 
 const configList: ConfigProps[] = [

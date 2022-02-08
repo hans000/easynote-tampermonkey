@@ -1,10 +1,11 @@
+import { getTagName } from './../../tools/index';
 import { AppElement } from './../../tools/const';
 import { MatchItem } from './../base/config';
 import { RootElement } from '../../tools/const';
 import { simplify } from '../simplify';
-import { initSelect } from '../bookmark/reselect';
 import { MainNoteRef } from '../../components/MainNote';
 import { ContentProps } from '../../components/MainNote/Content';
+import { createFragment } from '../../tools';
 
 export class Beautify {
     private app: HTMLElement
@@ -26,7 +27,7 @@ export class Beautify {
         const data: ContentProps[] = []
 
         Array.from(node.children).forEach(child => {
-            const tagName = child.tagName.toLowerCase()
+            const tagName = getTagName(child)
 
             if (tagName === 'h1' && !this.title) {
                 this.title = child.textContent
@@ -51,8 +52,7 @@ export class Beautify {
     
     private hiddenBodyAndChildren() {
         Array.from(document.body.children as any as HTMLElement[]).forEach((node) => {
-            const tagName = node.tagName.toLowerCase()
-            if (! ['script', RootElement, AppElement].includes(tagName)) {
+            if (! ['script', RootElement, AppElement].includes(getTagName(node))) {
                 this.cacheNodeList.push(document.body.removeChild(node))
             }
         })
@@ -87,14 +87,15 @@ export class Beautify {
     }
     
     public restore() {
-        if (document.body.hasAttribute('minWidth')) {
-            document.body.style.minWidth = document.body.getAttribute('minWidth')!
+        const body = document.body
+        if (body.hasAttribute('minWidth')) {
+            body.style.minWidth = body.getAttribute('minWidth')!
         }
     
-        const fragment = document.createDocumentFragment()
+        const fragment = createFragment()
         this.cacheNodeList.forEach(node => fragment.appendChild(node))
         this.cacheNodeList = []
-        document.body.insertBefore(fragment, this.root)
+        body.insertBefore(fragment, this.root)
         this.app.classList.add('hidden')
         this.root.classList.remove('active')
     }

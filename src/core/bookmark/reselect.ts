@@ -1,3 +1,4 @@
+import { isTextNode, getTagName, isElementNode } from './../../tools/index';
 import { MatchItem } from './../base/config';
 import { MarkElement, StoreKey } from "../../tools/const"
 import { wrap } from "./highlight"
@@ -31,14 +32,13 @@ export function getInfoList(node: HTMLElement) {
     let index = 0
     let indexList = []
 
-    const isMark = (node: HTMLElement) => node.nodeType === 1 && node.tagName.toLowerCase() === MarkElement
-    const hasPreviousText = (node: HTMLElement) => node.previousSibling && node.previousSibling.nodeType === 3
+    const isMarkNode = (node: HTMLElement) => isElementNode(node) && getTagName(node) === MarkElement
 
     while(true) {
-        if (isMark(current)) {
+        if (isMarkNode(current)) {
             const start = offset
             const end = start + current.textContent!.length
-            const fact = hasPreviousText(current) ? -1 : 0
+            const fact = isTextNode(current.previousSibling as HTMLElement) ? -1 : 0
 
             const uid = current.getAttribute('uid')!
             let info = mapInfo[uid]

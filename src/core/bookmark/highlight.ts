@@ -1,5 +1,6 @@
+import { isTextNode } from './../../tools/index';
 import { MarkElement } from "../../tools/const"
-import { hasSelected } from "../../tools/hasSelected"
+import { createFragment, createTextNode, hasSelected } from "../../tools"
 import { update } from "./reselect"
 import { MatchItem } from '../base/config'
 
@@ -76,7 +77,7 @@ export function wrap(token: MarkToken, handle?) {
     }
 
     if (left) {
-        parent.insertBefore(document.createTextNode(left), node)
+        parent.insertBefore(createTextNode(left), node)
     }
 
     const mark = createMarkNode(mid, uid!, type!)
@@ -90,7 +91,7 @@ export function wrap(token: MarkToken, handle?) {
     })
 
     if (right) {
-        parent.insertBefore(document.createTextNode(right), node)
+        parent.insertBefore(createTextNode(right), node)
     }
 
     node.remove()
@@ -101,9 +102,9 @@ export function bare(node: HTMLElement) {
     const previous = node.previousSibling as HTMLElement
     const next = node.nextSibling as HTMLElement
 
-    const bothTextNode = (a: HTMLElement, b: HTMLElement) => (a && a.nodeType === 3 && b && b.nodeType === 3)
+    const bothTextNode = (a: HTMLElement, b: HTMLElement) => (isTextNode(a) && isTextNode(b))
 
-    const fragment = document.createDocumentFragment()
+    const fragment = createFragment()
     Array.from(node.childNodes).forEach(child => {
         if (node.firstChild === child && bothTextNode(previous, child as HTMLElement)) {
             previous.textContent += child.textContent!
@@ -133,6 +134,6 @@ export function highlight(app: HTMLElement, matchItem: MatchItem, type: number, 
         const uid = Date.now() + ''
         list.forEach(token => wrap({ ...token, uid, type, }, handle))
         update(app, matchItem)
-        window.getSelection()!.removeAllRanges()
+        getSelection()!.removeAllRanges()
     }
 }
