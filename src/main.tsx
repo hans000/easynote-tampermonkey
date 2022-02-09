@@ -5,7 +5,6 @@ import { RootElement } from './tools/const'
 import { matched } from './core/base/config'
 import { Beautify } from './core/beautify'
 import { createDivNode } from './tools'
-import './style.less'
 
 GM_addStyle(GM_getResourceText('style'))
 

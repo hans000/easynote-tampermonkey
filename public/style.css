@@ -1,23 +1,22 @@
-ea-app {
-  display: none;
-  background-color: #f6f6f6;    
+#ea-app {
+  background-color: #f6f6f6;
 }
-ea-app ea-mark[type="0"] {
-  background-color: #fff066;    
+#ea-app ea-mark[type="0"] {
+  background-color: #fff066;
 }
-ea-app ea-mark[type="1"] {
-  background-color: #7df066;    
+#ea-app ea-mark[type="1"] {
+  background-color: #7df066;
 }
-ea-app ea-mark[type="2"] {
-  background-color: #74eaff;    
+#ea-app ea-mark[type="2"] {
+  background-color: #74eaff;
 }
-ea-app ea-mark[type="3"] {
-  background-color: #f799d1;    
+#ea-app ea-mark[type="3"] {
+  background-color: #f799d1;
 }
-ea-app ea-mark[type="4"] {
+#ea-app ea-mark[type="4"] {
   background-color: #eb4949;
 }
-ea-app .ea-article-body {
+#ea-main {
   max-width: 860px;
   margin: 0 auto;
   padding: 30px;
@@ -29,48 +28,48 @@ ea-app .ea-article-body {
   line-height: 1.6;
   background-color: #fff;
 }
-ea-app .ea-article-body.ea-content-fixed--left {
+#ea-main.ea-content-fixed--left {
   margin-left: calc(50% - 1170px / 2 + 250px);
 }
 @media only screen and (max-width: 1110px) {
-  ea-app .ea-article-body.ea-content-fixed--left {
+  #ea-main.ea-content-fixed--left {
     margin-left: 250px;
   }
 }
 @media print {
-  ea-app .ea-article-body.ea-content-fixed--left {
+  #ea-main.ea-content-fixed--left {
     margin: 0 auto;
   }
 }
-ea-app .ea-article-body.ea-content-fixed--right {
+#ea-main.ea-content-fixed--right {
   margin-left: calc(50% - 1170px / 2);
 }
 @media only screen and (max-width: 1110px) {
-  ea-app .ea-article-body.ea-content-fixed--right {
+  #ea-main.ea-content-fixed--right {
     margin-right: 250px;
     margin-left: 0;
   }
 }
 @media print {
-  ea-app .ea-article-body.ea-content-fixed--right {
+  #ea-main.ea-content-fixed--right {
     margin: 0 auto;
   }
 }
-ea-app .ea-article-body .ea-content {
+#ea-main .ea-content {
   font-size: 0.9em;
 }
-ea-app .ea-article-body .ea-content dt {
+#ea-main .ea-content dt {
   margin-bottom: 8px;
   font-size: 1.75em;
   font-weight: bold;
 }
-ea-app .ea-article-body .ea-content dd.h2 {
+#ea-main .ea-content dd.h2 {
   margin-left: 24px;
 }
-ea-app .ea-article-body .ea-content dd.h3 {
+#ea-main .ea-content dd.h3 {
   margin-left: 48px;
 }
-ea-app .ea-article-body .ea-content dd.h4 {
+#ea-main .ea-content dd.h4 {
   margin-left: 72px;
 }
 @media only screen and (min-width: 1400px) {
@@ -83,22 +82,22 @@ ea-app .ea-article-body .ea-content dd.h4 {
     max-width: 1200px;
   }
 }
-ea-app .ea-article-body :root {
+#ea-main :root {
   --side-bar-bg-color: #fafafa;
   --control-text-color: #777;
 }
-ea-app .ea-article-body img {
+#ea-main img {
   max-width: 100%;
 }
-ea-app .ea-article-body a {
+#ea-main a {
   color: #4183C4;
 }
-ea-app .ea-article-body h1,
-ea-app .ea-article-body h2,
-ea-app .ea-article-body h3,
-ea-app .ea-article-body h4,
-ea-app .ea-article-body h5,
-ea-app .ea-article-body h6 {
+#ea-main h1,
+#ea-main h2,
+#ea-main h3,
+#ea-main h4,
+#ea-main h5,
+#ea-main h6 {
   position: relative;
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -106,92 +105,92 @@ ea-app .ea-article-body h6 {
   line-height: 1.4;
   cursor: text;
 }
-ea-app .ea-article-body h1 {
+#ea-main h1 {
   padding-bottom: 16px;
   color: inherit;
   text-indent: inherit;
 }
-ea-app .ea-article-body h2 {
+#ea-main h2 {
   padding-bottom: 8px;
 }
-ea-app .ea-article-body h1:hover a.anchor,
-ea-app .ea-article-body h2:hover a.anchor,
-ea-app .ea-article-body h3:hover a.anchor,
-ea-app .ea-article-body h4:hover a.anchor,
-ea-app .ea-article-body h5:hover a.anchor,
-ea-app .ea-article-body h6:hover a.anchor {
+#ea-main h1:hover a.anchor,
+#ea-main h2:hover a.anchor,
+#ea-main h3:hover a.anchor,
+#ea-main h4:hover a.anchor,
+#ea-main h5:hover a.anchor,
+#ea-main h6:hover a.anchor {
   text-decoration: none;
 }
-ea-app .ea-article-body h1 tt,
-ea-app .ea-article-body h1 code {
+#ea-main h1 tt,
+#ea-main h1 code {
   font-size: inherit;
 }
-ea-app .ea-article-body h2 tt,
-ea-app .ea-article-body h2 code {
+#ea-main h2 tt,
+#ea-main h2 code {
   font-size: inherit;
 }
-ea-app .ea-article-body h3 tt,
-ea-app .ea-article-body h3 code {
+#ea-main h3 tt,
+#ea-main h3 code {
   font-size: inherit;
 }
-ea-app .ea-article-body h4 tt,
-ea-app .ea-article-body h4 code {
+#ea-main h4 tt,
+#ea-main h4 code {
   font-size: inherit;
 }
-ea-app .ea-article-body h5 tt,
-ea-app .ea-article-body h5 code {
+#ea-main h5 tt,
+#ea-main h5 code {
   font-size: inherit;
 }
-ea-app .ea-article-body h6 tt,
-ea-app .ea-article-body h6 code {
+#ea-main h6 tt,
+#ea-main h6 code {
   font-size: inherit;
 }
-ea-app .ea-article-body h1 {
+#ea-main h1 {
   font-size: 2.25em;
   line-height: 1.2;
   border-bottom: 1px solid #eee;
 }
-ea-app .ea-article-body h2 {
+#ea-main h2 {
   font-size: 1.75em;
   line-height: 1.225;
   border-bottom: 1px solid #eee;
 }
-ea-app .ea-article-body h3 {
+#ea-main h3 {
   font-size: 1.5em;
   line-height: 1.43;
 }
-ea-app .ea-article-body h4 {
+#ea-main h4 {
   font-size: 1.25em;
 }
-ea-app .ea-article-body h5 {
+#ea-main h5 {
   font-size: 1em;
 }
-ea-app .ea-article-body h6 {
+#ea-main h6 {
   font-size: 1em;
   color: #777;
 }
-ea-app .ea-article-body p,
-ea-app .ea-article-body blockquote,
-ea-app .ea-article-body ul,
-ea-app .ea-article-body ol,
-ea-app .ea-article-body dl,
-ea-app .ea-article-body table {
+#ea-main p,
+#ea-main blockquote,
+#ea-main ul,
+#ea-main ol,
+#ea-main dl,
+#ea-main table {
   margin: 0.8em 0;
 }
-ea-app .ea-article-body li,
-ea-app .ea-article-body ol,
-ea-app .ea-article-body dl {
+#ea-main li,
+#ea-main ol,
+#ea-main dl {
   list-style: initial;
 }
-ea-app .ea-article-body li > ol,
-ea-app .ea-article-body li > ul {
+#ea-main li > ol,
+#ea-main li > ul {
   margin: 0 0;
 }
-ea-app .ea-article-body > ul:first-child,
-ea-app .ea-article-body > ol:first-child {
+#ea-main > ul:first-child,
+#ea-main > ol:first-child {
   margin-top: 30px;
 }
-ea-app .ea-article-body hr {
+#ea-main hr {
   height: 2px;
   padding: 0;
   margin: 16px 0;
@@ -200,64 +199,64 @@ ea-app .ea-article-body hr {
   overflow: hidden;
   box-sizing: content-box;
 }
-ea-app .ea-article-body li p.first {
+#ea-main li p.first {
   display: inline-block;
 }
-ea-app .ea-article-body ul,
-ea-app .ea-article-body ol {
+#ea-main ul,
+#ea-main ol {
   padding-left: 30px;
 }
-ea-app .ea-article-body ul:first-child,
-ea-app .ea-article-body ol:first-child {
+#ea-main ul:first-child,
+#ea-main ol:first-child {
   margin-top: 0;
 }
-ea-app .ea-article-body ul:last-child,
-ea-app .ea-article-body ol:last-child {
+#ea-main ul:last-child,
+#ea-main ol:last-child {
   margin-bottom: 0;
 }
-ea-app .ea-article-body blockquote {
+#ea-main blockquote {
   border-left: 4px solid #dfe2e5;
   padding: 0 15px;
   color: #777777;
 }
-ea-app .ea-article-body blockquote blockquote {
+#ea-main blockquote blockquote {
   padding-right: 0;
 }
-ea-app .ea-article-body table {
+#ea-main table {
   padding: 0;
   word-break: initial;
 }
-ea-app .ea-article-body table tr {
+#ea-main table tr {
   border: 1px solid #dfe2e5;
   margin: 0;
   padding: 0;
 }
-ea-app .ea-article-body table tr:nth-child(2n),
-ea-app .ea-article-body thead {
+#ea-main table tr:nth-child(2n),
+#ea-main thead {
   background-color: #f8f8f8;
 }
-ea-app .ea-article-body table th {
+#ea-main table th {
   font-weight: bold;
   border: 1px solid #dfe2e5;
   border-bottom: 0;
   margin: 0;
   padding: 6px 13px;
 }
-ea-app .ea-article-body table td {
+#ea-main table td {
   border: 1px solid #dfe2e5;
   margin: 0;
   padding: 6px 13px;
 }
-ea-app .ea-article-body table th:first-child,
-ea-app .ea-article-body table td:first-child {
+#ea-main table th:first-child,
+#ea-main table td:first-child {
   margin-top: 0;
 }
-ea-app .ea-article-body table th:last-child,
-ea-app .ea-article-body table td:last-child {
+#ea-main table th:last-child,
+#ea-main table td:last-child {
   margin-bottom: 0;
 }
-ea-app .ea-article-body code,
-ea-app .ea-article-body tt {
+#ea-main code,
+#ea-main tt {
   border: 1px solid #e7eaed;
   background-color: #f8f8f8;
   border-radius: 3px;
@@ -265,12 +264,12 @@ ea-app .ea-article-body tt {
   padding: 2px 4px 0px 4px;
   font-size: 0.9em;
 }
-ea-app .ea-article-body code {
+#ea-main code {
   background-color: #f3f4f4;
   padding: 0 2px;
   margin: 0 2px;
 }
-ea-app .ea-article-body pre {
+#ea-main pre {
   padding: 8px;
   background-color: #f6f6f6;
   border-radius: 4px;
@@ -278,15 +277,13 @@ ea-app .ea-article-body pre {
   font-size: 0.9em;
   overflow: auto;
 }
-ea-app .ea-article-body pre::-webkit-scrollbar {
+#ea-main pre::-webkit-scrollbar {
   width: 4px;
   height: 4px;
-  /* background-color: #dfdfdf; */
 }
-ea-app .ea-article-body pre::-webkit-scrollbar-thumb {
+#ea-main pre::-webkit-scrollbar-thumb {
   background-color: #c8c8c8;
 }
-
 @media print {
   @page {
     size: A4 portrait;
