@@ -20,10 +20,10 @@ export function Content(props: IProps) {
 
     return (
         <aside className={clsx({
-            content: true,
-            'content__fixed': state.contentFixed,
-            'content__fixed--left': isLeft,
-            'content__fixed--right': !isLeft,
+            'ea-content': true,
+            'ea-content__fixed': state.contentFixed,
+            'ea-content__fixed--left': isLeft,
+            'ea-content__fixed--right': !isLeft,
         })}>
             <dl>
                 <dt>

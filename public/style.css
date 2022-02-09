@@ -1,23 +1,23 @@
 easynote-app {
   display: none;
-  background-color: #f6f6f6;
+  background-color: #f6f6f6;    
 }
-easynote-app easynote-mark[type="0"] {
-  background-color: #fff066;
+easynote-app ea-mark[type="0"] {
+  background-color: #fff066;    
 }
-easynote-app easynote-mark[type="1"] {
-  background-color: #7df066;
+easynote-app ea-mark[type="1"] {
+  background-color: #7df066;    
 }
-easynote-app easynote-mark[type="2"] {
-  background-color: #74eaff;
+easynote-app ea-mark[type="2"] {
+  background-color: #74eaff;    
 }
-easynote-app easynote-mark[type="3"] {
-  background-color: #f799d1;
+easynote-app ea-mark[type="3"] {
+  background-color: #f799d1;    
 }
-easynote-app easynote-mark[type="4"] {
+easynote-app ea-mark[type="4"] {
   background-color: #eb4949;
 }
-easynote-app .article-body {
+easynote-app .ea-article-body {
   max-width: 860px;
   margin: 0 auto;
   padding: 30px;
@@ -29,48 +29,48 @@ easynote-app .article-body {
   line-height: 1.6;
   background-color: #fff;
 }
-easynote-app .article-body.content-fixed--left {
+easynote-app .ea-article-body.ea-content-fixed--left {
   margin-left: calc(50% - 1170px / 2 + 250px);
 }
 @media only screen and (max-width: 1110px) {
-  easynote-app .article-body.content-fixed--left {
+  easynote-app .ea-article-body.ea-content-fixed--left {
     margin-left: 250px;
   }
 }
 @media print {
-  easynote-app .article-body.content-fixed--left {
+  easynote-app .ea-article-body.ea-content-fixed--left {
     margin: 0 auto;
   }
 }
-easynote-app .article-body.content-fixed--right {
+easynote-app .ea-article-body.ea-content-fixed--right {
   margin-left: calc(50% - 1170px / 2);
 }
 @media only screen and (max-width: 1110px) {
-  easynote-app .article-body.content-fixed--right {
+  easynote-app .ea-article-body.ea-content-fixed--right {
     margin-right: 250px;
     margin-left: 0;
   }
 }
 @media print {
-  easynote-app .article-body.content-fixed--right {
+  easynote-app .ea-article-body.ea-content-fixed--right {
     margin: 0 auto;
   }
 }
-easynote-app .article-body .content {
+easynote-app .ea-article-body .ea-content {
   font-size: 0.9em;
 }
-easynote-app .article-body .content dt {
+easynote-app .ea-article-body .ea-content dt {
   margin-bottom: 8px;
   font-size: 1.75em;
   font-weight: bold;
 }
-easynote-app .article-body .content dd.h2 {
+easynote-app .ea-article-body .ea-content dd.h2 {
   margin-left: 24px;
 }
-easynote-app .article-body .content dd.h3 {
+easynote-app .ea-article-body .ea-content dd.h3 {
   margin-left: 48px;
 }
-easynote-app .article-body .content dd.h4 {
+easynote-app .ea-article-body .ea-content dd.h4 {
   margin-left: 72px;
 }
 @media only screen and (min-width: 1400px) {
@@ -83,22 +83,22 @@ easynote-app .article-body .content dd.h4 {
     max-width: 1200px;
   }
 }
-easynote-app .article-body :root {
+easynote-app .ea-article-body :root {
   --side-bar-bg-color: #fafafa;
   --control-text-color: #777;
 }
-easynote-app .article-body img {
+easynote-app .ea-article-body img {
   max-width: 100%;
 }
-easynote-app .article-body a {
+easynote-app .ea-article-body a {
   color: #4183C4;
 }
-easynote-app .article-body h1,
-easynote-app .article-body h2,
-easynote-app .article-body h3,
-easynote-app .article-body h4,
-easynote-app .article-body h5,
-easynote-app .article-body h6 {
+easynote-app .ea-article-body h1,
+easynote-app .ea-article-body h2,
+easynote-app .ea-article-body h3,
+easynote-app .ea-article-body h4,
+easynote-app .ea-article-body h5,
+easynote-app .ea-article-body h6 {
   position: relative;
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -106,90 +106,92 @@ easynote-app .article-body h6 {
   line-height: 1.4;
   cursor: text;
 }
-easynote-app .article-body h1 {
+easynote-app .ea-article-body h1 {
   padding-bottom: 16px;
+  color: inherit;
+  text-indent: inherit;
 }
-easynote-app .article-body h2 {
+easynote-app .ea-article-body h2 {
   padding-bottom: 8px;
 }
-easynote-app .article-body h1:hover a.anchor,
-easynote-app .article-body h2:hover a.anchor,
-easynote-app .article-body h3:hover a.anchor,
-easynote-app .article-body h4:hover a.anchor,
-easynote-app .article-body h5:hover a.anchor,
-easynote-app .article-body h6:hover a.anchor {
+easynote-app .ea-article-body h1:hover a.anchor,
+easynote-app .ea-article-body h2:hover a.anchor,
+easynote-app .ea-article-body h3:hover a.anchor,
+easynote-app .ea-article-body h4:hover a.anchor,
+easynote-app .ea-article-body h5:hover a.anchor,
+easynote-app .ea-article-body h6:hover a.anchor {
   text-decoration: none;
 }
-easynote-app .article-body h1 tt,
-easynote-app .article-body h1 code {
+easynote-app .ea-article-body h1 tt,
+easynote-app .ea-article-body h1 code {
   font-size: inherit;
 }
-easynote-app .article-body h2 tt,
-easynote-app .article-body h2 code {
+easynote-app .ea-article-body h2 tt,
+easynote-app .ea-article-body h2 code {
   font-size: inherit;
 }
-easynote-app .article-body h3 tt,
-easynote-app .article-body h3 code {
+easynote-app .ea-article-body h3 tt,
+easynote-app .ea-article-body h3 code {
   font-size: inherit;
 }
-easynote-app .article-body h4 tt,
-easynote-app .article-body h4 code {
+easynote-app .ea-article-body h4 tt,
+easynote-app .ea-article-body h4 code {
   font-size: inherit;
 }
-easynote-app .article-body h5 tt,
-easynote-app .article-body h5 code {
+easynote-app .ea-article-body h5 tt,
+easynote-app .ea-article-body h5 code {
   font-size: inherit;
 }
-easynote-app .article-body h6 tt,
-easynote-app .article-body h6 code {
+easynote-app .ea-article-body h6 tt,
+easynote-app .ea-article-body h6 code {
   font-size: inherit;
 }
-easynote-app .article-body h1 {
+easynote-app .ea-article-body h1 {
   font-size: 2.25em;
   line-height: 1.2;
   border-bottom: 1px solid #eee;
 }
-easynote-app .article-body h2 {
+easynote-app .ea-article-body h2 {
   font-size: 1.75em;
   line-height: 1.225;
   border-bottom: 1px solid #eee;
 }
-easynote-app .article-body h3 {
+easynote-app .ea-article-body h3 {
   font-size: 1.5em;
   line-height: 1.43;
 }
-easynote-app .article-body h4 {
+easynote-app .ea-article-body h4 {
   font-size: 1.25em;
 }
-easynote-app .article-body h5 {
+easynote-app .ea-article-body h5 {
   font-size: 1em;
 }
-easynote-app .article-body h6 {
+easynote-app .ea-article-body h6 {
   font-size: 1em;
   color: #777;
 }
-easynote-app .article-body p,
-easynote-app .article-body blockquote,
-easynote-app .article-body ul,
-easynote-app .article-body ol,
-easynote-app .article-body dl,
-easynote-app .article-body table {
+easynote-app .ea-article-body p,
+easynote-app .ea-article-body blockquote,
+easynote-app .ea-article-body ul,
+easynote-app .ea-article-body ol,
+easynote-app .ea-article-body dl,
+easynote-app .ea-article-body table {
   margin: 0.8em 0;
 }
-easynote-app .article-body li,
-easynote-app .article-body ol,
-easynote-app .article-body dl {
+easynote-app .ea-article-body li,
+easynote-app .ea-article-body ol,
+easynote-app .ea-article-body dl {
   list-style: initial;
 }
-easynote-app .article-body li > ol,
-easynote-app .article-body li > ul {
+easynote-app .ea-article-body li > ol,
+easynote-app .ea-article-body li > ul {
   margin: 0 0;
 }
-easynote-app .article-body > ul:first-child,
-easynote-app .article-body > ol:first-child {
+easynote-app .ea-article-body > ul:first-child,
+easynote-app .ea-article-body > ol:first-child {
   margin-top: 30px;
 }
-easynote-app .article-body hr {
+easynote-app .ea-article-body hr {
   height: 2px;
   padding: 0;
   margin: 16px 0;
@@ -198,64 +200,64 @@ easynote-app .article-body hr {
   overflow: hidden;
   box-sizing: content-box;
 }
-easynote-app .article-body li p.first {
+easynote-app .ea-article-body li p.first {
   display: inline-block;
 }
-easynote-app .article-body ul,
-easynote-app .article-body ol {
+easynote-app .ea-article-body ul,
+easynote-app .ea-article-body ol {
   padding-left: 30px;
 }
-easynote-app .article-body ul:first-child,
-easynote-app .article-body ol:first-child {
+easynote-app .ea-article-body ul:first-child,
+easynote-app .ea-article-body ol:first-child {
   margin-top: 0;
 }
-easynote-app .article-body ul:last-child,
-easynote-app .article-body ol:last-child {
+easynote-app .ea-article-body ul:last-child,
+easynote-app .ea-article-body ol:last-child {
   margin-bottom: 0;
 }
-easynote-app .article-body blockquote {
+easynote-app .ea-article-body blockquote {
   border-left: 4px solid #dfe2e5;
   padding: 0 15px;
   color: #777777;
 }
-easynote-app .article-body blockquote blockquote {
+easynote-app .ea-article-body blockquote blockquote {
   padding-right: 0;
 }
-easynote-app .article-body table {
+easynote-app .ea-article-body table {
   padding: 0;
   word-break: initial;
 }
-easynote-app .article-body table tr {
+easynote-app .ea-article-body table tr {
   border: 1px solid #dfe2e5;
   margin: 0;
   padding: 0;
 }
-easynote-app .article-body table tr:nth-child(2n),
-easynote-app .article-body thead {
+easynote-app .ea-article-body table tr:nth-child(2n),
+easynote-app .ea-article-body thead {
   background-color: #f8f8f8;
 }
-easynote-app .article-body table th {
+easynote-app .ea-article-body table th {
   font-weight: bold;
   border: 1px solid #dfe2e5;
   border-bottom: 0;
   margin: 0;
   padding: 6px 13px;
 }
-easynote-app .article-body table td {
+easynote-app .ea-article-body table td {
   border: 1px solid #dfe2e5;
   margin: 0;
   padding: 6px 13px;
 }
-easynote-app .article-body table th:first-child,
-easynote-app .article-body table td:first-child {
+easynote-app .ea-article-body table th:first-child,
+easynote-app .ea-article-body table td:first-child {
   margin-top: 0;
 }
-easynote-app .article-body table th:last-child,
-easynote-app .article-body table td:last-child {
+easynote-app .ea-article-body table th:last-child,
+easynote-app .ea-article-body table td:last-child {
   margin-bottom: 0;
 }
-easynote-app .article-body code,
-easynote-app .article-body tt {
+easynote-app .ea-article-body code,
+easynote-app .ea-article-body tt {
   border: 1px solid #e7eaed;
   background-color: #f8f8f8;
   border-radius: 3px;
@@ -263,19 +265,28 @@ easynote-app .article-body tt {
   padding: 2px 4px 0px 4px;
   font-size: 0.9em;
 }
-easynote-app .article-body code {
+easynote-app .ea-article-body code {
   background-color: #f3f4f4;
   padding: 0 2px;
   margin: 0 2px;
 }
-easynote-app .article-body pre {
+easynote-app .ea-article-body pre {
   padding: 8px;
   background-color: #f6f6f6;
   border-radius: 4px;
   font-family: consolas;
   font-size: 0.9em;
-  overflow-y: auto;
+  overflow: auto;
 }
+easynote-app .ea-article-body pre::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+  /* background-color: #dfdfdf; */
+}
+easynote-app .ea-article-body pre::-webkit-scrollbar-thumb {
+  background-color: #c8c8c8;
+}
+
 @media print {
   @page {
     size: A4 portrait;
@@ -287,7 +298,7 @@ easynote-app .article-body pre {
   easynote-app .article {
     font-size: 13px;
   }
-  easynote-app .content {
+  easynote-app .ea-content {
     page-break-after: always;
   }
   html {

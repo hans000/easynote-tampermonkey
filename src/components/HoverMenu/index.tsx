@@ -11,7 +11,7 @@ import './index.less'
 const colors = ['#fff066', '#7df066', '#74eaff', '#f799d1', '#eb4949']
 
 interface IProps {
-    onClick: (activeMarks: HTMLElement[], event: Event) => void
+    onClick: (activeMarks: HTMLElement[], event: MouseEvent) => void
 }
 
 export const HoverMenu = forwardRef((props: IProps, ref: Ref<HTMLDivElement>) => {

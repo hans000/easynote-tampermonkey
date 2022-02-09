@@ -1,7 +1,7 @@
 easynote-app {
     display: none;
     background-color: #f6f6f6;
-    easynote-mark {
+    ea-mark {
         &[type="0"] {
             background-color: #fff066;
         }
@@ -18,7 +18,7 @@ easynote-app {
             background-color: #eb4949;
         }
     }
-    .article-body {
+    .ea-article-body {
         max-width: 860px;
         margin: 0 auto;
         padding: 30px;
@@ -29,7 +29,7 @@ easynote-app {
         color: rgb(51, 51, 51);
         line-height: 1.6;
         background-color: #fff;
-        &.content-fixed {
+        &.ea-content-fixed {
             &--left {
                 margin-left: calc(50% - 1170px / 2 + 250px);
                 @media only screen and (max-width: 1110px) {
@@ -50,7 +50,7 @@ easynote-app {
                 }
             }
         }
-        .content {
+        .ea-content {
             font-size: .9em;
             dt {
                 margin-bottom: 8px;
@@ -84,7 +84,7 @@ easynote-app {
     }
 }
 
-easynote-app .article-body {
+easynote-app .ea-article-body {
     :root {
         --side-bar-bg-color: #fafafa;
         --control-text-color: #777;
@@ -111,6 +111,8 @@ easynote-app .article-body {
     }
     h1 {
         padding-bottom: 16px;
+        color: inherit;
+        text-indent: inherit;
     }
     h2 {
         padding-bottom: 8px;
@@ -283,7 +285,14 @@ easynote-app .article-body {
         border-radius: 4px;
         font-family: consolas;
         font-size: 0.9em;
-        overflow-y: auto;
+        overflow: auto;
+        &::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        &::-webkit-scrollbar-thumb {
+            background-color: #c8c8c8;
+        }
     }
 }
 
@@ -298,7 +307,7 @@ easynote-app .article-body {
     easynote-app .article {
         font-size: 13px;
     }
-    easynote-app .content {
+    easynote-app .ea-content {
         page-break-after: always;
     }
 

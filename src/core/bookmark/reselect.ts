@@ -99,7 +99,7 @@ export function update(app: HTMLElement, matchItem: MatchItem) {
     }
 }
 
-export function initSelect(app: HTMLElement, matchItem: MatchItem, handle) {
+export function initSelect(app: HTMLElement, matchItem: MatchItem, handle: any) {
     try {
         const obj: Record<string, Info[]> = JSON.parse(localStorage.getItem(StoreKey)!) ?? {}
         const aid = matchItem.aid

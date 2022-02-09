@@ -1,20 +1,23 @@
 [
     {
-        "pattern": "^https://zhuanlan.zhihu.com/p/(\\d+)",
-        "selector": "article.Post-Main"
+        "pattern": "^https://www.runoob.com/react/(.+)\\.html",
+        "body": ".article-intro",
+        "title": ".article-intro > h1"
+    },
+    {
+        "pattern": "^https://segmentfault.com/a/(\\d+)",
+        "body": "article.article-content",
+        "title": ".card-body > h1.article-title"
     },
     {
         "pattern": "^https://juejin.cn/post/(\\d+)",
-        "selector": "article.article",
-        "config": {
-            "tasks": [
-                { "type": "drop", "selectors": [".tag-list-box", ".author-info-block", ".column-container", ".extension-banner"] }
-            ]
-        }
+        "title": "h1.article-title",
+        "body": ".markdown-body"
     },
     {
         "pattern": "^https://blog.csdn.net/(?:.+)/article/details/(\\d+)",
-        "selector": ".blog-content-box",
+        "title": "h1.title-article",
+        "body": ".article_content",
         "config": {
             "skip": {
                 "pre": {
@@ -22,14 +25,12 @@
                     "wrap": [".hljs-ln-line", "br"],
                     "text": ["span"]
                 }
-            },
-            "tasks": [
-                { "type": "drop", "selectors": [".article-info-box", ".recommendDown"] }
-            ]
+            }
         }
     },
     {
         "pattern": "^https://www.cnblogs.com/(?:.+)/p/(\\d+)",
-        "selector": "#topics"
+        "title": ".postTitle",
+        "body": ".blogpost-body"
     }
 ]

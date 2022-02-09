@@ -4,7 +4,7 @@ export const AppElement = 'easynote-app'
 
 export const ButtonElement = 'easynote-btn'
 
-export const MarkElement = 'easynote-mark'
+export const MarkElement = 'ea-mark'
 
 export const HoverElement = 'easynote-hover'
 

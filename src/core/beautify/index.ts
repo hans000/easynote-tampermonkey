@@ -12,7 +12,8 @@ export class Beautify {
     private root: HTMLElement
     private matchItem: MatchItem
     private cacheNodeList: HTMLElement[] = []
-    private title = ''
+    private title: string
+    private titleNode: HTMLElement
 
     constructor(root: HTMLElement, app: HTMLElement, matchItem: MatchItem) {
         this.root = root
@@ -29,9 +30,12 @@ export class Beautify {
         Array.from(node.children).forEach(child => {
             const tagName = getTagName(child)
 
-            if (tagName === 'h1' && !this.title) {
-                this.title = child.textContent
-                child.remove()
+            if (tagName === 'h1') {
+                if (this.titleNode && this.titleNode.textContent === child.textContent ||
+                    !this.title) {
+                    this.title = child.textContent
+                    child.remove()
+                }
             }
 
             if (isHeadNode(tagName)) {
@@ -46,10 +50,6 @@ export class Beautify {
                 index++
             }
         })
-
-        if (! this.title) {
-            this.title = document.title.slice(0, document.title.lastIndexOf('-'))
-        }
 
         return data
     }
@@ -74,11 +74,12 @@ export class Beautify {
     
         if (mountNode.children.length) {
             this.hiddenBodyAndChildren()
-            this.app.classList.remove('hidden')
+            this.app.classList.remove('ea-hidden')
             return
         }
     
-        const originNode = document.querySelector(this.matchItem.selector ?? '')
+        const originNode = document.querySelector(this.matchItem.body)
+        this.titleNode = document.querySelector(this.matchItem.title)
         if (! originNode) {
             return
         }
@@ -87,8 +88,12 @@ export class Beautify {
         const simplify = new Simplify(this.matchItem.config)
         mountNode.appendChild(simplify.exec(originNode as unknown as HTMLElement))
         ref.createContent(this.getContentData(mountNode))
-        ref.title.textContent = this.title
+        ref.title.textContent = this.getTitle()
         this.app.style.display = 'block'
+    }
+
+    private getTitle() {
+        return this.title ? this.title : document.title
     }
     
     public restore() {
@@ -101,7 +106,7 @@ export class Beautify {
         this.cacheNodeList.forEach(node => fragment.appendChild(node))
         this.cacheNodeList = []
         body.insertBefore(fragment, this.root)
-        this.app.classList.add('hidden')
+        this.app.classList.add('ea-hidden')
         this.root.classList.remove('active')
     }
 } 

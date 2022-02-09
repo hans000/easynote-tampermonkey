@@ -34,10 +34,10 @@ export const MainNote = forwardRef((props, ref: Ref<MainNoteRef>) => {
     return (
         <div class={
             clsx({
-                'article-body': true,
-                'content-fixed': state.contentFixed,
-                'content-fixed--left': state.contentPos === 'left',
-                'content-fixed--right': state.contentPos === 'right',
+                'ea-article-body': true,
+                'ea-content-fixed': state.contentFixed,
+                'ea-content-fixed--left': state.contentPos === 'left',
+                'ea-content-fixed--right': state.contentPos === 'right',
             })
         }>
             <h1 ref={titleRef} class="title"></h1>

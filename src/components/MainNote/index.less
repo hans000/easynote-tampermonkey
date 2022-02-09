@@ -1,4 +1,4 @@
-easynote-app .content {
+easynote-app .ea-content {
     float: initial;
     &__fixed {
         z-index: 99999999;
@@ -47,7 +47,11 @@ easynote-app .content {
     }
     &::-webkit-scrollbar {
         width : 4px;
-        // height: 4px;
+        height: 4px;
+        background-color: #F5F5F5;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: #c8c8c8;
     }
     .easynote-content__btn {
         font-size: .8em;

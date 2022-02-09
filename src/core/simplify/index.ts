@@ -11,7 +11,7 @@ export interface SimplifyConfig {
 
 export class Simplify {
     private static defaultConfig: SimplifyConfig = {
-        drop: ['meta', 'script', 'button', 'style', 'head', 'svg', 'noscript', 'link', 'form', 'canvas'],
+        drop: ['meta', 'script', 'button', 'style', 'head', 'svg', 'noscript', 'link', 'form', 'canvas', 'hr'],
         skip: {
             pre: {
                 wrap: ['br'],
@@ -74,10 +74,10 @@ export class Simplify {
     private static handlePreNode(node: HTMLElement, config: any): string {
         function handle(node: HTMLElement): string {
             if (node.nodeType === 3) return node.textContent ?? ''
-            if (config.drop.some(item => Simplify.matchNode(node, item))) return ''
+            if (config.drop.some((item: string) => Simplify.matchNode(node, item))) return ''
     
             let text = Array.from(node.childNodes).map(child => handle(child as HTMLElement)).join('')
-            text += (config.wrap.some(item => Simplify.matchNode(node, item)) ? '\n' : '')
+            text += (config.wrap.some((item: string) => Simplify.matchNode(node, item)) ? '\n' : '')
             return text
         }
     
@@ -128,9 +128,9 @@ export class Simplify {
             const query = queryAll ? node.querySelectorAll.bind(node) : node.querySelector.bind(node)
             if (type === 'drop') {
                 selectors.forEach(selector => {
-                    let nodeList = query(selector)
-                    nodeList = queryAll ? nodeList : nodeList ? [nodeList] : []
-                    nodeList.forEach(node => node.remove())
+                    const nodeList = query(selector)
+                    const newNodeList = queryAll ? nodeList : nodeList ? [nodeList] : []
+                    ;(newNodeList as Element[]).forEach(node => node.remove())
                 })
             }
         }

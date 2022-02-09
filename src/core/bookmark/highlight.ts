@@ -57,7 +57,7 @@ export function walk() {
     }
 }
 
-export function wrap(token: MarkToken, handle?) {
+export function wrap(token: MarkToken, handle?: any) {
     const { start, end, node, uid, type } = token
     const parent = node.parentNode!
 
