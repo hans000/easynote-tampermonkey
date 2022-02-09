@@ -12,6 +12,11 @@ export const getTagName = (node: Element) => node.tagName.toLowerCase()
 export const createFragment = () => document.createDocumentFragment()
 export const createTextNode = (text: string) => document.createTextNode(text)
 
+export function createDivNode(id: string) {
+    const node = document.createElement('div')
+    node.id = id
+    return node
+}
 
 export function isObject(value: any) {
     const type = typeof value

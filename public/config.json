@@ -1,6 +1,6 @@
 [
     {
-        "pattern": "^https://www.runoob.com/react/(.+)\\.html",
+        "pattern": "^https://www.runoob.com/(?:.+)/(.+)\\.html",
         "body": ".article-intro",
         "title": ".article-intro > h1"
     },

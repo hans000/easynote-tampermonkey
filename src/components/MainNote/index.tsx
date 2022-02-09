@@ -32,17 +32,18 @@ export const MainNote = forwardRef((props, ref: Ref<MainNoteRef>) => {
     );
     
     return (
-        <div class={
-            clsx({
-                'ea-article-body': true,
-                'ea-content-fixed': state.contentFixed,
-                'ea-content-fixed--left': state.contentPos === 'left',
-                'ea-content-fixed--right': state.contentPos === 'right',
-            })
-        }>
-            <h1 ref={titleRef} class="title"></h1>
-            { !!contentData.length && <Content data={contentData} />}
-            <article ref={articleRef}></article>
+        <div className="ea-app">
+            <div id="ea-main" class={
+                clsx({
+                    'ea-content-fixed': state.contentFixed,
+                    'ea-content-fixed--left': state.contentPos === 'left',
+                    'ea-content-fixed--right': state.contentPos === 'right',
+                })
+            }>
+                <h1 ref={titleRef} class="title"></h1>
+                { !!contentData.length && <Content data={contentData} />}
+                <article ref={articleRef}></article>
+            </div>
         </div>
     )
 })

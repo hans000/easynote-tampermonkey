@@ -1,11 +1,11 @@
 import { HoverMenu } from "../components/HoverMenu";
 import { CtrlPanel } from "../components/CtrlPanel";
-import { createContext, createPortal, useEffect, useReducer, useRef, useState } from 'preact/compat'
+import { createContext, useEffect, useReducer, useRef } from 'preact/compat'
 import { hasSelected } from "../tools";
 import { MainNote, MainNoteRef } from "../components/MainNote";
 import { GlobalVar } from "../main";
-import './app.less'
 import { initSelect } from "../core/bookmark/reselect";
+import { Beautify } from "../core/beautify";
 
 type ActionType =
     | 'UpdateColorType'
@@ -51,13 +51,19 @@ export function App() {
         contentPos: undefined,
     })
     const hoverRef = useRef<HTMLDivElement>()
+    const appRef = useRef<HTMLDivElement>()
     const mainRef = useRef<MainNoteRef>()
     const firstRef = useRef(true)
 
     useEffect(
         () => {
+            const root = GlobalVar.RootElement
             const hover = hoverRef.current
-            GlobalVar.AppElement.querySelector('article').addEventListener('mouseup', (event) => {
+            const app = GlobalVar.AppElement = appRef.current
+
+            GlobalVar.Beautify = new Beautify(root, app, GlobalVar.matchItem)
+
+            app.querySelector('article').addEventListener('mouseup', (event) => {
                 event.preventDefault()
                 if (GlobalVar.running && hasSelected()) {
                     dispatch({ type: 'UpdateActiveMarks' })
@@ -67,6 +73,7 @@ export function App() {
                     hover.style.top = event.clientY + 'px'
                 }
             })
+            
             window.addEventListener('click', () => {
                 if (!GlobalVar.running || !hasSelected()) {
                     dispatch({ type: 'UpdateActiveMarks' })
@@ -87,18 +94,22 @@ export function App() {
 
     return (
         <AppContext.Provider value={{ state, dispatch }}>
-            <HoverMenu onClick={handle} ref={hoverRef} />
-            <CtrlPanel onClick={() => {
-                const beautify = GlobalVar.Beautify
-                GlobalVar.running ? beautify.restore() : beautify.run(mainRef.current)
-                GlobalVar.running = !GlobalVar.running
+            <div ref={appRef} id="ea-app">
+                <MainNote ref={mainRef} />
+            </div>
+            <div id='ea-ctrl'>
+                <HoverMenu onClick={handle} ref={hoverRef} />
+                <CtrlPanel onClick={() => {
+                    const beautify = GlobalVar.Beautify
+                    GlobalVar.running ? beautify.restore() : beautify.run(mainRef.current)
+                    GlobalVar.running = !GlobalVar.running
 
-                if (firstRef.current) {
-                    firstRef.current = false
-                    initSelect(GlobalVar.AppElement, GlobalVar.matchItem, handle)
-                }
-            }} />
-            { createPortal(<MainNote ref={mainRef} />, GlobalVar.AppElement) }
+                    if (firstRef.current) {
+                        firstRef.current = false
+                        initSelect(GlobalVar.AppElement, GlobalVar.matchItem, handle)
+                    }
+                }} />
+            </div>
         </AppContext.Provider>
     )
 }

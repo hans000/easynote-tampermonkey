@@ -1,8 +1,36 @@
-easynote {
+#easynote {
+    position: relative;
+    height: 0;
+}
+
+#ea-app {
+    display: none;
+}
+
+#ea-ctrl {
     position: fixed;
-    z-index: 999999999;
+    z-index: 999999;
     top: 0;
     &.active {
         background-color: #fff;
+    }
+}
+
+.ea-hidden {
+    display:block;
+    opacity:0;
+    height:0;
+    min-height:0;
+    width: 0;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    overflow:hidden;
+    transform: scale(0);
+}
+
+.noprint {
+    @media print {
+        display: none;
     }
 }

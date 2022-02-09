@@ -1,5 +1,4 @@
-easynote-app {
-    display: none;
+#ea-app {
     background-color: #f6f6f6;
     ea-mark {
         &[type="0"] {
@@ -18,55 +17,55 @@ easynote-app {
             background-color: #eb4949;
         }
     }
-    .ea-article-body {
-        max-width: 860px;
-        margin: 0 auto;
-        padding: 30px;
-        padding-bottom: 100px;
-        font-size: 16px;
-        -webkit-font-smoothing: antialiased;
-        font-family: "Open Sans","Clear Sans", "Helvetica Neue", Helvetica, Arial, 'Segoe UI Emoji', sans-serif;
-        color: rgb(51, 51, 51);
-        line-height: 1.6;
-        background-color: #fff;
-        &.ea-content-fixed {
-            &--left {
-                margin-left: calc(50% - 1170px / 2 + 250px);
-                @media only screen and (max-width: 1110px) {
-                    margin-left: 250px;
-                }
-                @media print {
-                    margin: 0 auto;
-                }
+}
+#ea-main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 30px;
+    padding-bottom: 100px;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    font-family: "Open Sans","Clear Sans", "Helvetica Neue", Helvetica, Arial, 'Segoe UI Emoji', sans-serif;
+    color: rgb(51, 51, 51);
+    line-height: 1.6;
+    background-color: #fff;
+    &.ea-content-fixed {
+        &--left {
+            margin-left: calc(50% - 1170px / 2 + 250px);
+            @media only screen and (max-width: 1110px) {
+                margin-left: 250px;
             }
-            &--right {
-                margin-left: calc(50% - 1170px / 2);
-                @media only screen and (max-width: 1110px) {
-                    margin-right: 250px;
-                    margin-left: 0;
-                }
-                @media print {
-                    margin: 0 auto;
-                }
+            @media print {
+                margin: 0 auto;
             }
         }
-        .ea-content {
-            font-size: .9em;
-            dt {
-                margin-bottom: 8px;
-                font-size: 1.75em;
-                font-weight: bold;
+        &--right {
+            margin-left: calc(50% - 1170px / 2);
+            @media only screen and (max-width: 1110px) {
+                margin-right: 250px;
+                margin-left: 0;
             }
-            dd {
-                &.h2 {
-                    margin-left: 24px;
-                }
-                &.h3 {
-                    margin-left: 48px;
-                }
-                &.h4 {
-                    margin-left: 72px;
-                }
+            @media print {
+                margin: 0 auto;
+            }
+        }
+    }
+    .ea-content {
+        font-size: .9em;
+        dt {
+            margin-bottom: 8px;
+            font-size: 1.75em;
+            font-weight: bold;
+        }
+        dd {
+            &.h2 {
+                margin-left: 24px;
+            }
+            &.h3 {
+                margin-left: 48px;
+            }
+            &.h4 {
+                margin-left: 72px;
             }
         }
     }
@@ -84,7 +83,7 @@ easynote-app {
     }
 }
 
-easynote-app .ea-article-body {
+#ea-main {
     :root {
         --side-bar-bg-color: #fafafa;
         --control-text-color: #777;
@@ -300,14 +299,14 @@ easynote-app .ea-article-body {
     @page {
         size: A4 portrait;
     }
-    .easynote-hover,
-    .easynote-btn {
+    .ea-hover,
+    .ea-btn {
         display: none;
     }
-    easynote-app .article {
+    ea-app .article {
         font-size: 13px;
     }
-    easynote-app .ea-content {
+    ea-app .ea-content {
         page-break-after: always;
     }
 

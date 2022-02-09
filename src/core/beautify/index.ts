@@ -1,6 +1,5 @@
 import { Simplify } from './../simplify/index';
 import { getTagName } from './../../tools/index';
-import { AppElement } from './../../tools/const';
 import { MatchItem } from './../base/config';
 import { RootElement } from '../../tools/const';
 import { MainNoteRef } from '../../components/MainNote';
@@ -56,7 +55,7 @@ export class Beautify {
     
     private hiddenBodyAndChildren() {
         Array.from(document.body.children as any as HTMLElement[]).forEach((node) => {
-            if (! ['script', RootElement, AppElement].includes(getTagName(node))) {
+            if (node.id !== RootElement) {
                 this.cacheNodeList.push(document.body.removeChild(node))
             }
         })
