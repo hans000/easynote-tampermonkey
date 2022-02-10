@@ -73,8 +73,8 @@ export class Simplify {
     
     private static handlePreNode(node: HTMLElement, config: any): string {
         function handle(node: HTMLElement): string {
-            if (node.nodeType === 3) return node.textContent ?? ''
-            if (config.drop.some((item: string) => Simplify.matchNode(node, item))) return ''
+            if (isTextNode(node)) return node.textContent ?? ''
+            if (!isElementNode(node) || config.drop.some((item: string) => Simplify.matchNode(node, item))) return ''
     
             let text = Array.from(node.childNodes).map(child => handle(child as HTMLElement)).join('')
             text += (config.wrap.some((item: string) => Simplify.matchNode(node, item)) ? '\n' : '')
