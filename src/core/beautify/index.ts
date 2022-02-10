@@ -43,7 +43,7 @@ export class Beautify {
                 data.push({
                     text: child.textContent,
                     hash: '#' + index,
-                    class: tagName
+                    class: 'ea-' + tagName
                 })
 
                 index++
