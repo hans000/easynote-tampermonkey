@@ -21,7 +21,7 @@
         "config": {
             "skip": {
                 "pre": {
-                    "drop": [".hljs-ln-numbers"],
+                    "drop": [".hljs-ln-numbers", ".pre-numbering"],
                     "wrap": [".hljs-ln-line", "br"],
                     "text": ["span"]
                 }
