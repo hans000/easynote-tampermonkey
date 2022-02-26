@@ -1,22 +1,16 @@
-import { SimplifyConfig } from './../simplify/index';
+import { NormalConfigProps } from '../render';
 export interface ConfigProps {
     pattern: string
     body?: string
     title?: string
-    config?: SimplifyConfig
-}
-
-export interface TaskToken {
-    type: 'drop'
-    selectors: string[]
-    queryAll?: boolean
+    config?: NormalConfigProps
 }
 
 export interface MatchItem {
     aid: string
     body: string
     title: string
-    config?: SimplifyConfig
+    config?: NormalConfigProps
 }
 
 export function matched(url: string): MatchItem | undefined {

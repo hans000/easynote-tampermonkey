@@ -1,10 +1,10 @@
-import { Simplify } from './../simplify/index';
 import { getTagName } from './../../tools/index';
 import { MatchItem } from './../base/config';
 import { RootElement } from '../../tools/const';
 import { MainNoteRef } from '../../components/MainNote';
 import { ContentProps } from '../../components/MainNote/Content';
 import { createFragment } from '../../tools';
+import { simplify } from '../render';
 
 export class Beautify {
     private app: HTMLElement
@@ -84,8 +84,8 @@ export class Beautify {
         }
     
         this.hiddenBodyAndChildren()
-        const simplify = new Simplify(this.matchItem.config)
-        mountNode.appendChild(simplify.exec(originNode as unknown as HTMLElement))
+
+        mountNode.appendChild(simplify(originNode as unknown as HTMLElement, this.matchItem.config))
         ref.createContent(this.getContentData(mountNode))
         ref.title.textContent = this.getTitle()
         this.app.style.display = 'block'

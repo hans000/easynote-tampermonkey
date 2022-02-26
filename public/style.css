@@ -225,6 +225,7 @@
 #ea-main table {
   padding: 0;
   word-break: initial;
+  border-collapse: collapse;
 }
 #ea-main table tr {
   border: 1px solid #dfe2e5;
