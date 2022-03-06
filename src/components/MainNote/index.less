@@ -1,3 +1,22 @@
+.ea-comment {
+    text-align: right;
+    > div {
+        display: inline;
+        margin-left: 36px;
+        position: fixed;
+        width: 200px;
+        text-align: initial;
+        height: calc(100vh - 30px);
+        overflow-y: auto;
+        &::-webkit-scrollbar {
+            width: 0px;
+        }
+        &::-webkit-scrollbar-thumb {
+            background-color: #cecece;
+        }
+    }
+}
+
 #ea-app .ea-content {
     float: initial;
     &__fixed {

@@ -26,7 +26,7 @@ export function toCode(node: HTMLElement, conf: SkipConfigProps) {
     if (! nodes.length) {
         return {
             type: 'pre',
-            code: escape(node.textContent),
+            children: [ { text: node.textContent } ]
         }
     }
 
@@ -34,7 +34,7 @@ export function toCode(node: HTMLElement, conf: SkipConfigProps) {
 
     return {
         type: 'pre',
-        code: escape(text),
+        children: [ { text: text } ]
     }
 }
 

@@ -7,7 +7,6 @@ export interface VNode {
     text?: string
     src?: string
     href?: string
-    code?: string
 }
 
 export interface SkipConfigProps {
@@ -38,9 +37,9 @@ function createNode(props: VNode): HTMLElement {
         case 'a':
             (node as HTMLAnchorElement).href = props.href
             return node
-        case 'pre':
-            node.innerHTML = props.code
-            return node
+        // case 'pre':
+        //     node.textContent = props.children[0].text
+        //     return node
         default:
             return node;
     }
@@ -57,7 +56,17 @@ function render(props: VNode): HTMLElement {
 }
 
 const defaultConf: NormalConfigProps = {
-    drop: ['meta', 'script', 'button', 'style', 'head', 'svg', 'noscript', 'link', 'form', 'canvas', 'hr'],
+    /**
+     * del 删除线
+     * strong b em 粗体
+     * u 下划线
+     * sub 下
+     * sup 上
+     * i 斜体
+     */
+    drop: [
+        'meta', 'head', 'style', 'script', 'noscript', 'link', 'hr', 'br',
+        'label', 'button', 'svg', 'iframe', 'form', 'input', 'nav', 'canvas', 'title'],
     skip: {
         pre: {
             type: 'code',
@@ -65,8 +74,8 @@ const defaultConf: NormalConfigProps = {
             drop: [],
         },
     },
-    keep: ['p', 'ul', 'ol'],
-    bare: ['div', 'span', 'figure', 'header', 'main', 'footer', 'article'],
+    keep: ['p', 'dl', 'ul', 'ol', 'li', 'figcaption', 'caption', 'figure', 'cite'],
+    bare: ['div', 'span', 'mark', 'summary', 'details', 'header', 'main', 'footer', 'article'],
 }
 
 export function simplify(node: HTMLElement, conf: NormalConfigProps) {

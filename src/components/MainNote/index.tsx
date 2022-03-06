@@ -2,6 +2,7 @@ import clsx from "clsx"
 import { forwardRef } from "preact/compat"
 import { Ref, useContext, useImperativeHandle, useRef, useState } from "preact/hooks"
 import { AppContext } from "../../views/app"
+import Comment, { CommentData } from "./Comment"
 import { Content, ContentProps } from "./Content"
 import './index.less'
 
@@ -9,6 +10,7 @@ export interface MainNoteRef {
     title: HTMLElement
     article: HTMLElement
     createContent: (data: ContentProps[]) => void
+    createComment: (data: CommentData[]) => void
 }
 
 export const MainNote = forwardRef((props, ref: Ref<MainNoteRef>) => {
@@ -16,6 +18,7 @@ export const MainNote = forwardRef((props, ref: Ref<MainNoteRef>) => {
     const { state } = useContext(AppContext)
     const articleRef = useRef()
     const titleRef = useRef()
+    const [commmentData, setCommentData] = useState<CommentData[]>([])
 
     useImperativeHandle(
         ref,
@@ -23,9 +26,8 @@ export const MainNote = forwardRef((props, ref: Ref<MainNoteRef>) => {
             return {
                 title: titleRef.current,
                 article: articleRef.current,
-                createContent: (data) => {
-                    setContentData(data)
-                },
+                createContent: setContentData,
+                createComment: setCommentData,
             }
         },
         []
@@ -40,6 +42,9 @@ export const MainNote = forwardRef((props, ref: Ref<MainNoteRef>) => {
                     'ea-content-fixed--right': state.contentPos === 'right',
                 })
             }>
+                <div className="ea-comment">
+                    <Comment data={commmentData} />
+                </div>
                 <h1 ref={titleRef} class="title"></h1>
                 { !!contentData.length && <Content data={contentData} />}
                 <article ref={articleRef}></article>

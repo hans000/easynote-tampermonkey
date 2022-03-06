@@ -8,10 +8,11 @@ import { HoverElement } from '../../tools/const'
 import { AppContext } from '../../views/app'
 import './index.less'
 
-const colors = ['#fff066', '#7df066', '#74eaff', '#f799d1', '#eb4949']
+export const MarkColors = ['#fff066', '#7df066', '#74eaff', '#f799d1', '#eb4949']
 
 interface IProps {
     onClick: (activeMarks: HTMLElement[], event: MouseEvent) => void
+    onChange?: () => void
 }
 
 export const HoverMenu = forwardRef((props: IProps, ref: Ref<HTMLDivElement>) => {
@@ -34,7 +35,7 @@ export const HoverMenu = forwardRef((props: IProps, ref: Ref<HTMLDivElement>) =>
         <div ref={ref} className={HoverElement}>
             <div class='color-cont'>
                 {
-                    colors.map((color, index) => {
+                    MarkColors.map((color, index) => {
                         return (
                             <button onClick={(event) => {
                                 event.preventDefault()
@@ -50,6 +51,7 @@ export const HoverMenu = forwardRef((props: IProps, ref: Ref<HTMLDivElement>) =>
                                 } else {
                                     highlight(GlobalVar.AppElement, GlobalVar.matchItem, index, props.onClick)
                                 }
+                                props.onChange?.()
                             }} style={{ backgroundColor: color }} class={clsx({ 'color-tile': true, 'active': index === state.colorType })}></button>
                         )
                     })
@@ -60,6 +62,7 @@ export const HoverMenu = forwardRef((props: IProps, ref: Ref<HTMLDivElement>) =>
                             event.preventDefault()
                             state.activeMarks.forEach(bare)
                             update(GlobalVar.AppElement, GlobalVar.matchItem)
+                            props.onChange?.()
                         }}>×</button>
                     )
                 }

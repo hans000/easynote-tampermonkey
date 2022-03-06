@@ -6,6 +6,7 @@ import { MainNote, MainNoteRef } from "../components/MainNote";
 import { GlobalVar } from "../main";
 import { initSelect } from "../core/bookmark/reselect";
 import { Beautify } from "../core/beautify";
+import { initComment } from "../core/bookmark/comment";
 
 type ActionType =
     | 'UpdateColorType'
@@ -98,7 +99,11 @@ export function App() {
                 <MainNote ref={mainRef} />
             </div>
             <div id='ea-ctrl'>
-                <HoverMenu onClick={handle} ref={hoverRef} />
+                <HoverMenu onClick={handle} ref={hoverRef} onChange={() => {
+                    const data = initComment(GlobalVar.AppElement, GlobalVar.matchItem)
+                    console.log(data)
+                    mainRef.current.createComment(data)
+                }}/>
                 <CtrlPanel onClick={() => {
                     const beautify = GlobalVar.Beautify
                     GlobalVar.running ? beautify.restore() : beautify.run(mainRef.current)
@@ -107,6 +112,8 @@ export function App() {
                     if (firstRef.current) {
                         firstRef.current = false
                         initSelect(GlobalVar.AppElement, GlobalVar.matchItem, handle)
+                        const data = initComment(GlobalVar.AppElement, GlobalVar.matchItem)
+                        mainRef.current.createComment(data)
                     }
                 }} />
             </div>
