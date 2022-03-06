@@ -11,13 +11,23 @@ Easynote通过预设规则对网页进行整理，并赋予网页高亮，从而
 下面是一个已适配的网站的效果对比图，不仅提供了沉浸式的阅读体验，还提供了目录、高亮等功能。
 
 <img src="./assets/display.png" style="width:80%;padding-left:10%" />
+<img src="./assets/demo.gif" style="width:80%;padding-left:10%" />
 
-## 🧾开发计划
+## 📑使用
+
+1. 前置条件：浏览器端安装tampermonkey插件
+2. 在[release](https://github.com/hans000/easynote-tampermonkey/releases)页面下载最新的 js 脚本文件
+3. tampermonkey新建一个脚本，把下载的文件用记事本打开，内容复制粘贴进去即可
+
+> 注意：由于脚本的要请求仓库public文件里的配置文件，如果用户网络无法访问github则无法正常使用
+
+## 📝开发计划
 
 > 由于现在还在探索阶段，功能边界并没有划分出来，因此暂时以tampermonkey插件的形式开发核心功能，等时机成熟后迁移到chrome插件环境
 
 - 🟢 高亮
 - 🟢 自动生成目录
+- 🟢 本地存储，序列化和反序列化
 - 🔵 网站适配
 - ⚪ 自定义打印、按需打印，导出水印
 - ⚪ 批注
