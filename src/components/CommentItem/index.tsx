@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'preact/hooks'
+import { useEffect, useRef, useState } from 'preact/hooks'
 import { updateComment } from '../../core/bookmark/comment'
 import { queryMarks } from '../../core/bookmark/highlight'
 import { GlobalVar } from '../../main'
@@ -15,6 +15,7 @@ interface IProps {
 
 export default function CommentItem(props: IProps) {
     const [fold, setFold] = useState(true)
+    const nodesRef = useRef<HTMLElement[]>([])
     const [comment, setComment] = useState('')
 
     const handleChange = (ev: any) => {
@@ -36,15 +37,40 @@ export default function CommentItem(props: IProps) {
                 'title--fold': fold,
             })} title={props.title}>
                 <span className='text' onClick={() => {
-                    queryMarks(props.uid)[0].scrollIntoView()
+                    if (! nodesRef.current.length) {
+                        nodesRef.current = queryMarks(props.uid)
+                    }
+                    const node = nodesRef.current[0]
+                    window.scrollTo({
+                        top: node.offsetTop,
+                        behavior: 'smooth',
+                    })
                 }}>{props.title}</span>
                 <span className={clsx({
                     icon: true,
                     'icon--rotate': fold
-                })} onClick={() => setFold(fold => !fold)}>＞</span>
+                })} onClick={() => {
+                    if (! nodesRef.current.length) {
+                        nodesRef.current = queryMarks(props.uid)
+                    }
+                    
+                    setFold(fold => !fold)
+                }}>＞</span>
             </div>
             {
-                <textarea style={{ display: fold ? 'none' : 'block' }} value={comment} onChange={handleChange} rows={3} className='comment'></textarea>
+                <textarea
+                    style={{ display: fold ? 'none' : 'block' }} rows={3} className='comment'
+                    onFocus={() => {
+                        const node = nodesRef.current[0]
+                        window.scrollTo({
+                            top: node.offsetTop,
+                            behavior: 'smooth',
+                        })
+                        nodesRef.current.forEach(node => node.classList.add('mark-focus'))
+                    }} onBlur={() => {
+                        nodesRef.current.forEach(node => node.classList.remove('mark-focus'))
+                    }}
+                    value={comment} onChange={handleChange}></textarea>
             }
         </div>
     )

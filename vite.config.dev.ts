@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import preact from '@preact/preset-vite'
 import banner from 'vite-plugin-banner'
+import { resolve } from 'path'
 
 const prefix = `
 // ==UserScript==
@@ -21,7 +22,14 @@ const prefix = `
 // https://vitejs.dev/config/
 export default defineConfig({
     mode: 'development',
-    
+    css: {
+        preprocessorOptions: {
+            less: {
+                additionalData: `@import "${resolve(__dirname, './src/style.less')}";`,
+                javascriptEnabled: true,
+            }
+        }
+    },
     plugins: [
         preact({
             devtoolsInProd: true
