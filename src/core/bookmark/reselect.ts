@@ -7,6 +7,7 @@ export interface Info {
     uid: string
     type: number
     tokens: LocationToken[]
+    comment?: string
 }
 
 export interface LocationToken {
@@ -89,10 +90,19 @@ export function getInfoList(node: HTMLElement) {
 export function update(app: HTMLElement, matchItem: MatchItem) {
     try {
         const obj: Record<string, Info[]> = JSON.parse(localStorage.getItem(StoreKey)!) ?? {}
-        const uid = matchItem.aid
+        const aid = matchItem.aid
+        const oldInfoList = obj[aid] || []
+        const newInfoList = getInfoList(app.querySelector('article'))
+        newInfoList.forEach(info => {
+            const target = oldInfoList.find(item => item.uid === info.uid)
+            if (target?.comment) {
+                info.comment = target.comment
+            }
+        })
+
         localStorage.setItem(StoreKey, JSON.stringify({
             ...obj,
-            [uid]: getInfoList(app.querySelector('article'))
+            [aid]: newInfoList
         }))
     } catch (error) {
         console.log(error);

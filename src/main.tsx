@@ -6,7 +6,12 @@ import { matched } from './core/base/config'
 import { Beautify } from './core/beautify'
 import { createDivNode } from './tools'
 
-GM_addStyle(GM_getResourceText('style'))
+const __DEV__ = import.meta.env.DEV
+
+if (! __DEV__) {
+    GM_addStyle(GM_getResourceText('style'))
+}
+
 
 export class GlobalVar {
     public static running = false
@@ -17,10 +22,8 @@ export class GlobalVar {
     public static matchItem = matched(window.location.href)
 }
 
-if (GlobalVar.matchItem) {
+if (__DEV__ || GlobalVar.matchItem) {
     const root = GlobalVar.RootElement = createDivNode(RootElement)
     document.body.appendChild(root)
     render(<App />, root)
 }
-
- 

@@ -20,10 +20,11 @@
         "body": ".article_content",
         "config": {
             "skip": {
+                ".dp-highlighter": {
+                    "line": ["li"]
+                },
                 "pre": {
-                    "drop": [".hljs-ln-numbers", ".pre-numbering"],
-                    "wrap": [".hljs-ln-line", "br"],
-                    "text": ["span"]
+                    "line": [".hljs-ln-line"]
                 }
             }
         }

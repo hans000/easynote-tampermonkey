@@ -1,27 +1,22 @@
-import { SimplifyConfig } from './../simplify/index';
+import { getResourceText } from '../../tools/cross';
+import { NormalConfigProps } from '../render';
 export interface ConfigProps {
     pattern: string
     body?: string
     title?: string
-    config?: SimplifyConfig
-}
-
-export interface TaskToken {
-    type: 'drop'
-    selectors: string[]
-    queryAll?: boolean
+    config?: NormalConfigProps
 }
 
 export interface MatchItem {
     aid: string
     body: string
     title: string
-    config?: SimplifyConfig
+    config?: NormalConfigProps
 }
 
 export function matched(url: string): MatchItem | undefined {
     try {
-        const configList = JSON.parse(GM_getResourceText('config')) as ConfigProps[]
+        const configList = JSON.parse(getResourceText('config')) as ConfigProps[]
         for (const config of configList) {
             const reg = new RegExp(config.pattern)
             const match = reg.exec(url)

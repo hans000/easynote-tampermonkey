@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import preact from '@preact/preset-vite'
 import banner from 'vite-plugin-banner'
+import { resolve } from 'path'
 
 const prefix = `
 // ==UserScript==
@@ -37,6 +38,7 @@ export default defineConfig({
         minify: false,
         polyfillModulePreload: false,
         rollupOptions: {
+            input: resolve(__dirname, 'index.prod.html'),
             output: {
                 format: 'iife',
                 globals: {

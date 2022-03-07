@@ -57,6 +57,10 @@ export function walk() {
     }
 }
 
+export function queryMarks(uid: string) {
+    return document.querySelectorAll(`${MarkElement}[uid="${uid}"]`) as unknown as HTMLElement[]
+}
+
 export function wrap(token: MarkToken, handle?: any) {
     const { start, end, node, uid, type } = token
     const parent = node.parentNode!
@@ -86,7 +90,7 @@ export function wrap(token: MarkToken, handle?: any) {
     mark.addEventListener('click', (ev) => {
         ev.preventDefault()
         ev.stopPropagation()
-        const activeMarks = document.querySelectorAll(`${MarkElement}[uid="${mark.getAttribute('uid')}"]`) as unknown as HTMLElement[]
+        const activeMarks = queryMarks(mark.getAttribute('uid'))
         handle(activeMarks, ev)
     })
 
@@ -134,6 +138,8 @@ export function highlight(app: HTMLElement, matchItem: MatchItem, type: number, 
         const uid = Date.now() + ''
         list.forEach(token => wrap({ ...token, uid, type, }, handle))
         update(app, matchItem)
+        console.log(getSelection().toString());
+        
         getSelection()!.removeAllRanges()
     }
 }
