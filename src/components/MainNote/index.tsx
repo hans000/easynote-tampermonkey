@@ -1,6 +1,6 @@
-import clsx from "clsx"
 import { forwardRef } from "preact/compat"
 import { Ref, useContext, useImperativeHandle, useRef, useState } from "preact/hooks"
+import { clsx } from "../../tools"
 import { AppContext } from "../../views/app"
 import Comment, { CommentData } from "./Comment"
 import { Content, ContentProps } from "./Content"
@@ -42,10 +42,8 @@ export const MainNote = forwardRef((props, ref: Ref<MainNoteRef>) => {
                     'ea-content-fixed--right': state.contentPos === 'right',
                 })
             }>
-                <div className="ea-comment">
-                    <Comment data={commmentData} />
-                </div>
                 <h1 ref={titleRef} class="title"></h1>
+                <Comment data={commmentData} />
                 { !!contentData.length && <Content data={contentData} />}
                 <article ref={articleRef}></article>
             </div>

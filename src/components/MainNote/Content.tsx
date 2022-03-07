@@ -1,5 +1,5 @@
-import clsx from "clsx";
 import { useContext, useEffect, useMemo, useState } from "preact/hooks";
+import { clsx } from "../../tools";
 import { ContentDefaultPos } from "../../tools/const";
 import { AppContext } from "../../views/app";
 

@@ -13,7 +13,7 @@ interface IProps {
 
 export default function Comment(props: IProps) {
     return (
-        <div>
+        <div className='ea-comment'>
             {
                 props.data.map(item => {
                     return (

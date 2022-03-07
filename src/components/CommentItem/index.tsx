@@ -1,8 +1,8 @@
-import clsx from 'clsx'
 import { useEffect, useState } from 'preact/hooks'
 import { updateComment } from '../../core/bookmark/comment'
 import { queryMarks } from '../../core/bookmark/highlight'
 import { GlobalVar } from '../../main'
+import { clsx } from '../../tools'
 import { MarkColors } from '../HoverMenu'
 import './index.less'
 

@@ -35,3 +35,7 @@ export function merge(source: any, other: any) {
         return acc
     }, Array.isArray(source) ? [] : {})
 }
+
+export function clsx(classObject: Record<string, boolean> = {}) {
+    return Object.keys(classObject).filter(key => !!classObject[key]).join(' ')
+}

@@ -6,6 +6,7 @@ specifiers:
   chokidar: ^3.5.2
   clsx: ^1.1.1
   less: ^4.1.2
+  lz-string: ^1.4.4
   preact: ^10.6.5
   rollup: ^2.60.0
   rollup-plugin-commonjs: ^10.1.0
@@ -19,14 +20,13 @@ specifiers:
   vite: ^2.7.13
   vite-plugin-banner: ^0.2.0
 
-dependencies:
-  clsx: 1.1.1
-
 devDependencies:
   '@preact/preset-vite': 2.1.7_preact@10.6.5+vite@2.7.13
   '@types/markdown-it': 12.2.3
   chokidar: 3.5.2
+  clsx: 1.1.1
   less: 4.1.2
+  lz-string: 1.4.4
   preact: 10.6.5
   rollup: 2.60.0
   rollup-plugin-commonjs: 10.1.0_rollup@2.60.0
@@ -651,7 +651,7 @@ packages:
   /clsx/1.1.1:
     resolution: {integrity: sha512-6/bPho624p3S2pMyvP5kKBPXnI3ufHLObBFCfgx+LkeR5lg2XYy2hqZqUf45ypD8COn2bhgGJSUE+l5dhNBieA==}
     engines: {node: '>=6'}
-    dev: false
+    dev: true
 
   /color-convert/1.9.3:
     resolution: {integrity: sha512-QfAUtd+vFdAtFQcC8CCyYt1fYWxSqAiK2cSD6zDB8N3cpsEBAvRxp9zOGg6G/SHHJYAT88/az/IuDGALsNVbGg==}
@@ -1703,6 +1703,11 @@ packages:
 
   /lodash/4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+    dev: true
+
+  /lz-string/1.4.4:
+    resolution: {integrity: sha1-wNjq82BZ9wV5bh40SBHPTEmNOiY=}
+    hasBin: true
     dev: true
 
   /magic-string/0.25.7:
