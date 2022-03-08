@@ -39,3 +39,9 @@ export function merge(source: any, other: any) {
 export function clsx(classObject: Record<string, boolean> = {}) {
     return Object.keys(classObject).filter(key => !!classObject[key]).join(' ')
 }
+
+export function inViewport(node: HTMLElement) {
+    const h = document.documentElement.clientHeight
+    const t = node.getBoundingClientRect().top
+    return t > 0 && t < h
+}

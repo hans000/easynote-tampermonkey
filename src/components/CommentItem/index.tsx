@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'preact/hooks'
 import { updateComment } from '../../core/bookmark/comment'
 import { queryMarks } from '../../core/bookmark/highlight'
 import { GlobalVar } from '../../main'
-import { clsx } from '../../tools'
+import { clsx, inViewport } from '../../tools'
 import { MarkColors } from '../HoverMenu'
 import './index.less'
 
@@ -30,6 +30,15 @@ export default function CommentItem(props: IProps) {
         }
     }, [props.comment])
 
+    function toNode(node: HTMLElement) {
+        if (! inViewport(node)) {
+            window.scrollTo({
+                top: node.offsetTop,
+                behavior: 'smooth',
+            })
+        }
+    }
+
     return (
         <div className="ea-comment-item">
             <div style={{ backgroundColor: MarkColors[props.type] }} className={clsx({
@@ -41,10 +50,7 @@ export default function CommentItem(props: IProps) {
                         nodesRef.current = queryMarks(props.uid)
                     }
                     const node = nodesRef.current[0]
-                    window.scrollTo({
-                        top: node.offsetTop,
-                        behavior: 'smooth',
-                    })
+                    toNode(node)
                 }}>{props.title}</span>
                 <span className={clsx({
                     icon: true,
@@ -62,10 +68,7 @@ export default function CommentItem(props: IProps) {
                     style={{ display: fold ? 'none' : 'block' }} rows={3} className='comment'
                     onFocus={() => {
                         const node = nodesRef.current[0]
-                        window.scrollTo({
-                            top: node.offsetTop,
-                            behavior: 'smooth',
-                        })
+                        toNode(node)
                         nodesRef.current.forEach(node => node.classList.add('mark-focus'))
                     }} onBlur={() => {
                         nodesRef.current.forEach(node => node.classList.remove('mark-focus'))
