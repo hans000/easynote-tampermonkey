@@ -4,6 +4,7 @@ import { queryMarks } from '../../core/bookmark/highlight'
 import { GlobalVar } from '../../main'
 import { clsx, inViewport } from '../../tools'
 import { MarkColors } from '../HoverMenu'
+import Icon from '../Icon'
 import './index.less'
 
 interface IProps {
@@ -40,7 +41,7 @@ export default function CommentItem(props: IProps) {
     }
 
     return (
-        <div className="ea-comment-item">
+        <div className="ea-comment__item">
             <div style={{ backgroundColor: MarkColors[props.type] }} className={clsx({
                 title: true,
                 'title--fold': fold,
@@ -52,7 +53,7 @@ export default function CommentItem(props: IProps) {
                     const node = nodesRef.current[0]
                     toNode(node)
                 }}>{props.title}</span>
-                <span className={clsx({
+                <Icon className={clsx({
                     icon: true,
                     'icon--rotate': fold
                 })} onClick={() => {
@@ -61,7 +62,7 @@ export default function CommentItem(props: IProps) {
                     }
                     
                     setFold(fold => !fold)
-                }}>＞</span>
+                }}>navigate_next</Icon>
             </div>
             {
                 <textarea

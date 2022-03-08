@@ -1,4 +1,5 @@
 import CommentItem from "../CommentItem";
+import Icon from "../Icon";
 
 export interface CommentData {
     title: string
@@ -14,6 +15,9 @@ interface IProps {
 export default function Comment(props: IProps) {
     return (
         <div className='ea-comment'>
+            <div className="ea-comment__ctrl">
+                <Icon>close</Icon>
+            </div>
             {
                 props.data.map(item => {
                     return (
