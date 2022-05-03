@@ -6,6 +6,7 @@ interface IProps {
     className?: string
     style?: React.JSX.CSSProperties
     onClick?: () => void
+    title?: string
 }
 
 export default React.forwardRef(
@@ -17,6 +18,7 @@ export default React.forwardRef(
             {...props}
             ref={ref}
             className={clsx({
+                'ea-icon': true,
                 'material-icons': true,
                 [className]: true
             })}

@@ -1,18 +1,21 @@
 import { HoverMenu } from "../components/HoverMenu";
 import { CtrlPanel } from "../components/CtrlPanel";
-import { createContext, useEffect, useReducer, useRef } from 'preact/compat'
+import { createContext, useCallback, useEffect, useReducer, useRef } from 'preact/compat'
 import { hasSelected } from "../tools";
 import { MainNote, MainNoteRef } from "../components/MainNote";
 import { GlobalVar } from "../main";
 import { initSelect } from "../core/bookmark/reselect";
 import { Beautify } from "../core/beautify";
 import { initComment } from "../core/bookmark/comment";
+import Icon from "../components/Icon";
 
 type ActionType =
     | 'UpdateColorType'
     | 'UpdateActiveMarks'
     | 'ToggleContextFixed'
     | 'UpdateContentPos'
+    | 'UpdateMode'
+    | 'ToggleBoot'
 
 interface Action {
     type: ActionType
@@ -24,6 +27,8 @@ export interface GlobalState {
     activeMarks: HTMLElement[]
     contentFixed: boolean
     contentPos: 'left' | 'right' | undefined
+    mode: 'view' | 'edit'
+    booting: boolean
 }
 
 const reducer = (state: GlobalState, action: Action) => {
@@ -36,6 +41,10 @@ const reducer = (state: GlobalState, action: Action) => {
             return { ...state, contentFixed: !state.contentFixed }
         case 'UpdateContentPos':
             return { ...state, contentPos: action.payload }
+        case 'UpdateMode':
+            return { ...state, mode: action.payload }
+        case 'ToggleBoot':
+            return { ...state, booting: !state.booting }
         default:
             return state
     }
@@ -50,6 +59,8 @@ export function App() {
         activeMarks: [],
         contentFixed: false,
         contentPos: undefined,
+        mode: 'view',
+        booting: false,
     })
     const hoverRef = useRef<HTMLDivElement>()
     const appRef = useRef<HTMLDivElement>()
@@ -64,58 +75,102 @@ export function App() {
 
             GlobalVar.Beautify = new Beautify(root, app, GlobalVar.matchItem)
 
-            app.querySelector('article').addEventListener('mouseup', (event) => {
+            function handleMouseUp(event: any) {
                 event.preventDefault()
-                if (GlobalVar.running && hasSelected()) {
+                if (GlobalVar.mode === 'edit' && GlobalVar.running && hasSelected()) {
                     dispatch({ type: 'UpdateActiveMarks' })
                     dispatch({ type: 'UpdateColorType' })
                     hover.style.display = 'block'
                     hover.style.left = event.clientX + 10 + 'px'
                     hover.style.top = event.clientY + 'px'
                 }
-            })
-            
-            window.addEventListener('click', () => {
+            }
+            function handleClick() {
                 if (!GlobalVar.running || !hasSelected()) {
                     dispatch({ type: 'UpdateActiveMarks' })
                     hover.style.display = 'none'
                 }
-            })
+            }
+
+            const article = app.querySelector('article')
+            article.addEventListener('mouseup', handleMouseUp)
+            window.addEventListener('click', handleClick)
+
+            // window.addEventListener('keypress', )
+
+            return () => {
+                article.removeEventListener('article', handleMouseUp)
+                article.removeEventListener('click', handleClick)
+            }
         },
         []
     )
 
-    const handle = (activeMarks: HTMLElement[], event: MouseEvent) => {
-        dispatch({ type: 'UpdateActiveMarks', payload: activeMarks })
-        const hover = hoverRef.current
-        hover.style.display = 'block'
-        hover.style.left = event.clientX + 10 + 'px'
-        hover.style.top = event.clientY + 'px'
-    }
+    const handle = useCallback(
+        (activeMarks: HTMLElement[], event: MouseEvent) => {
+            dispatch({ type: 'UpdateActiveMarks', payload: activeMarks })
+            const hover = hoverRef.current
+            hover.style.display = 'block'
+            hover.style.left = event.clientX + 10 + 'px'
+            hover.style.top = event.clientY + 'px'
+        },
+        []
+    )
+    
+    useEffect(() => {
+        GlobalVar.mode = state.mode
+    }, [state.mode])
+
+    const run = useCallback(
+        () => {
+            const beautify = GlobalVar.Beautify
+            GlobalVar.running ? beautify.restore() : beautify.run(mainRef.current)
+            GlobalVar.running = !GlobalVar.running
+
+            if (firstRef.current) {
+                firstRef.current = false
+                initSelect(GlobalVar.AppElement, GlobalVar.matchItem, handle)
+                const data = initComment(GlobalVar.AppElement, GlobalVar.matchItem)
+                mainRef.current.createComment(data)
+            }
+        },
+        []
+    )
 
     return (
         <AppContext.Provider value={{ state, dispatch }}>
             <div ref={appRef} id="ea-app">
+                <div id="ea-header">
+                    <div className="logo">EasyNote</div>
+                    <div className="nav">
+                        {/* <Icon title='设置'>{'settings'}</Icon> */}
+                        <Icon title='打印' onClick={() => {
+                            print()
+                        }}>{'print'}</Icon>
+                        <Icon title="阅读" onClick={() => {
+                            dispatch({ type: 'UpdateMode', payload: 'view' })
+                        }}>{'visibility'}</Icon>
+                        {/* <Icon title="复制markdown">{'description'}</Icon> */}
+                        {/* <Icon title='下载' onClick={() => {
+
+                        }}>{'file_download'}</Icon> */}
+                        <Icon title="批注" onClick={() => {
+                            dispatch({ type: 'UpdateMode', payload: 'edit' })
+                        }}>{'edit'}</Icon>
+                        <Icon title="退出" onClick={() => {
+                            run()
+                            dispatch({ type: 'ToggleBoot' })
+                        }}>{'close'}</Icon>
+                    </div>
+                </div>
                 <MainNote ref={mainRef} />
             </div>
             <div id='ea-ctrl'>
                 <HoverMenu onClick={handle} ref={hoverRef} onChange={() => {
                     const data = initComment(GlobalVar.AppElement, GlobalVar.matchItem)
-                    console.log(data)
                     mainRef.current.createComment(data)
                 }}/>
-                <CtrlPanel onClick={() => {
-                    const beautify = GlobalVar.Beautify
-                    GlobalVar.running ? beautify.restore() : beautify.run(mainRef.current)
-                    GlobalVar.running = !GlobalVar.running
-
-                    if (firstRef.current) {
-                        firstRef.current = false
-                        initSelect(GlobalVar.AppElement, GlobalVar.matchItem, handle)
-                        const data = initComment(GlobalVar.AppElement, GlobalVar.matchItem)
-                        mainRef.current.createComment(data)
-                    }
-                }} />
+                <CtrlPanel onClick={run} />
             </div>
         </AppContext.Provider>
     )

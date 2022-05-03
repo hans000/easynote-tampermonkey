@@ -2,6 +2,21 @@ html, body {
     scroll-behavior: smooth;
 }
 
+h1, h2, h3, h4, h5, h6 {
+    pointer-events: none;
+    &::before {
+        content: '';
+        display: block;
+        margin-top: -60px;
+        height: 60px;
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
 #easynote {
     position: relative;
     height: 0;

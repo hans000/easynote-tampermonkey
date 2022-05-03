@@ -1,3 +1,42 @@
+#ea-header {
+    z-index: 1;
+    height: 45px;
+    background-color: #fff;
+    position: sticky;
+    top: 0;
+    margin-bottom: 8px;
+    box-shadow: 0 1px 8px rgba(0,0,0,.15);
+    display: flex;
+    padding: 0 24px;
+    .logo {
+        align-items: center;
+        line-height: 45px;
+        margin-right: 16px;
+        font-weight: 600;
+        cursor: default;
+        &::after {
+            content: '|';
+            padding-left: 16px;
+            color: #c8c8c8;
+        }
+    }
+    .nav {
+        display: flex;
+        align-items: center;
+        .ea-icon {
+            margin: 0 4px;
+            cursor: pointer;
+            &:hover {
+                opacity: .8;
+            }
+        }
+    }
+    
+    @media print {
+        display: none;
+    }
+}
+
 #ea-main {
     > h1 {
         display: inline-block;
@@ -12,11 +51,19 @@
         text-align: initial;
         height: calc(100vh - 30px);
         overflow-y: auto;
+        overflow-x: hidden;
         &::-webkit-scrollbar {
             width: 0px;
         }
         &::-webkit-scrollbar-thumb {
             background-color: #cecece;
+        }
+        &__ctrl {
+            position: sticky;
+            top: 0;
+            background-color: #f6f6f6;
+            padding: 4px;
+            line-height: 0;
         }
     }
 }
@@ -24,11 +71,10 @@
 #ea-app .ea-content {
     float: initial;
     &__fixed {
-        // z-index: 99999999;
         position: fixed;
-        width: 250px;
+        width: 242px;
         overflow: hidden;
-        top: 0;
+        top: 45px;
         background-color: white;
         height: 100vh;
         overflow-y: auto;

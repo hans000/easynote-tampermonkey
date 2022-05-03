@@ -1,4 +1,5 @@
 #ea-app {
+    padding-bottom: 30px;
     background-color: #f6f6f6;
     ea-mark {
         &[type="0"] {
@@ -17,6 +18,10 @@
             background-color: #eb4949;
         }
     }
+    
+    @media print {
+        padding-bottom: 0;
+    }
 }
 #ea-main {
     max-width: 860px;
@@ -29,6 +34,10 @@
     color: rgb(51, 51, 51);
     line-height: 1.6;
     background-color: #fff;
+    box-shadow: 1px 1px 8px rgba(0,0,0,.15);
+    @media print {
+        box-shadow: none;
+    }
     &.ea-content-fixed {
         &--left {
             margin-left: calc(50% - 1170px / 2 + 250px);
@@ -84,6 +93,31 @@
 }
 
 #ea-main {
+
+    eamark {
+        display: block;
+        background-color: #f8f8f8;
+        padding: 12px;
+        margin: 12px;
+        border-left: 4px solid #fff066;
+        &[type="0"] {
+            background-color: #fff066;
+        }
+        &[type="1"] {
+            background-color: #7df066;
+        }
+        &[type="2"] {
+            background-color: #74eaff;
+        }
+        &[type="3"] {
+            background-color: #f799d1;
+        }
+        &[type="4"] {
+            background-color: #eb4949;
+        }       
+    }
+
+
     :root {
         --side-bar-bg-color: #fafafa;
         --control-text-color: #777;
@@ -94,6 +128,7 @@
 
     a {
         color: #4183C4;
+        text-decoration: none;
     }
     h1,
     h2,

@@ -97,6 +97,7 @@ export class Beautify {
     
     public restore() {
         const body = document.body
+        
         if (body.hasAttribute('minWidth')) {
             body.style.minWidth = body.getAttribute('minWidth')!
         }

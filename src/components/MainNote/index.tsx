@@ -14,7 +14,7 @@ export interface MainNoteRef {
 }
 
 export const MainNote = forwardRef((props, ref: Ref<MainNoteRef>) => {
-    const [contentData, setContentData] = useState<ContentProps[]>([]);
+    const [contentData, setContentData] = useState<ContentProps[]>([])
     const { state } = useContext(AppContext)
     const articleRef = useRef()
     const titleRef = useRef()
@@ -31,7 +31,7 @@ export const MainNote = forwardRef((props, ref: Ref<MainNoteRef>) => {
             }
         },
         []
-    );
+    )
     
     return (
         <div className="ea-app">
@@ -43,7 +43,7 @@ export const MainNote = forwardRef((props, ref: Ref<MainNoteRef>) => {
                 })
             }>
                 <h1 ref={titleRef} class="title"></h1>
-                <Comment data={commmentData} />
+                { state.mode === 'edit' && <Comment data={commmentData} /> }
                 { !!contentData.length && <Content data={contentData} />}
                 <article ref={articleRef}></article>
             </div>

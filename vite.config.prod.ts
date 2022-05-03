@@ -20,6 +20,7 @@ const prefix = `
 // @grant           GM_getResourceText
 // @resource config https://raw.github.com/hans000/easynote-tampermonkey/main/public/config.json
 // @resource style  https://raw.github.com/hans000/easynote-tampermonkey/main/public/style.css
+// @resource font  https://fonts.googleapis.com/icon?family=Material+Icons
 // ==/UserScript==
 `.trimStart()
 

@@ -10,10 +10,12 @@ const __DEV__ = import.meta.env.DEV
 
 if (! __DEV__) {
     GM_addStyle(GM_getResourceText('style'))
+    GM_addStyle(GM_getResourceText('font'))
 }
 
 
 export class GlobalVar {
+    public static mode: 'view' | 'edit' = 'view'
     public static running = false
     public static Beautify: Beautify
     public static AppElement: HTMLElement

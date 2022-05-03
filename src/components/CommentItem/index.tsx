@@ -34,7 +34,7 @@ export default function CommentItem(props: IProps) {
     function toNode(node: HTMLElement) {
         if (! inViewport(node)) {
             window.scrollTo({
-                top: node.offsetTop,
+                top: node.offsetTop - 60,
                 behavior: 'smooth',
             })
         }

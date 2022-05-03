@@ -3,6 +3,7 @@ import { MarkElement } from "../../tools/const"
 import { createFragment, createTextNode, hasSelected } from "../../tools"
 import { update } from "./reselect"
 import { MatchItem } from '../base/config'
+import { GlobalVar } from '../../main';
 
 interface MarkToken {
     start?: number
@@ -90,8 +91,10 @@ export function wrap(token: MarkToken, handle?: any) {
     mark.addEventListener('click', (ev) => {
         ev.preventDefault()
         ev.stopPropagation()
-        const activeMarks = queryMarks(mark.getAttribute('uid'))
-        handle(activeMarks, ev)
+        if (GlobalVar.mode === 'edit') {
+            const activeMarks = queryMarks(mark.getAttribute('uid'))
+            handle(activeMarks, ev)
+        }
     })
 
     if (right) {
@@ -138,8 +141,6 @@ export function highlight(app: HTMLElement, matchItem: MatchItem, type: number, 
         const uid = Date.now() + ''
         list.forEach(token => wrap({ ...token, uid, type, }, handle))
         update(app, matchItem)
-        console.log(getSelection().toString());
-        
         getSelection()!.removeAllRanges()
     }
 }

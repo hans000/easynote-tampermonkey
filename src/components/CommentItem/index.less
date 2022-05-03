@@ -5,7 +5,7 @@
     .title {
         display: flex;
         justify-content: space-between;
-        padding: 4px 8px;
+        padding: 4px 4px 4px 8px;
         background-color: #dedede;
         border-radius: 8px 8px 0 0;
         user-select: none;
@@ -17,7 +17,7 @@
         }
         > .icon {
             transform: rotate(90deg);
-            transition: .5s ease-out;
+            transition: .5s ease-out transform;
             &.icon--rotate {
                 transform: rotate(0);
             }
@@ -37,6 +37,7 @@
         line-height: 20px;
         border-radius: 0 0 8px 8px;
         border-color: #dedede;
+        word-break: break-all;
         &::-webkit-scrollbar {
             width: 4px;
         }
