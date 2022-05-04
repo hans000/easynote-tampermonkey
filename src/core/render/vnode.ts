@@ -63,7 +63,7 @@ export function toVNode(node: HTMLElement, conf: NormalConfigProps, first = true
             })
         })
 
-        if (! children.length) return
+        // if (! children.length) return
 
         if (isBareNode(node, conf)) {
             return first ? { children, type: '' } : children as any

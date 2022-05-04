@@ -12,7 +12,10 @@
     {
         "pattern": "^https://juejin.cn/post/(\\d+)",
         "title": "h1.article-title",
-        "body": ".markdown-body"
+        "body": ".markdown-body",
+        "config": {
+            "drop": [".copy-code-btn"]
+        }
     },
     {
         "pattern": "^https://blog.csdn.net/(?:.+)/article/details/(\\d+)",

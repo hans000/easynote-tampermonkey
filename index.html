@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,41 +8,383 @@
     <title>Document</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
+
 <body>
     <div>
-        <article>
-            <h2>一、单页应用原理</h2>
-            <p>单页应用的原理，在我们的上一篇文章中React-Router源码阅读已经讲的很详细，这里做一个简单介绍。单页应用使得页面可以在无刷新的条件下重新渲染，通过hash或者html5 Bom对象中的history可以做到改变url，但是不刷新页面。</p>
-            <h2>二、监听url中的hash变化</h2>
-            <p>通过hash改变了url，会触发hashchange事件，只要监听hashchange事件，就能捕获到通过hash改变url的行为。</p>
-            <eamark>单页应用的原理，在我们的上一篇文章中React单页应用的原理，在我们的上一篇文章中React单页应用的原理，在我们的上一篇文章中React单页应用的原理，在我们的上一篇文章中React单页应用的原理，在我们的上一篇文章中React单页应用的原理，在我们的上一篇文章中React单页应用的原理，在我们的上一篇文章中React单页应用的原理，在我们的上一篇文章中React单页应用的原理，在我们的上一篇文章中React</eamark>
-            <eamark><span>通过hash改变了ur</span><br/><span>12345678</span></eamark>
-            <h2>一、单页应用原理</h2>
-            <p>单页应用的原理，在我们的上一篇文章中React-Router源码阅读已经讲的很详细，这里做一个简单介绍。单页应用使得页面可以在无刷新的条件下重新渲染，通过hash或者html5 Bom对象中的history可以做到改变url，但是不刷新页面。</p>
-            <h2>二、监听url中的hash变化</h2>
-            <p>通过hash改变了url，会触发hashchange事件，只要监听hashchange事件，就能捕获到通过hash改变url的行为。</p>
-            <h2>一、单页应用原理</h2>
-            <p>单页应用的原理，在我们的上一篇文章中React-Router源码阅读已经讲的很详细，这里做一个简单介绍。单页应用使得页面可以在无刷新的条件下重新渲染，通过hash或者html5 Bom对象中的history可以做到改变url，但是不刷新页面。</p>
-            <h2>二、监听url中的hash变化</h2>
-            <p>通过hash改变了url，会触发hashchange事件，只要监听hashchange事件，就能捕获到通过hash改变url的行为。</p>
-            <h2>一、单页应用原理</h2>
-            <p>单页应用的原理，在我们的上一篇文章中React-Router源码阅读已经讲的很详细，这里做一个简单介绍。单页应用使得页面可以在无刷新的条件下重新渲染，通过hash或者html5 Bom对象中的history可以做到改变url，但是不刷新页面。</p>
-            <h2>二、监听url中的hash变化</h2>
-            <p>通过hash改变了url，会触发hashchange事件，只要监听hashchange事件，就能捕获到通过hash改变url的行为。</p>
-            <h2>一、单页应用原理</h2>
-            <p>单页应用的原理，在我们的上一篇文章中React-Router源码阅读已经讲的很详细，这里做一个简单介绍。单页应用使得页面可以在无刷新的条件下重新渲染，通过hash或者html5 Bom对象中的history可以做到改变url，但是不刷新页面。</p>
-            <h2>二、监听url中的hash变化</h2>
-            <p>通过hash改变了url，会触发hashchange事件，只要监听hashchange事件，就能捕获到通过hash改变url的行为。</p>
-            <h2>一、单页应用原理</h2>
-            <p>单页应用的原理，在我们的上一篇文章中React-Router源码阅读已经讲的很详细，这里做一个简单介绍。单页应用使得页面可以在无刷新的条件下重新渲染，通过hash或者html5 Bom对象中的history可以做到改变url，但是不刷新页面。</p>
-            <h2>二、监听url中的hash变化</h2>
-            <p>通过hash改变了url，会触发hashchange事件，只要监听hashchange事件，就能捕获到通过hash改变url的行为。</p>
-            <h2>一、单页应用原理</h2>
-            <p>单页应用的原理，在我们的上一篇文章中React-Router源码阅读已经讲的很详细，这里做一个简单介绍。单页应用使得页面可以在无刷新的条件下重新渲染，通过hash或者html5 Bom对象中的history可以做到改变url，但是不刷新页面。</p>
-            <h2>二、监听url中的hash变化</h2>
-            <p>通过hash改变了url，会触发hashchange事件，只要监听hashchange事件，就能捕获到通过hash改变url的行为。</p>
+        <article class="markdown-body">
+            <p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/83215b70a4854e37a2e0a87e9af7bdab~tplv-k3u1fbpfcp-zoom-in-crop-mark:1304:0:0:0.awebp"
+                alt="" loading="lazy" class="medium-zoom-image"></p>
+            <style>
+                .markdown-body {
+                    word-break: break-word;
+                    line-height: 1.75;
+                    font-weight: 400;
+                    font-size: 16px;
+                    overflow-x: hidden;
+                    color: #333
+                }
+
+                .markdown-body h1,
+                .markdown-body h2,
+                .markdown-body h3,
+                .markdown-body h4,
+                .markdown-body h5,
+                .markdown-body h6 {
+                    line-height: 1.5;
+                    margin-top: 35px;
+                    margin-bottom: 10px;
+                    padding-bottom: 5px
+                }
+
+                .markdown-body h1 {
+                    font-size: 24px;
+                    margin-bottom: 5px
+                }
+
+                .markdown-body h2,
+                .markdown-body h3,
+                .markdown-body h4,
+                .markdown-body h5,
+                .markdown-body h6 {
+                    font-size: 20px
+                }
+
+                .markdown-body h2 {
+                    padding-bottom: 12px;
+                    border-bottom: 1px solid #ececec
+                }
+
+                .markdown-body h3 {
+                    font-size: 18px;
+                    padding-bottom: 0
+                }
+
+                .markdown-body h6 {
+                    margin-top: 5px
+                }
+
+                .markdown-body p {
+                    line-height: inherit;
+                    margin-top: 22px;
+                    margin-bottom: 22px
+                }
+
+                .markdown-body img {
+                    max-width: 100%
+                }
+
+                .markdown-body hr {
+                    border: none;
+                    border-top: 1px solid #ddd;
+                    margin-top: 32px;
+                    margin-bottom: 32px
+                }
+
+                .markdown-body code {
+                    word-break: break-word;
+                    border-radius: 2px;
+                    overflow-x: auto;
+                    background-color: #fff5f5;
+                    color: #ff502c;
+                    font-size: .87em;
+                    padding: .065em .4em
+                }
+
+                .markdown-body code,
+                .markdown-body pre {
+                    font-family: Menlo, Monaco, Consolas, Courier New, monospace
+                }
+
+                .markdown-body pre {
+                    overflow: auto;
+                    position: relative;
+                    line-height: 1.75
+                }
+
+                .markdown-body pre>code {
+                    font-size: 12px;
+                    padding: 15px 12px;
+                    margin: 0;
+                    word-break: normal;
+                    display: block;
+                    overflow-x: auto;
+                    color: #333;
+                    background: #f8f8f8
+                }
+
+                .markdown-body a {
+                    text-decoration: none;
+                    color: #0269c8;
+                    border-bottom: 1px solid #d1e9ff
+                }
+
+                .markdown-body a:active,
+                .markdown-body a:hover {
+                    color: #275b8c
+                }
+
+                .markdown-body table {
+                    display: inline-block !important;
+                    font-size: 12px;
+                    width: auto;
+                    max-width: 100%;
+                    overflow: auto;
+                    border: 1px solid #f6f6f6
+                }
+
+                .markdown-body thead {
+                    background: #f6f6f6;
+                    color: #000;
+                    text-align: left
+                }
+
+                .markdown-body tr:nth-child(2n) {
+                    background-color: #fcfcfc
+                }
+
+                .markdown-body td,
+                .markdown-body th {
+                    padding: 12px 7px;
+                    line-height: 24px
+                }
+
+                .markdown-body td {
+                    min-width: 120px
+                }
+
+                .markdown-body blockquote {
+                    color: #666;
+                    padding: 1px 23px;
+                    margin: 22px 0;
+                    border-left: 4px solid #cbcbcb;
+                    background-color: #f8f8f8
+                }
+
+                .markdown-body blockquote:after {
+                    display: block;
+                    content: ""
+                }
+
+                .markdown-body blockquote>p {
+                    margin: 10px 0
+                }
+
+                .markdown-body ol,
+                .markdown-body ul {
+                    padding-left: 28px
+                }
+
+                .markdown-body ol li,
+                .markdown-body ul li {
+                    margin-bottom: 0;
+                    list-style: inherit
+                }
+
+                .markdown-body ol li .task-list-item,
+                .markdown-body ul li .task-list-item {
+                    list-style: none
+                }
+
+                .markdown-body ol li .task-list-item ol,
+                .markdown-body ol li .task-list-item ul,
+                .markdown-body ul li .task-list-item ol,
+                .markdown-body ul li .task-list-item ul {
+                    margin-top: 0
+                }
+
+                .markdown-body ol ol,
+                .markdown-body ol ul,
+                .markdown-body ul ol,
+                .markdown-body ul ul {
+                    margin-top: 3px
+                }
+
+                .markdown-body ol li {
+                    padding-left: 6px
+                }
+
+                .markdown-body .contains-task-list {
+                    padding-left: 0
+                }
+
+                .markdown-body .task-list-item {
+                    list-style: none
+                }
+
+                @media (max-width:720px) {
+                    .markdown-body h1 {
+                        font-size: 24px
+                    }
+
+                    .markdown-body h2 {
+                        font-size: 20px
+                    }
+
+                    .markdown-body h3 {
+                        font-size: 18px
+                    }
+                }
+            </style>
+            <h2 data-id="heading-0">摘要</h2>
+            <p>一款集成了模拟和拦截请求并拥有一定编程能力的谷歌浏览器插件，其中存储容量、大小用颜色做了指示，界面简洁，交互友好。由于对项目没有依赖性、侵入性，所以开发、测试、生产环境都适用。</p>
+            <p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/83215b70a4854e37a2e0a87e9af7bdab~tplv-k3u1fbpfcp-zoom-in-crop-mark:1304:0:0:0.awebp"
+                    alt="" loading="lazy" class="medium-zoom-image"></p>
+            <h2 data-id="heading-1">使用场景</h2>
+            <p>设想一下明明是要验证一个很简单的东西，但是这个问题复现的前置条件实在<strong>太难</strong>完成了，导致自己很痛苦。这里的太难完成可能是：</p>
+            <ul>
+                <li>业务流程太长（不熟悉流程或不想的重走一遍）</li>
+                <li>要验证的是测试环境，不能通过前端硬编码解决</li>
+                <li>修改数据库困难（没有条件改、不会改或者不想麻烦后端改）</li>
+                <li>不想使用代理软件（没必要、没用过或者安装、配置麻烦等）</li>
+            </ul>
+            <p>如何解决上述问题呢？如果可以在客户端接收数据前拦截并加以修改再返回就可以达到目的。Easy
+                Interceptor就是利用上述思路，它可以拦截XMLHttpRequest，fetch数据请求方式的http请求，通过覆盖response，responseText字段，从而达到对数据的修改。作为一个chrome插件，天然的集成在用户测试环境，因此对使用者的心智负担极小。
+            </p>
+            <ul>
+                <li>xhr: 内部实现了一个假的XMLHttpRequest，因此使用xhr类型的请求方式不会向后端发出请求，也无须后端服务支持（xhr类型依赖于<a
+                        href="https://link.juejin.cn?target=https%3A%2F%2Fgithub.com%2FJcanno%2Fajax-fake"
+                        target="_blank" rel="nofollow noopener noreferrer" title="https://github.com/Jcanno/ajax-fake"
+                        ref="nofollow noopener noreferrer">ajax-fake</a>）</li>
+                <li>fetch:
+                    通过代理其上的方法、属性，覆盖特定的字段，因此无法配置delay、status字段，还是会发出请求，需要保证接口正常才能生效，并且也不会改变devtool-network的信息（fetch类型使用Proxy）
+                </li>
+            </ul>
+            <blockquote>
+                <p>注意：</p>
+                <p>插件仅针对content-type: json类型有效</p>
+                <p>如果你是一个熟练度拉满，有着完善的代理环境大可不必使用，仅作为特定场合的补充</p>
+            </blockquote>
+            <h2 data-id="heading-2">特点</h2>
+            <ul>
+                <li>免费，无广告推广，较好的用户体验</li>
+                <li>提供监听当前请求（省略手动填写的麻烦）</li>
+                <li>集成monaco-editor，更方便的编辑处理文本（10W行数据也不会卡顿）</li>
+                <li>导入导出，工程序列化</li>
+                <li>更加友好的交互，用颜色法突出当前状态</li>
+                <li>拥有一定的js编程能力，可以动态处理数据，可打印输出信息</li>
+            </ul>
+            <h2 data-id="heading-3">使用说明</h2>
+            <p>动图演示</p>
+            <p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/67019e45965d4c808cb1b2735d545e68~tplv-k3u1fbpfcp-zoom-in-crop-mark:1304:0:0:0.awebp"
+                    alt="" loading="lazy" class="medium-zoom-image"></p>
+            <p>详细的操作参看下面的老版本</p>
+            <h2 data-id="heading-4">Q&amp;A</h2>
+            <h3 data-id="heading-5">为什么插件窗口只有800x600</h3>
+            <p>这个是由于浏览器限制的，popup的形式最大支持800x600，该形式的好处在于尽可能不影响项目本身（不足在于每次都会重新加载页面，因此插件做了很多的序列化以保证较好的用户体验）</p>
+            <h3 data-id="heading-6">存储只有5M，如何突破限制</h3>
+            <p>主要response数据量太大导致的，可以把response面板设置为 null , code面板通过js修改数据（注意：此时会发送真实的请求，依赖后端服务）</p>
+            <h3 data-id="heading-7">为什么是262kb</h3>
+            <p>这里是为了方便写程序，y = f(x) = log2(x)，取了个公差为2的等差数列18 20 22；也就是2^18 = 262144，并且这些值也恰好合适。</p>
+            <h3 data-id="heading-8">为什么fetch不支持模拟请求</h3>
+            <p>主要是由于没有找的合适的库，xhr类型是魔改的ajax-fake；并且现在的绝大部分应用都是基于xhr，因此仅对fetch做了代理来拦截请求，功能要稍微少一点。</p>
+            <h3 data-id="heading-9">为什么仅支持json类型的请求</h3>
+            <p>起初是为了解决自测阶段部分场景的复现问题（现在的应用前后端交互基本都是json类型），期间使用了几个类似的插件发现用户体验不是很好，一些代理软件功能很强，但是个人也不太喜欢太重的配置，使用的环境要尽可能单一。
+            </p>
+            <h2 data-id="heading-10">资源下载</h2>
+            <p>由于成为谷歌开发者需要 $5，所以谷歌市场并没有此应用，请移步github的<a
+                    href="https://link.juejin.cn?target=https%3A%2F%2Fgithub.com%2Fhans000%2Feasy-interceptor%2Freleases"
+                    target="_blank" rel="nofollow noopener noreferrer"
+                    title="https://github.com/hans000/easy-interceptor/releases"
+                    ref="nofollow noopener noreferrer">release</a>页面下载。</p>
+            <h2 data-id="heading-11">老版本使用说明（v1.4前）</h2>
+            <p><a href="https://juejin.cn/post/7014658587263762446" target="_blank"
+                    title="https://juejin.cn/post/7014658587263762446">juejin.cn/post/701465…</a></p>
+            <style>
+                .markdown-body pre,
+                .markdown-body pre>code.hljs {
+                    color: #333;
+                    background: #f8f8f8
+                }
+
+                .hljs-comment,
+                .hljs-quote {
+                    color: #998;
+                    font-style: italic
+                }
+
+                .hljs-keyword,
+                .hljs-selector-tag,
+                .hljs-subst {
+                    color: #333;
+                    font-weight: 700
+                }
+
+                .hljs-literal,
+                .hljs-number,
+                .hljs-tag .hljs-attr,
+                .hljs-template-variable,
+                .hljs-variable {
+                    color: teal
+                }
+
+                .hljs-doctag,
+                .hljs-string {
+                    color: #d14
+                }
+
+                .hljs-section,
+                .hljs-selector-id,
+                .hljs-title {
+                    color: #900;
+                    font-weight: 700
+                }
+
+                .hljs-subst {
+                    font-weight: 400
+                }
+
+                .hljs-class .hljs-title,
+                .hljs-type {
+                    color: #458;
+                    font-weight: 700
+                }
+
+                .hljs-attribute,
+                .hljs-name,
+                .hljs-tag {
+                    color: navy;
+                    font-weight: 400
+                }
+
+                .hljs-link,
+                .hljs-regexp {
+                    color: #009926
+                }
+
+                .hljs-bullet,
+                .hljs-symbol {
+                    color: #990073
+                }
+
+                .hljs-built_in,
+                .hljs-builtin-name {
+                    color: #0086b3
+                }
+
+                .hljs-meta {
+                    color: #999;
+                    font-weight: 700
+                }
+
+                .hljs-deletion {
+                    background: #fdd
+                }
+
+                .hljs-addition {
+                    background: #dfd
+                }
+
+                .hljs-emphasis {
+                    font-style: italic
+                }
+
+                .hljs-strong {
+                    font-weight: 700
+                }
+            </style>
         </article>
     </div>
     <script type="module" src="/src/main.tsx"></script>
 </body>
+
 </html>

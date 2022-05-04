@@ -13,10 +13,10 @@ export function CtrlPanel(props: IProps) {
     return (
         <div style={{ display: state.booting ? 'none' : 'flex' }} className={ButtonElement}>
             <span>
-            <Icon onClick={() => {
-                dispatch({ type: 'ToggleBoot' })
-                props.onClick()
-            }} style={{ fontSize: 36, verticalAlign: -4, color: '#fff' }}>{'settings'}</Icon>
+                <Icon onClick={() => {
+                    dispatch({ type: 'ToggleBoot' })
+                    props.onClick()
+                }} style={{ fontSize: 36, verticalAlign: -4, color: '#fff' }}>{'settings'}</Icon>
             </span>
         </div>
     )

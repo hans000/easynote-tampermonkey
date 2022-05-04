@@ -67,13 +67,7 @@ const defaultConf: NormalConfigProps = {
     drop: [
         'meta', 'head', 'style', 'script', 'noscript', 'link', 'hr', 'br',
         'label', 'button', 'svg', 'iframe', 'form', 'input', 'nav', 'canvas', 'title'],
-    skip: {
-        pre: {
-            type: 'code',
-            line: [],
-            drop: [],
-        },
-    },
+    skip: {},
     keep: ['p', 'dl', 'ul', 'ol', 'li', 'figcaption', 'caption', 'figure', 'cite'],
     bare: ['div', 'span', 'mark', 'summary', 'details', 'header', 'main', 'footer', 'article'],
 }

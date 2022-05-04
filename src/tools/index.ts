@@ -27,6 +27,9 @@ export function merge(source: any, other: any) {
     if (!isObject(source) || !isObject(other)) {
         return other === undefined ? source : other
     }
+    if (Array.isArray(source) && Array.isArray(other)) {
+        return [...source, ...other]
+    }
     return Object.keys({
         ...source,
         ...other
