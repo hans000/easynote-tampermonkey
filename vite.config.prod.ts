@@ -1,7 +1,10 @@
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import preact from '@preact/preset-vite'
 import banner from 'vite-plugin-banner'
 import { resolve } from 'path'
+
+
+export const branch = loadEnv('production', './')['VITE_BRANCH']
 
 const prefix = `
 // ==UserScript==
@@ -16,10 +19,11 @@ const prefix = `
 // @require         https://cdn.jsdelivr.net/npm/preact@10.6.5/hooks/dist/hooks.umd.js
 // @require         https://cdn.jsdelivr.net/npm/preact@10.6.5/compat/dist/compat.umd.js
 // @require         https://cdn.jsdelivr.net/npm/lz-string
+// @require         https://cdn.jsdelivr.net/npm/html-to-md@0.5.7/dist/index.js
 // @grant           GM_addStyle
 // @grant           GM_getResourceText
-// @resource config https://raw.github.com/hans000/easynote-tampermonkey/main/public/config.json
-// @resource style  https://raw.github.com/hans000/easynote-tampermonkey/main/public/style.css
+// @resource config https://raw.github.com/hans000/easynote-tampermonkey/${branch}/public/config.json
+// @resource style  https://raw.github.com/hans000/easynote-tampermonkey/${branch}/public/style.css
 // @resource font  https://fonts.googleapis.com/icon?family=Material+Icons
 // ==/UserScript==
 `.trimStart()
@@ -47,6 +51,7 @@ export default defineConfig({
                     'preact/hooks': 'preactHooks',
                     'preact/compat': 'preactCompat',
                     'lz-string': 'lzString',
+                    'html-to-md': 'html2md',
                 }
             },
             external: [
@@ -54,6 +59,7 @@ export default defineConfig({
                 'preact/hooks',
                 'preact/compat',
                 'lz-string',
+                'html-to-md',
             ],
         },
     },

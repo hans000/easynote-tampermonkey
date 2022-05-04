@@ -39,8 +39,21 @@ export function merge(source: any, other: any) {
     }, Array.isArray(source) ? [] : {})
 }
 
-export function clsx(classObject: Record<string, boolean> = {}) {
-    return Object.keys(classObject).filter(key => !!classObject[key]).join(' ')
+export function clsx(...args: Array<Record<string, boolean> | string | null | undefined>) {
+    return args.reduce<string[]>((acc, item) => {
+        if (item) {
+          if (typeof item === 'object') {
+            Object.keys(item).forEach(key => {
+              if (item[key]) {
+                acc.push(key)
+              }
+            })
+          } else {
+            acc.push(item)
+          }
+        }
+        return acc
+    }, []).join(' ')
 }
 
 export function inViewport(node: HTMLElement) {
@@ -48,3 +61,17 @@ export function inViewport(node: HTMLElement) {
     const t = node.getBoundingClientRect().top
     return t > 0 && t < h
 }
+
+export function withPrefix(src: string) {
+    const branch = import.meta.env['VITE_BRANCH']
+    return import.meta.env.DEV ? src : `https://raw.github.com/hans000/easynote-tampermonkey/${branch}/public` + src
+}
+
+export function download(content: string, filename: string) {
+    const a = document.createElement('a')
+    a.href = URL.createObjectURL(new Blob([content]))
+    a.download = filename
+    a.click()
+    URL.revokeObjectURL(a.href)
+    a.remove()
+  }
