@@ -94,28 +94,6 @@
     max-width: 1200px;
   }
 }
-#ea-main ea-mark {
-  display: block;
-  background-color: #f8f8f8;
-  padding: 12px;
-  margin: 12px;
-  border-left: 4px solid #fff066;
-}
-#ea-main ea-mark[type="0"] {
-  background-color: #fff066;
-}
-#ea-main ea-mark[type="1"] {
-  background-color: #7df066;
-}
-#ea-main ea-mark[type="2"] {
-  background-color: #74eaff;
-}
-#ea-main ea-mark[type="3"] {
-  background-color: #f799d1;
-}
-#ea-main ea-mark[type="4"] {
-  background-color: #eb4949;
-}
 #ea-main :root {
   --side-bar-bg-color: #fafafa;
   --control-text-color: #777;
