@@ -9,7 +9,7 @@ import './index.less'
 function getMarkdown() {
     return html2md(GlobalVar.AppElement.querySelector('#ea-main').outerHTML, {
         aliasTags: {
-            'ea-mark': 'div'
+            'ea-mark': 'span'
         }
     })
 }
