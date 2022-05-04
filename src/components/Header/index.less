@@ -1,0 +1,42 @@
+#ea-header {
+    z-index: 1;
+    height: 45px;
+    background-color: #fff;
+    position: sticky;
+    top: 0;
+    margin-bottom: 8px;
+    box-shadow: 0 1px 8px rgba(0,0,0,.15);
+    display: flex;
+    padding: 0 24px;
+    .logo {
+        display: flex;
+        align-items: center;
+        line-height: 45px;
+        margin-right: 16px;
+        font-weight: 600;
+        cursor: default;
+        &::after {
+            content: '|';
+            padding-left: 16px;
+            color: #c8c8c8;
+        }
+        > img {
+            width: 40px;
+        }
+    }
+    .nav {
+        display: flex;
+        align-items: center;
+        .ea-icon {
+            margin: 0 4px;
+            cursor: pointer;
+            &:hover {
+                opacity: .8;
+            }
+        }
+    }
+    
+    @media print {
+        display: none;
+    }
+}
