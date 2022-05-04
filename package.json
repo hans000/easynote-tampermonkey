@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "vite -c vite.config.dev.ts --host",
-    "build": "tsc && vite build -c vite.config.prod.ts"
+    "build": "tsc && vite build -c vite.config.prod.ts",
+    "build:asoul": "tsc && vite build -c vite.config.prod.ts"
   },
   "keywords": [],
   "author": "",
@@ -29,5 +30,8 @@
     "typescript": "^4.4.4",
     "vite": "^2.7.13",
     "vite-plugin-banner": "^0.2.0"
+  },
+  "dependencies": {
+    "html-to-md": "^0.5.7"
   }
 }

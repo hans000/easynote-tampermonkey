@@ -5,6 +5,7 @@ specifiers:
   '@types/markdown-it': ^12.2.3
   chokidar: ^3.5.2
   clsx: ^1.1.1
+  html-to-md: ^0.5.7
   less: ^4.1.2
   lz-string: ^1.4.4
   preact: ^10.6.5
@@ -19,6 +20,9 @@ specifiers:
   typescript: ^4.4.4
   vite: ^2.7.13
   vite-plugin-banner: ^0.2.0
+
+dependencies:
+  html-to-md: 0.5.7
 
 devDependencies:
   '@preact/preset-vite': 2.1.7_preact@10.6.5+vite@2.7.13
@@ -1418,6 +1422,10 @@ packages:
     dependencies:
       function-bind: 1.1.1
     dev: true
+
+  /html-to-md/0.5.7:
+    resolution: {integrity: sha512-uoxnR3I7bNdcSbkozMYHji8vnJ/nRJ0aVcwsO20TxPoxxSiJbWJxxJdN3RAieMe68ns1FFsKS7XZ/ZRdWxmk0g==}
+    dev: false
 
   /iconv-lite/0.4.24:
     resolution: {integrity: sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA==}

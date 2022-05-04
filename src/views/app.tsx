@@ -1,13 +1,14 @@
 import { HoverMenu } from "../components/HoverMenu";
 import { CtrlPanel } from "../components/CtrlPanel";
-import { createContext, useCallback, useEffect, useReducer, useRef } from 'preact/compat'
-import { hasSelected } from "../tools";
+import { createContext, useCallback, useEffect, useReducer, useRef, useState } from 'preact/compat'
+import { hasSelected, withPrefix } from "../tools";
 import { MainNote, MainNoteRef } from "../components/MainNote";
 import { GlobalVar } from "../main";
 import { initSelect } from "../core/bookmark/reselect";
 import { Beautify } from "../core/beautify";
 import { initComment } from "../core/bookmark/comment";
-import Icon from "../components/Icon";
+import Header from "../components/Header";
+import { Loading } from "../components/Loading";
 
 type ActionType =
     | 'UpdateColorType'
@@ -66,6 +67,7 @@ export function App() {
     const appRef = useRef<HTMLDivElement>()
     const mainRef = useRef<MainNoteRef>()
     const firstRef = useRef(true)
+    const [loading, setLoading] = useState(false)
 
     useEffect(
         () => {
@@ -123,6 +125,7 @@ export function App() {
 
     const run = useCallback(
         () => {
+            setLoading(true)
             const beautify = GlobalVar.Beautify
             GlobalVar.running ? beautify.restore() : beautify.run(mainRef.current)
             GlobalVar.running = !GlobalVar.running
@@ -133,36 +136,18 @@ export function App() {
                 const data = initComment(GlobalVar.AppElement, GlobalVar.matchItem)
                 mainRef.current.createComment(data)
             }
+            setLoading(false)
         },
         []
     )
 
     return (
         <AppContext.Provider value={{ state, dispatch }}>
+            <Loading loading={loading}>
+                <img height={100} src={withPrefix('/4.gif')}/>
+            </Loading>
             <div ref={appRef} id="ea-app">
-                <div id="ea-header">
-                    <div className="logo">EasyNote</div>
-                    <div className="nav">
-                        {/* <Icon title='设置'>{'settings'}</Icon> */}
-                        <Icon title='打印' onClick={() => {
-                            print()
-                        }}>{'print'}</Icon>
-                        <Icon title="阅读" onClick={() => {
-                            dispatch({ type: 'UpdateMode', payload: 'view' })
-                        }}>{'visibility'}</Icon>
-                        {/* <Icon title="复制markdown">{'description'}</Icon> */}
-                        {/* <Icon title='下载' onClick={() => {
-
-                        }}>{'file_download'}</Icon> */}
-                        <Icon title="批注" onClick={() => {
-                            dispatch({ type: 'UpdateMode', payload: 'edit' })
-                        }}>{'edit'}</Icon>
-                        <Icon title="退出" onClick={() => {
-                            run()
-                            dispatch({ type: 'ToggleBoot' })
-                        }}>{'close'}</Icon>
-                    </div>
-                </div>
+                <Header run={run} />
                 <MainNote ref={mainRef} />
             </div>
             <div id='ea-ctrl'>
