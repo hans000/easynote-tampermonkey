@@ -19,7 +19,7 @@ const prefix = `
 // @require         https://cdn.jsdelivr.net/npm/preact@10.6.5/hooks/dist/hooks.umd.js
 // @require         https://cdn.jsdelivr.net/npm/preact@10.6.5/compat/dist/compat.umd.js
 // @require         https://cdn.jsdelivr.net/npm/lz-string
-// @require         https://cdn.jsdelivr.net/npm/html-to-md@0.5.7/dist/index.js
+// @require         https://cdn.jsdelivr.net/npm/html-to-md@0.5.8/dist/index.js
 // @grant           GM_addStyle
 // @grant           GM_getResourceText
 // @resource config https://raw.github.com/hans000/easynote-tampermonkey/${branch}/public/config.json

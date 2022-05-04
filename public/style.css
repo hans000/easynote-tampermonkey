@@ -1,4 +1,5 @@
 #ea-app {
+  padding-bottom: 30px;
   background-color: #f6f6f6;
 }
 #ea-app ea-mark[type="0"] {
@@ -16,6 +17,11 @@
 #ea-app ea-mark[type="4"] {
   background-color: #eb4949;
 }
+@media print {
+  #ea-app {
+    padding-bottom: 0;
+  }
+}
 #ea-main {
   max-width: 860px;
   margin: 0 auto;
@@ -27,6 +33,12 @@
   color: #333333;
   line-height: 1.6;
   background-color: #fff;
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.15);
+}
+@media print {
+  #ea-main {
+    box-shadow: none;
+  }
 }
 #ea-main.ea-content-fixed--left {
   margin-left: calc(50% - 1170px / 2 + 250px);
@@ -63,13 +75,13 @@
   font-size: 1.75em;
   font-weight: bold;
 }
-#ea-main .ea-content dd.h2 {
+#ea-main .ea-content dd.ea-h2 {
   margin-left: 24px;
 }
-#ea-main .ea-content dd.h3 {
+#ea-main .ea-content dd.ea-h3 {
   margin-left: 48px;
 }
-#ea-main .ea-content dd.h4 {
+#ea-main .ea-content dd.ea-h4 {
   margin-left: 72px;
 }
 @media only screen and (min-width: 1400px) {
@@ -82,6 +94,28 @@
     max-width: 1200px;
   }
 }
+#ea-main ea-mark {
+  display: block;
+  background-color: #f8f8f8;
+  padding: 12px;
+  margin: 12px;
+  border-left: 4px solid #fff066;
+}
+#ea-main ea-mark[type="0"] {
+  background-color: #fff066;
+}
+#ea-main ea-mark[type="1"] {
+  background-color: #7df066;
+}
+#ea-main ea-mark[type="2"] {
+  background-color: #74eaff;
+}
+#ea-main ea-mark[type="3"] {
+  background-color: #f799d1;
+}
+#ea-main ea-mark[type="4"] {
+  background-color: #eb4949;
+}
 #ea-main :root {
   --side-bar-bg-color: #fafafa;
   --control-text-color: #777;
@@ -91,6 +125,7 @@
 }
 #ea-main a {
   color: #4183C4;
+  text-decoration: none;
 }
 #ea-main h1,
 #ea-main h2,
@@ -284,6 +319,10 @@
 }
 #ea-main pre::-webkit-scrollbar-thumb {
   background-color: #c8c8c8;
+}
+#ea-main pre code {
+  border: none;
+  background-color: transparent;
 }
 @media print {
   @page {
