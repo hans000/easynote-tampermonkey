@@ -8,7 +8,6 @@ import { initSelect } from "../core/bookmark/reselect";
 import { Beautify } from "../core/beautify";
 import { initComment } from "../core/bookmark/comment";
 import Header from "../components/Header";
-import { Loading } from "../components/Loading";
 
 type ActionType =
     | 'UpdateColorType'
@@ -67,7 +66,6 @@ export function App() {
     const appRef = useRef<HTMLDivElement>()
     const mainRef = useRef<MainNoteRef>()
     const firstRef = useRef(true)
-    const [loading, setLoading] = useState(false)
 
     useEffect(
         () => {
@@ -98,8 +96,6 @@ export function App() {
             article.addEventListener('mouseup', handleMouseUp)
             window.addEventListener('click', handleClick)
 
-            // window.addEventListener('keypress', )
-
             return () => {
                 article.removeEventListener('article', handleMouseUp)
                 article.removeEventListener('click', handleClick)
@@ -125,7 +121,6 @@ export function App() {
 
     const run = useCallback(
         () => {
-            setLoading(true)
             const beautify = GlobalVar.Beautify
             GlobalVar.running ? beautify.restore() : beautify.run(mainRef.current)
             GlobalVar.running = !GlobalVar.running
@@ -136,16 +131,12 @@ export function App() {
                 const data = initComment(GlobalVar.AppElement, GlobalVar.matchItem)
                 mainRef.current.createComment(data)
             }
-            setLoading(false)
         },
         []
     )
 
     return (
         <AppContext.Provider value={{ state, dispatch }}>
-            <Loading loading={loading}>
-                <img height={100} src={withPrefix('/4.gif')}/>
-            </Loading>
             <div ref={appRef} id="ea-app">
                 <Header run={run} />
                 <MainNote ref={mainRef} />
