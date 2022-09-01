@@ -13,11 +13,14 @@ const findSkipConf = (node: HTMLElement, conf: NormalConfigProps) => (Object.ent
 const matchNode = (node: HTMLElement, selector: string) => Array.from(node.parentNode.querySelectorAll(selector)).some(child => child === node)
 
 export function toCode(node: HTMLElement, conf: SkipConfigProps) {
-    const nodes: HTMLElement[] = conf.line.reduce((acc, selector) => (acc.push(...node.querySelectorAll(selector)), acc), [])
+    const nodes: HTMLElement[] = conf.line ? conf.line.reduce((acc, selector) => (acc.push(...node.querySelectorAll(selector)), acc), []) : []
 
     const handle = (node: HTMLElement, conf: SkipConfigProps) => {
         if (isTextNode(node)) return node.textContent || ''
         if ((conf.drop || []).some((selector) => matchNode(node, selector))) return ''
+        if ((conf.bare || ['span']).some((selector) => matchNode(node, selector))) {
+            return node.textContent
+        }
 
         let text: string = Array.from(node.childNodes).map(child => handle(child as HTMLElement, conf)).join('')
         return text
@@ -34,11 +37,12 @@ export function toCode(node: HTMLElement, conf: SkipConfigProps) {
 
     return {
         type: 'pre',
-        children: [ { text: text } ]
+        children: [{ text }]
+        // children: [{ type: 'code', children: [{ text }] }]
     }
 }
 
-export function toVNode(node: HTMLElement, conf: NormalConfigProps, first = true): VNode {
+export function toVNode(node: HTMLElement, conf: NormalConfigProps, deepth = 0): VNode {
     if (isTextNode(node)) return { text: node.textContent.trim() } as any
     if (isElementNode(node)) {
         if (isDropNode(node, conf)) return null
@@ -47,8 +51,11 @@ export function toVNode(node: HTMLElement, conf: NormalConfigProps, first = true
         if (skipConf) return toCode(node, skipConf)
 
         const children: VNode[] = []
+        const isBare = isBareNode(node, conf)
+        const tagName = getTagName(node)
+        
         Array.from(node.childNodes).forEach((child) => {
-            const childNode = toVNode(child as any, conf, false)
+            const childNode = toVNode(child as any, conf, deepth + 1)
             const childList: VNode[] = Array.isArray(childNode) ? childNode : [childNode]
             childList.filter(Boolean).forEach(child => {
                 if (children.length) {
@@ -57,19 +64,28 @@ export function toVNode(node: HTMLElement, conf: NormalConfigProps, first = true
                         children[children.length - 1].text += child.text
                     }
                 }
-                if (typeof child.text === 'string' && !!child.text || typeof child.type === 'string') {
+                if (typeof child.type === 'string') {
                     children.push(child as VNode)
+                } else {
+                    if (!!child.text) {
+                        if (isBare) {
+                            children.push({ type: 'p', children: [child] })                            
+                        } else {
+                            children.push(child as VNode)
+                        }
+                    }
                 }
             })
         })
 
-        // if (! children.length) return
-
-        if (isBareNode(node, conf)) {
-            return first ? { children, type: '' } : children as any
+        if (!children.length && !/^(img)$/.test(tagName)) {
+            return
         }
 
-        const tagName = getTagName(node)
+        if (isBare) {
+            return deepth === 0 ? { children, type: '' } : children as any
+        }
+
         return {
             type: tagName,
             children,

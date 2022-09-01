@@ -10,9 +10,10 @@ export interface VNode {
 }
 
 export interface SkipConfigProps {
-    type: 'code'
-    line: string[]
+    type?: 'code'
+    line?: string[]
     drop?: string[]
+    bare?: string[]
 }
 
 export interface NormalConfigProps {
@@ -67,7 +68,9 @@ const defaultConf: NormalConfigProps = {
     drop: [
         'meta', 'head', 'style', 'script', 'noscript', 'link', 'hr', 'br',
         'label', 'button', 'svg', 'iframe', 'form', 'input', 'nav', 'canvas', 'title'],
-    skip: {},
+    skip: {
+        pre: {}
+    },
     keep: ['p', 'dl', 'ul', 'ol', 'li', 'figcaption', 'caption', 'figure', 'cite'],
     bare: ['div', 'span', 'mark', 'summary', 'details', 'header', 'main', 'footer', 'article'],
 }

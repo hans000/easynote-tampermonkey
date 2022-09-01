@@ -79,6 +79,8 @@ export class Beautify {
     
         const originNode = document.querySelector(this.matchItem.body)
         this.titleNode = document.querySelector(this.matchItem.title)
+        this.title = this.titleNode.textContent
+        
         if (! originNode) {
             return
         }

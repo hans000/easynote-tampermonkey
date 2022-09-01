@@ -4,7 +4,13 @@ import banner from 'vite-plugin-banner'
 import { resolve } from 'path'
 
 
-export const branch = loadEnv('production', './')['VITE_BRANCH']
+const branch = loadEnv('production', './').VITE_BRANCH
+const isLocal = !!loadEnv('test', './').VITE_LOCAL
+
+const resource = `
+// @resource config https://raw.github.com/hans000/easynote-tampermonkey/${branch}/public/config.json
+// @resource style  https://raw.github.com/hans000/easynote-tampermonkey/${branch}/public/style.css
+`.trim()
 
 const prefix = `
 // ==UserScript==
@@ -13,7 +19,7 @@ const prefix = `
 // @version         0.0.1
 // @description     easynote
 // @author          hans0000
-// @match           http*://*/*
+// @match           https://**/*
 // @run-at          document-end
 // @require         https://cdn.jsdelivr.net/npm/preact@10.6.5/dist/preact.umd.js
 // @require         https://cdn.jsdelivr.net/npm/preact@10.6.5/hooks/dist/hooks.umd.js
@@ -22,9 +28,8 @@ const prefix = `
 // @require         https://cdn.jsdelivr.net/npm/html-to-md@0.5.8/dist/index.js
 // @grant           GM_addStyle
 // @grant           GM_getResourceText
-// @resource config https://raw.github.com/hans000/easynote-tampermonkey/${branch}/public/config.json
-// @resource style  https://raw.github.com/hans000/easynote-tampermonkey/${branch}/public/style.css
-// @resource font  https://fonts.googleapis.com/icon?family=Material+Icons
+// @resource font   https://fonts.googleapis.com/icon?family=Material+Icons
+${isLocal ? '' : resource}
 // ==/UserScript==
 `.trimStart()
 

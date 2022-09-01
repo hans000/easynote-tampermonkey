@@ -26,7 +26,6 @@ export default function Header(props: {
     return (
         <div id="ea-header">
             <div className="logo">
-                <img width={40} height={40} src={withPrefix(`/${index}.gif`)} />
                 <span>EasyNote</span>
             </div>
             <div className="nav">

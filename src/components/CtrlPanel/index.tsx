@@ -16,7 +16,7 @@ export function CtrlPanel(props: IProps) {
                 <Icon onClick={() => {
                     dispatch({ type: 'ToggleBoot' })
                     props.onClick()
-                }} style={{ fontSize: 36, verticalAlign: -4, color: '#fff' }}>{'settings'}</Icon>
+                }} style={{ fontSize: 26, verticalAlign: -4, color: '#fff' }}>{'settings'}</Icon>
             </span>
         </div>
     )

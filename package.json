@@ -5,17 +5,19 @@
   "main": "index.js",
   "scripts": {
     "dev": "vite -c vite.config.dev.ts --host",
-    "build": "tsc && vite build -c vite.config.prod.ts",
-    "build:asoul": "tsc && vite build -c vite.config.prod.ts"
+    "build": "node ./script.js && tsc && vite build -c vite.config.prod.ts",
+    "build:local": "cross-env VITE_LOCAL=true node ./script.js && tsc && vite build -c vite.config.prod.ts --mode=test"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@preact/preset-vite": "^2.1.7",
     "@types/markdown-it": "^12.2.3",
     "chokidar": "^3.5.2",
     "clsx": "^1.1.1",
+    "cross-env": "^7.0.3",
+    "html-to-md": "^0.5.8",
     "less": "^4.1.2",
     "lz-string": "^1.4.4",
     "preact": "^10.6.5",
@@ -29,7 +31,6 @@
     "rollup-plugin-typescript2": "^0.31.0",
     "typescript": "^4.4.4",
     "vite": "^2.7.13",
-    "html-to-md": "^0.5.8",
     "vite-plugin-banner": "^0.2.0"
   }
 }

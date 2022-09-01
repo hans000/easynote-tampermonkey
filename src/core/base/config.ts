@@ -1,5 +1,7 @@
 import { getResourceText } from '../../tools/cross';
 import { NormalConfigProps } from '../render';
+import localConfig from '../../../public/config.json'
+
 export interface ConfigProps {
     pattern: string
     body?: string
@@ -16,7 +18,10 @@ export interface MatchItem {
 
 export function matched(url: string): MatchItem | undefined {
     try {
-        const configList = JSON.parse(getResourceText('config')) as ConfigProps[]
+        // load config.json
+        const isLocal = import.meta.env.VITE_LOCAL
+
+        const configList = (isLocal ? localConfig : JSON.parse(getResourceText('config'))) as ConfigProps[]
         for (const config of configList) {
             const reg = new RegExp(config.pattern)
             const match = reg.exec(url)
